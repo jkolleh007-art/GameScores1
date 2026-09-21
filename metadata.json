@@ -1,0 +1,6 @@
+{
+  "name": "Live Sports Scores & Facebook Publisher",
+  "description": "Real-time football scores platform powered by Scrapling web scraping, WebSocket streaming, REST API, and automated Facebook Page event publishing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

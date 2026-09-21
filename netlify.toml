@@ -1,0 +1,9 @@
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# SPA redirect rule so React routing works on direct URL loads / page reloads
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

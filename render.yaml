@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: sports-scores-publisher
+    runtime: node
+    plan: 0.5c-512mb
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    maxShutdownDelaySeconds: 60
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DISABLE_HMR
+        value: true
+      - key: SCRAPE_INTERVAL_SECONDS
+        value: 30
+      - key: FB_PAGE_ID
+        sync: false
+      - key: FB_PAGE_ACCESS_TOKEN
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gamescores-db
+          property: connectionString
+      - key: REDIS_URL
+        sync: false
+      - key: SCRAPLING_SERVICE_URL
+        sync: false
+      - key: API_ADMIN_KEY
+        generateValue: true
+
+databases:
+  - name: gamescores-db
+    plan: 0.1c-256mb
+    diskSizeGB: 1

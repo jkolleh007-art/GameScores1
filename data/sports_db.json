@@ -1,0 +1,6605 @@
+{
+  "matches": {
+    "vPPhJ2wB": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_real_potosi",
+        "name": "Real Potosi"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Real Oruro",
+        "name": "Real Oruro"
+      },
+      "id": "vPPhJ2wB",
+      "lastUpdated": "2026-09-15T20:38:05.790Z",
+      "league": {
+        "country": "BOLIVIA",
+        "countryCode": "36",
+        "flag": "lS4MFsld-t8U94dyd.png",
+        "id": "lIqDUTz3",
+        "name": "Division Profesional"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "4lhEApzg": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_lincoln",
+        "name": "Lincoln"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Bristol City",
+        "name": "Bristol City"
+      },
+      "id": "4lhEApzg",
+      "lastUpdated": "2026-09-15T20:38:05.790Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "xjrqBkmd-hteJUp12.png",
+        "id": "40zsPsC5",
+        "name": "Championship"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "CI7kDlQE": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_yeovil",
+        "name": "Yeovil"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Aldershot",
+        "name": "Aldershot"
+      },
+      "id": "CI7kDlQE",
+      "lastUpdated": "2026-09-15T20:38:05.790Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "tCCVfZiU-GlPS9ldp.png",
+        "id": "hUIdt7w8",
+        "name": "National League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "2Vfy4pm1": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_forest_green",
+        "name": "Forest Green"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Carlisle",
+        "name": "Carlisle"
+      },
+      "id": "2Vfy4pm1",
+      "lastUpdated": "2026-09-15T20:38:05.790Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "tCCVfZiU-GlPS9ldp.png",
+        "id": "hUIdt7w8",
+        "name": "National League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "Aebq2OHD": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_afc_fylde",
+        "name": "AFC Fylde"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Harrogate",
+        "name": "Harrogate"
+      },
+      "id": "Aebq2OHD",
+      "lastUpdated": "2026-09-15T20:38:05.790Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "tCCVfZiU-GlPS9ldp.png",
+        "id": "hUIdt7w8",
+        "name": "National League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "OCiS9zyK": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_barrow",
+        "name": "Barrow"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Solihull Moors",
+        "name": "Solihull Moors"
+      },
+      "id": "OCiS9zyK",
+      "lastUpdated": "2026-09-15T20:38:05.790Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "tCCVfZiU-GlPS9ldp.png",
+        "id": "hUIdt7w8",
+        "name": "National League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "Krwb4Ebs": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_tamworth",
+        "name": "Tamworth"
+      },
+      "homeScore": 3,
+      "homeTeam": {
+        "id": "Southend",
+        "name": "Southend"
+      },
+      "id": "Krwb4Ebs",
+      "lastUpdated": "2026-09-15T20:38:05.791Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "tCCVfZiU-GlPS9ldp.png",
+        "id": "hUIdt7w8",
+        "name": "National League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "S8t62hTg": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_eastleigh",
+        "name": "Eastleigh"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Sutton",
+        "name": "Sutton"
+      },
+      "id": "S8t62hTg",
+      "lastUpdated": "2026-09-15T20:38:05.791Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "tCCVfZiU-GlPS9ldp.png",
+        "id": "hUIdt7w8",
+        "name": "National League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "6whVHrdk": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_braintree",
+        "name": "Braintree"
+      },
+      "homeScore": 3,
+      "homeTeam": {
+        "id": "Billericay",
+        "name": "Billericay"
+      },
+      "id": "6whVHrdk",
+      "lastUpdated": "2026-09-15T20:38:05.791Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "0jUZ6SXI-6L43tB8e.png",
+        "id": "EF1SgEYg",
+        "name": "National League South"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "E3ewGMQ1": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_salisbury",
+        "name": "Salisbury"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Truro",
+        "name": "Truro"
+      },
+      "id": "E3ewGMQ1",
+      "lastUpdated": "2026-09-15T20:38:05.791Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "0jUZ6SXI-6L43tB8e.png",
+        "id": "EF1SgEYg",
+        "name": "National League South"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "CtG2qjKG": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_uxbridge",
+        "name": "Uxbridge"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Berkhamsted",
+        "name": "Berkhamsted"
+      },
+      "id": "CtG2qjKG",
+      "lastUpdated": "2026-09-15T20:38:05.791Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "Qa2DaoTp-U332Mj4j.png",
+        "id": "d2BrcyjR",
+        "name": "Southern League Premier South"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "rNJjeB2l": {
+      "awayScore": 3,
+      "awayTeam": {
+        "id": "team_stanway",
+        "name": "Stanway"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Brentwood",
+        "name": "Brentwood"
+      },
+      "id": "rNJjeB2l",
+      "lastUpdated": "2026-09-15T20:38:05.792Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "O0L6iT1D": {
+      "awayScore": 3,
+      "awayTeam": {
+        "id": "team_st__albans",
+        "name": "St. Albans"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Cray Wanderers",
+        "name": "Cray Wanderers"
+      },
+      "id": "O0L6iT1D",
+      "lastUpdated": "2026-09-15T20:38:05.792Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "j7DhFWgK": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_chatham",
+        "name": "Chatham"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Eastbourne Boro",
+        "name": "Eastbourne Boro"
+      },
+      "id": "j7DhFWgK",
+      "lastUpdated": "2026-09-15T20:38:05.792Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "nwaO9AHs": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_dartford",
+        "name": "Dartford"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Enfield Town",
+        "name": "Enfield Town"
+      },
+      "id": "nwaO9AHs",
+      "lastUpdated": "2026-09-15T20:38:05.792Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "YgcW7lnf": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_whyteleafe",
+        "name": "Whyteleafe"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Leatherhead",
+        "name": "Leatherhead"
+      },
+      "id": "YgcW7lnf",
+      "lastUpdated": "2026-09-15T20:38:05.792Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "tK0v6SG6": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_carshalton",
+        "name": "Carshalton"
+      },
+      "homeScore": 3,
+      "homeTeam": {
+        "id": "Lewes",
+        "name": "Lewes"
+      },
+      "id": "tK0v6SG6",
+      "lastUpdated": "2026-09-15T20:38:05.792Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "EXbn46oJ": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_maldon___tiptree",
+        "name": "Maldon & Tiptree"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Ramsgate",
+        "name": "Ramsgate"
+      },
+      "id": "EXbn46oJ",
+      "lastUpdated": "2026-09-15T20:38:05.792Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "vDFcBNhn": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_cheshunt",
+        "name": "Cheshunt"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Welling",
+        "name": "Welling"
+      },
+      "id": "vDFcBNhn",
+      "lastUpdated": "2026-09-15T20:38:05.793Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "WKX491Nb": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_three_bridges",
+        "name": "Three Bridges"
+      },
+      "homeScore": 3,
+      "homeTeam": {
+        "id": "Whitehawk",
+        "name": "Whitehawk"
+      },
+      "id": "WKX491Nb",
+      "lastUpdated": "2026-09-15T20:38:05.793Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "W6SxmA8j-ARMpZNtk.png",
+        "id": "vFMwmxAT",
+        "name": "Isthmian League Premier Division"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "bmqf1z2K": {
+      "awayScore": 3,
+      "awayTeam": {
+        "id": "team_fulham",
+        "name": "Fulham"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "West Ham",
+        "name": "West Ham"
+      },
+      "id": "bmqf1z2K",
+      "lastUpdated": "2026-09-15T20:38:05.793Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "jRNIWijD-AT39uKFC.png",
+        "id": "dGljLaBU",
+        "name": "EFL Cup"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "4l0c4cso": {
+      "awayScore": 4,
+      "awayTeam": {
+        "id": "team_arsenal",
+        "name": "Arsenal"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Ipswich",
+        "name": "Ipswich"
+      },
+      "id": "4l0c4cso",
+      "lastUpdated": "2026-09-15T20:38:05.793Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "jRNIWijD-AT39uKFC.png",
+        "id": "dGljLaBU",
+        "name": "EFL Cup"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "0vdKBukB": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_tottenham",
+        "name": "Tottenham"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Liverpool",
+        "name": "Liverpool"
+      },
+      "id": "0vdKBukB",
+      "lastUpdated": "2026-09-15T20:38:05.793Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "jRNIWijD-AT39uKFC.png",
+        "id": "dGljLaBU",
+        "name": "EFL Cup"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "ELYWxImA": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_brentford",
+        "name": "Brentford"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Reading",
+        "name": "Reading"
+      },
+      "id": "ELYWxImA",
+      "lastUpdated": "2026-09-15T20:38:05.793Z",
+      "league": {
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "jRNIWijD-AT39uKFC.png",
+        "id": "dGljLaBU",
+        "name": "EFL Cup"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "h8RzNYtS": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_breidablik",
+        "name": "Breidablik"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Fram",
+        "name": "Fram"
+      },
+      "id": "h8RzNYtS",
+      "lastUpdated": "2026-09-15T20:38:05.794Z",
+      "league": {
+        "country": "ICELAND",
+        "countryCode": "92",
+        "flag": "0SwkLyfU-SUsaLJr7.png",
+        "id": "zRiJch3m",
+        "name": "Besta deild karla - Championship Group"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:15:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "xn2vy6ke": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_potenza",
+        "name": "Potenza"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Bari",
+        "name": "Bari"
+      },
+      "id": "xn2vy6ke",
+      "lastUpdated": "2026-09-15T20:38:05.794Z",
+      "league": {
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "EorLBfSp-l4fBszt6.png",
+        "id": "bs2q1c0C",
+        "name": "Serie C - Group C"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "pC5nZqK7": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_salernitana",
+        "name": "Salernitana"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Barletta",
+        "name": "Barletta"
+      },
+      "id": "pC5nZqK7",
+      "lastUpdated": "2026-09-15T20:38:05.794Z",
+      "league": {
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "EorLBfSp-l4fBszt6.png",
+        "id": "bs2q1c0C",
+        "name": "Serie C - Group C"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "CIcYdmCE": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_audace_cerignola",
+        "name": "Audace Cerignola"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Casarano",
+        "name": "Casarano"
+      },
+      "id": "CIcYdmCE",
+      "lastUpdated": "2026-09-15T20:38:05.794Z",
+      "league": {
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "EorLBfSp-l4fBszt6.png",
+        "id": "bs2q1c0C",
+        "name": "Serie C - Group C"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "tGdBk54l": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_sorrento",
+        "name": "Sorrento"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Cavese",
+        "name": "Cavese"
+      },
+      "id": "tGdBk54l",
+      "lastUpdated": "2026-09-15T20:38:05.794Z",
+      "league": {
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "EorLBfSp-l4fBszt6.png",
+        "id": "bs2q1c0C",
+        "name": "Serie C - Group C"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "MgbRoN3D": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_savoia",
+        "name": "Savoia"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Foggia",
+        "name": "Foggia"
+      },
+      "id": "MgbRoN3D",
+      "lastUpdated": "2026-09-15T20:38:05.794Z",
+      "league": {
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "EorLBfSp-l4fBszt6.png",
+        "id": "bs2q1c0C",
+        "name": "Serie C - Group C"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "QqGhkdA5": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_monopoli",
+        "name": "Monopoli"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Scafatese",
+        "name": "Scafatese"
+      },
+      "id": "QqGhkdA5",
+      "lastUpdated": "2026-09-15T20:38:05.795Z",
+      "league": {
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "EorLBfSp-l4fBszt6.png",
+        "id": "bs2q1c0C",
+        "name": "Serie C - Group C"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "4l071t8b": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_pisa",
+        "name": "Pisa"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Fiorentina",
+        "name": "Fiorentina"
+      },
+      "id": "4l071t8b",
+      "lastUpdated": "2026-09-15T20:38:05.795Z",
+      "league": {
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "GlNIIgW1-b9W6FYbt.png",
+        "id": "fgs8qKsB",
+        "name": "Coppa Italia"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:00:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "Ywc17gMi": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_carrick_rangers",
+        "name": "Carrick Rangers"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Ballymena",
+        "name": "Ballymena"
+      },
+      "id": "Ywc17gMi",
+      "lastUpdated": "2026-09-15T20:38:05.795Z",
+      "league": {
+        "country": "NORTHERN IRELAND",
+        "countryCode": "144",
+        "flag": "nqr2BPBO-UuF7Lp7R.png",
+        "id": "EqiTEng3",
+        "name": "NIFL Premiership"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "0YdP1kjT": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_bangor_fc",
+        "name": "Bangor FC"
+      },
+      "homeScore": 3,
+      "homeTeam": {
+        "id": "Limavady",
+        "name": "Limavady"
+      },
+      "id": "0YdP1kjT",
+      "lastUpdated": "2026-09-15T20:38:05.795Z",
+      "league": {
+        "country": "NORTHERN IRELAND",
+        "countryCode": "144",
+        "flag": "nqr2BPBO-UuF7Lp7R.png",
+        "id": "EqiTEng3",
+        "name": "NIFL Premiership"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "rVDZjdVh": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_sp__carapegua",
+        "name": "Sp. Carapegua"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Atl. Tembetary",
+        "name": "Atl. Tembetary"
+      },
+      "id": "rVDZjdVh",
+      "lastUpdated": "2026-09-15T20:38:05.795Z",
+      "league": {
+        "country": "PARAGUAY",
+        "countryCode": "151",
+        "flag": "MZ9KOYTp-GSFBxM1n.png",
+        "id": "xd5ER1qf",
+        "name": "Division Intermedia"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:30:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "YXiLGCQa": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_santa_clara_u23",
+        "name": "Santa Clara U23"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Penafiel U23",
+        "name": "Penafiel U23"
+      },
+      "id": "YXiLGCQa",
+      "lastUpdated": "2026-09-15T20:38:05.796Z",
+      "league": {
+        "country": "PORTUGAL",
+        "countryCode": "155",
+        "flag": "GtZyb2YI-6TOICvy5.png",
+        "id": "pjGir1vR",
+        "name": "Liga Next Gen U23"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:30:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "nJlIUtPG": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_kilmarnock",
+        "name": "Kilmarnock"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Hibernian",
+        "name": "Hibernian"
+      },
+      "id": "nJlIUtPG",
+      "lastUpdated": "2026-09-15T20:38:05.796Z",
+      "league": {
+        "country": "SCOTLAND",
+        "countryCode": "199",
+        "flag": "Sz9VmY7j-YizFQN01.png",
+        "id": "KEufRGVb",
+        "name": "Premiership"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "KnPYmNyh": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_partick_thistle",
+        "name": "Partick Thistle"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Stenhousemuir",
+        "name": "Stenhousemuir"
+      },
+      "id": "KnPYmNyh",
+      "lastUpdated": "2026-09-15T20:38:05.796Z",
+      "league": {
+        "country": "SCOTLAND",
+        "countryCode": "199",
+        "flag": "pKmwrPiD-YgNHJ9lA.png",
+        "id": "88mptGph",
+        "name": "Championship"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "21mmzSLr": {
+      "awayScore": 3,
+      "awayTeam": {
+        "id": "team_kilwinning_rangers",
+        "name": "Kilwinning Rangers"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Albion Rovers",
+        "name": "Albion Rovers"
+      },
+      "id": "21mmzSLr",
+      "lastUpdated": "2026-09-15T20:38:05.796Z",
+      "league": {
+        "country": "SCOTLAND",
+        "countryCode": "199",
+        "flag": "KOhPPhTp-dQ9GU2Fc.png",
+        "id": "va2fGPrL",
+        "name": "Lowland League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "SlvjWHsp": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_berwick",
+        "name": "Berwick"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Civil Service Strollers",
+        "name": "Civil Service Strollers"
+      },
+      "id": "SlvjWHsp",
+      "lastUpdated": "2026-09-15T20:38:05.797Z",
+      "league": {
+        "country": "SCOTLAND",
+        "countryCode": "199",
+        "flag": "KOhPPhTp-dQ9GU2Fc.png",
+        "id": "va2fGPrL",
+        "name": "Lowland League"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "jmTy4Bt4": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_real_madrid",
+        "name": "Real Madrid"
+      },
+      "homeScore": 0,
+      "homeTeam": {
+        "id": "Elche",
+        "name": "Elche"
+      },
+      "id": "jmTy4Bt4",
+      "lastUpdated": "2026-09-15T20:38:05.797Z",
+      "league": {
+        "country": "SPAIN",
+        "countryCode": "176",
+        "flag": "QqMkp58j-reLEIqyt.png",
+        "id": "dWdJXP6U",
+        "name": "LaLiga"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T19:30:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "MRiYhG04": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_ammanford",
+        "name": "Ammanford"
+      },
+      "homeScore": 2,
+      "homeTeam": {
+        "id": "Barry",
+        "name": "Barry"
+      },
+      "id": "MRiYhG04",
+      "lastUpdated": "2026-09-15T20:38:05.797Z",
+      "league": {
+        "country": "WALES",
+        "countryCode": "207",
+        "flag": "AHTr06B7-zcK81gMo.png",
+        "id": "YXyftQkL",
+        "name": "Cymru Premier"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "UietifVG": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_airbus",
+        "name": "Airbus"
+      },
+      "homeScore": 3,
+      "homeTeam": {
+        "id": "Connahs Q.",
+        "name": "Connahs Q."
+      },
+      "id": "UietifVG",
+      "lastUpdated": "2026-09-15T20:38:05.797Z",
+      "league": {
+        "country": "WALES",
+        "countryCode": "207",
+        "flag": "AHTr06B7-zcK81gMo.png",
+        "id": "YXyftQkL",
+        "name": "Cymru Premier"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "YmpKqCNj": {
+      "awayScore": 1,
+      "awayTeam": {
+        "id": "team_caernarfon",
+        "name": "Caernarfon"
+      },
+      "homeScore": 1,
+      "homeTeam": {
+        "id": "Llandudno",
+        "name": "Llandudno"
+      },
+      "id": "YmpKqCNj",
+      "lastUpdated": "2026-09-15T20:38:05.798Z",
+      "league": {
+        "country": "WALES",
+        "countryCode": "207",
+        "flag": "AHTr06B7-zcK81gMo.png",
+        "id": "YXyftQkL",
+        "name": "Cymru Premier"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "voX57FFc": {
+      "awayScore": 2,
+      "awayTeam": {
+        "id": "team_briton_ferry",
+        "name": "Briton Ferry"
+      },
+      "homeScore": 3,
+      "homeTeam": {
+        "id": "Penybont",
+        "name": "Penybont"
+      },
+      "id": "voX57FFc",
+      "lastUpdated": "2026-09-15T20:38:05.798Z",
+      "league": {
+        "country": "WALES",
+        "countryCode": "207",
+        "flag": "AHTr06B7-zcK81gMo.png",
+        "id": "YXyftQkL",
+        "name": "Cymru Premier"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "nBzE5gpA": {
+      "awayScore": 0,
+      "awayTeam": {
+        "id": "team_flint",
+        "name": "Flint"
+      },
+      "homeScore": 5,
+      "homeTeam": {
+        "id": "TNS",
+        "name": "TNS"
+      },
+      "id": "nBzE5gpA",
+      "lastUpdated": "2026-09-15T20:38:05.798Z",
+      "league": {
+        "country": "WALES",
+        "countryCode": "207",
+        "flag": "AHTr06B7-zcK81gMo.png",
+        "id": "YXyftQkL",
+        "name": "Cymru Premier"
+      },
+      "minute": 13,
+      "provider": "flashscore",
+      "startTime": "2026-09-15T18:45:00+00:00",
+      "status": "IN_PLAY",
+      "statusText": "13"
+    },
+    "pO1lH85t": {
+      "id": "pO1lH85t",
+      "provider": "flashscore",
+      "league": {
+        "id": "fy8GSDG7",
+        "name": "AFC Champions League - League phase",
+        "country": "ASIA",
+        "countryCode": "5",
+        "flag": "0IWiFPA7-UN16aAWa.png"
+      },
+      "homeTeam": {
+        "id": "Port MTI FC (Tha)",
+        "name": "Port MTI FC (Tha)"
+      },
+      "awayTeam": {
+        "id": "team_vissel_kobe__jpn_",
+        "name": "Vissel Kobe (Jpn)"
+      },
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T12:15:00.000Z",
+      "lastUpdated": "2026-09-16T14:11:07.899Z"
+    },
+    "4G2o1Yet": {
+      "id": "4G2o1Yet",
+      "provider": "flashscore",
+      "league": {
+        "id": "AHHbqZ0l",
+        "name": "AFC Champions League 2",
+        "country": "ASIA",
+        "countryCode": "5",
+        "flag": "04RQzSDO-vHiDGNOl.png"
+      },
+      "homeTeam": {
+        "id": "Viettel (Vie)",
+        "name": "Viettel (Vie)"
+      },
+      "awayTeam": {
+        "id": "team_melbourne_victory__aus_",
+        "name": "Melbourne Victory (Aus)"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T12:15:00.000Z",
+      "lastUpdated": "2026-09-16T14:11:07.900Z"
+    },
+    "f5kFKB9t": {
+      "id": "f5kFKB9t",
+      "provider": "flashscore",
+      "league": {
+        "id": "AVQ0yCxS",
+        "name": "I Liqa",
+        "country": "AZERBAIJAN",
+        "countryCode": "26",
+        "flag": "KSxh5gmd-OlknE363.png"
+      },
+      "homeTeam": {
+        "id": "Karvan",
+        "name": "Karvan"
+      },
+      "awayTeam": {
+        "id": "team_zaqatala",
+        "name": "Zaqatala"
+      },
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T12:30:00.000Z",
+      "lastUpdated": "2026-09-16T14:24:07.981Z"
+    },
+    "URlCIxN8": {
+      "id": "URlCIxN8",
+      "provider": "flashscore",
+      "league": {
+        "id": "dQ1PEM25",
+        "name": "Crystalbet Erovnuli Liga 2",
+        "country": "GEORGIA",
+        "countryCode": "80",
+        "flag": "MNuu3B97-ULlPlk2I.png"
+      },
+      "homeTeam": {
+        "id": "Kolkheti 1913",
+        "name": "Kolkheti 1913"
+      },
+      "awayTeam": {
+        "id": "team_samtredia",
+        "name": "Samtredia"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:59:16.156Z"
+    },
+    "f7hFEh3E": {
+      "id": "f7hFEh3E",
+      "provider": "flashscore",
+      "league": {
+        "id": "QVA4ECc4",
+        "name": "Greek Cup",
+        "country": "GREECE",
+        "countryCode": "83",
+        "flag": "buTVc0md-Y7lJE6YQ.png"
+      },
+      "homeTeam": {
+        "id": "Aris",
+        "name": "Aris"
+      },
+      "awayTeam": {
+        "id": "team_marko",
+        "name": "Marko"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:45:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.929Z"
+    },
+    "nPXeYspn": {
+      "id": "nPXeYspn",
+      "provider": "flashscore",
+      "league": {
+        "id": "AkTeXo9t",
+        "name": "Premier League U22",
+        "country": "HONG KONG",
+        "countryCode": "222",
+        "flag": "QZ4nEvjd-C4AZ5BbB.png"
+      },
+      "homeTeam": {
+        "id": "Shatin U22",
+        "name": "Shatin U22"
+      },
+      "awayTeam": {
+        "id": "team_southern_district_u22",
+        "name": "Southern District U22"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T12:30:00.000Z",
+      "lastUpdated": "2026-09-16T14:17:37.938Z"
+    },
+    "vcTUPTa7": {
+      "id": "vcTUPTa7",
+      "provider": "flashscore",
+      "league": {
+        "id": "MwvWjCoo",
+        "name": "NB I Women",
+        "country": "HUNGARY",
+        "countryCode": "91",
+        "flag": "ptFp0lfU-dfuJhBEK.png"
+      },
+      "homeTeam": {
+        "id": "Honved W",
+        "name": "Honved W"
+      },
+      "awayTeam": {
+        "id": "team_puskas_academy_w",
+        "name": "Puskas Academy W"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.271Z"
+    },
+    "0nSETB0r": {
+      "id": "0nSETB0r",
+      "provider": "flashscore",
+      "league": {
+        "id": "MwvWjCoo",
+        "name": "NB I Women",
+        "country": "HUNGARY",
+        "countryCode": "91",
+        "flag": "ptFp0lfU-dfuJhBEK.png"
+      },
+      "homeTeam": {
+        "id": "Szent Mihaly W",
+        "name": "Szent Mihaly W"
+      },
+      "awayTeam": {
+        "id": "team_ferencvaros_w",
+        "name": "Ferencvaros W"
+      },
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:49:37.485Z"
+    },
+    "02EktzH0": {
+      "id": "02EktzH0",
+      "provider": "flashscore",
+      "league": {
+        "id": "AcNlCiqf",
+        "name": "Azadegan League",
+        "country": "IRAN",
+        "countryCode": "94",
+        "flag": "OnKmItjd-0Oslp8bD.png"
+      },
+      "homeTeam": {
+        "id": "Besat Kermanshah",
+        "name": "Besat Kermanshah"
+      },
+      "awayTeam": {
+        "id": "team_naft_gachsaran",
+        "name": "Naft Gachsaran"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.936Z"
+    },
+    "CQsML7S9": {
+      "id": "CQsML7S9",
+      "provider": "flashscore",
+      "league": {
+        "id": "nyAZFdF5",
+        "name": "Serie D - Group A",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Bra",
+        "name": "Bra"
+      },
+      "awayTeam": {
+        "id": "team_as_biellese",
+        "name": "AS Biellese"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.280Z"
+    },
+    "bstUJocM": {
+      "id": "bstUJocM",
+      "provider": "flashscore",
+      "league": {
+        "id": "nyAZFdF5",
+        "name": "Serie D - Group A",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Chisola",
+        "name": "Chisola"
+      },
+      "awayTeam": {
+        "id": "team_sanremese",
+        "name": "Sanremese"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.265Z"
+    },
+    "2wV7C3kd": {
+      "id": "2wV7C3kd",
+      "provider": "flashscore",
+      "league": {
+        "id": "nyAZFdF5",
+        "name": "Serie D - Group A",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Imperia",
+        "name": "Imperia"
+      },
+      "awayTeam": {
+        "id": "team_asti",
+        "name": "Asti"
+      },
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.267Z"
+    },
+    "zsQ1YpCF": {
+      "id": "zsQ1YpCF",
+      "provider": "flashscore",
+      "league": {
+        "id": "nyAZFdF5",
+        "name": "Serie D - Group A",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Millesimo",
+        "name": "Millesimo"
+      },
+      "awayTeam": {
+        "id": "team_alessandria",
+        "name": "Alessandria"
+      },
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.269Z"
+    },
+    "80yXXu4S": {
+      "id": "80yXXu4S",
+      "provider": "flashscore",
+      "league": {
+        "id": "MZH1WHan",
+        "name": "Serie D - Group B",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Chievo",
+        "name": "Chievo"
+      },
+      "awayTeam": {
+        "id": "team_club_milano",
+        "name": "Club Milano"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T12:30:00.000Z",
+      "lastUpdated": "2026-09-16T14:27:23.000Z"
+    },
+    "GpcZpmaE": {
+      "id": "GpcZpmaE",
+      "provider": "flashscore",
+      "league": {
+        "id": "MZH1WHan",
+        "name": "Serie D - Group B",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Ciserano-Bergamo",
+        "name": "Ciserano-Bergamo"
+      },
+      "awayTeam": {
+        "id": "team_pavonese",
+        "name": "Pavonese"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.272Z"
+    },
+    "jmLAQcd2": {
+      "id": "jmLAQcd2",
+      "provider": "flashscore",
+      "league": {
+        "id": "MZH1WHan",
+        "name": "Serie D - Group B",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Leon",
+        "name": "Leon"
+      },
+      "awayTeam": {
+        "id": "team_piacenza",
+        "name": "Piacenza"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.274Z"
+    },
+    "nqdeSrVr": {
+      "id": "nqdeSrVr",
+      "provider": "flashscore",
+      "league": {
+        "id": "OQSp9Rrp",
+        "name": "Serie D - Group C",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Altavilla",
+        "name": "Altavilla"
+      },
+      "awayTeam": {
+        "id": "team_legnago_salus",
+        "name": "Legnago Salus"
+      },
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.291Z"
+    },
+    "pdHNDqGk": {
+      "id": "pdHNDqGk",
+      "provider": "flashscore",
+      "league": {
+        "id": "OQSp9Rrp",
+        "name": "Serie D - Group C",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Cjarlins Muzane",
+        "name": "Cjarlins Muzane"
+      },
+      "awayTeam": {
+        "id": "team_conegliano",
+        "name": "Conegliano"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.292Z"
+    },
+    "pG7HZQx9": {
+      "id": "pG7HZQx9",
+      "provider": "flashscore",
+      "league": {
+        "id": "OQSp9Rrp",
+        "name": "Serie D - Group C",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "FC Obermais",
+        "name": "FC Obermais"
+      },
+      "awayTeam": {
+        "id": "team_lme",
+        "name": "LME"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.293Z"
+    },
+    "I9FVBNp2": {
+      "id": "I9FVBNp2",
+      "provider": "flashscore",
+      "league": {
+        "id": "OQSp9Rrp",
+        "name": "Serie D - Group C",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Luparense",
+        "name": "Luparense"
+      },
+      "awayTeam": {
+        "id": "team_virtus_bolzano",
+        "name": "Virtus Bolzano"
+      },
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.295Z"
+    },
+    "fqUyNmg3": {
+      "id": "fqUyNmg3",
+      "provider": "flashscore",
+      "league": {
+        "id": "OQSp9Rrp",
+        "name": "Serie D - Group C",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Sandona",
+        "name": "Sandona"
+      },
+      "awayTeam": {
+        "id": "team_brian_lignano",
+        "name": "Brian Lignano"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.297Z"
+    },
+    "GErdSYWg": {
+      "id": "GErdSYWg",
+      "provider": "flashscore",
+      "league": {
+        "id": "CWQdTnzG",
+        "name": "Serie D - Group D",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Castellanzese",
+        "name": "Castellanzese"
+      },
+      "awayTeam": {
+        "id": "team_oltrepo",
+        "name": "Oltrepo"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.298Z"
+    },
+    "KUNTtYom": {
+      "id": "KUNTtYom",
+      "provider": "flashscore",
+      "league": {
+        "id": "CWQdTnzG",
+        "name": "Serie D - Group D",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Pistoiese",
+        "name": "Pistoiese"
+      },
+      "awayTeam": {
+        "id": "team_arconatese",
+        "name": "Arconatese"
+      },
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.300Z"
+    },
+    "vZlIZGvK": {
+      "id": "vZlIZGvK",
+      "provider": "flashscore",
+      "league": {
+        "id": "CWQdTnzG",
+        "name": "Serie D - Group D",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Pro Patria",
+        "name": "Pro Patria"
+      },
+      "awayTeam": {
+        "id": "team_crema",
+        "name": "Crema"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.276Z"
+    },
+    "0MvqwjoC": {
+      "id": "0MvqwjoC",
+      "provider": "flashscore",
+      "league": {
+        "id": "CWQdTnzG",
+        "name": "Serie D - Group D",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Tropical Coriano",
+        "name": "Tropical Coriano"
+      },
+      "awayTeam": {
+        "id": "team_lentigione",
+        "name": "Lentigione"
+      },
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:49:37.518Z"
+    },
+    "AHulUf2s": {
+      "id": "AHulUf2s",
+      "provider": "flashscore",
+      "league": {
+        "id": "CWQdTnzG",
+        "name": "Serie D - Group D",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "USD Casatese",
+        "name": "USD Casatese"
+      },
+      "awayTeam": {
+        "id": "team_sant_angelo",
+        "name": "Sant'Angelo"
+      },
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.307Z"
+    },
+    "dhpCOjWI": {
+      "id": "dhpCOjWI",
+      "provider": "flashscore",
+      "league": {
+        "id": "CWQdTnzG",
+        "name": "Serie D - Group D",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Correggese",
+        "name": "Correggese"
+      },
+      "awayTeam": {
+        "id": "team_varesina",
+        "name": "Varesina"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.944Z"
+    },
+    "nDXYrVV8": {
+      "id": "nDXYrVV8",
+      "provider": "flashscore",
+      "league": {
+        "id": "27zpSfG8",
+        "name": "Serie D - Group E",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Flaminia",
+        "name": "Flaminia"
+      },
+      "awayTeam": {
+        "id": "team_sasso_marconi",
+        "name": "Sasso Marconi"
+      },
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.282Z"
+    },
+    "Iaf6QMFs": {
+      "id": "Iaf6QMFs",
+      "provider": "flashscore",
+      "league": {
+        "id": "27zpSfG8",
+        "name": "Serie D - Group E",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Follonica Gavorrano",
+        "name": "Follonica Gavorrano"
+      },
+      "awayTeam": {
+        "id": "team_ghiviborgo",
+        "name": "Ghiviborgo"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.285Z"
+    },
+    "Yk1MMvF6": {
+      "id": "Yk1MMvF6",
+      "provider": "flashscore",
+      "league": {
+        "id": "27zpSfG8",
+        "name": "Serie D - Group E",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Mezzolara",
+        "name": "Mezzolara"
+      },
+      "awayTeam": {
+        "id": "team_ternana",
+        "name": "Ternana"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.287Z"
+    },
+    "63aUKIqJ": {
+      "id": "63aUKIqJ",
+      "provider": "flashscore",
+      "league": {
+        "id": "27zpSfG8",
+        "name": "Serie D - Group E",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Prato",
+        "name": "Prato"
+      },
+      "awayTeam": {
+        "id": "team_grassina",
+        "name": "Grassina"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.317Z"
+    },
+    "bB1FrMyQ": {
+      "id": "bB1FrMyQ",
+      "provider": "flashscore",
+      "league": {
+        "id": "27zpSfG8",
+        "name": "Serie D - Group E",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Scandicci",
+        "name": "Scandicci"
+      },
+      "awayTeam": {
+        "id": "team_rondinella",
+        "name": "Rondinella"
+      },
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.320Z"
+    },
+    "Ughow0am": {
+      "id": "Ughow0am",
+      "provider": "flashscore",
+      "league": {
+        "id": "27zpSfG8",
+        "name": "Serie D - Group E",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Seravezza Pozzi",
+        "name": "Seravezza Pozzi"
+      },
+      "awayTeam": {
+        "id": "team_montevarchi",
+        "name": "Montevarchi"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:59:16.175Z"
+    },
+    "CSUsT8Nt": {
+      "id": "CSUsT8Nt",
+      "provider": "flashscore",
+      "league": {
+        "id": "0nzlHU77",
+        "name": "Serie D - Group F",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Angelana",
+        "name": "Angelana"
+      },
+      "awayTeam": {
+        "id": "team_teramo",
+        "name": "Teramo"
+      },
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:09:01.169Z"
+    },
+    "0WZ5N4iI": {
+      "id": "0WZ5N4iI",
+      "provider": "flashscore",
+      "league": {
+        "id": "0nzlHU77",
+        "name": "Serie D - Group F",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Montecchio Gallo",
+        "name": "Montecchio Gallo"
+      },
+      "awayTeam": {
+        "id": "team_pietralunga",
+        "name": "Pietralunga"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.326Z"
+    },
+    "EFsw9QgM": {
+      "id": "EFsw9QgM",
+      "provider": "flashscore",
+      "league": {
+        "id": "0nzlHU77",
+        "name": "Serie D - Group F",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Recanatese",
+        "name": "Recanatese"
+      },
+      "awayTeam": {
+        "id": "team_foligno",
+        "name": "Foligno"
+      },
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.294Z"
+    },
+    "AoT834Hq": {
+      "id": "AoT834Hq",
+      "provider": "flashscore",
+      "league": {
+        "id": "0nzlHU77",
+        "name": "Serie D - Group F",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Trestina",
+        "name": "Trestina"
+      },
+      "awayTeam": {
+        "id": "team_fossombrone",
+        "name": "Fossombrone"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.329Z"
+    },
+    "44Cq6ome": {
+      "id": "44Cq6ome",
+      "provider": "flashscore",
+      "league": {
+        "id": "j1GNXkhl",
+        "name": "Serie D - Group G",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Anzio Calcio 1924",
+        "name": "Anzio Calcio 1924"
+      },
+      "awayTeam": {
+        "id": "team_monastir",
+        "name": "Monastir"
+      },
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:02:31.139Z"
+    },
+    "dCUj4PH7": {
+      "id": "dCUj4PH7",
+      "provider": "flashscore",
+      "league": {
+        "id": "j1GNXkhl",
+        "name": "Serie D - Group G",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Aranova",
+        "name": "Aranova"
+      },
+      "awayTeam": {
+        "id": "team_albalonga",
+        "name": "Albalonga"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.332Z"
+    },
+    "SEBGKp2l": {
+      "id": "SEBGKp2l",
+      "provider": "flashscore",
+      "league": {
+        "id": "j1GNXkhl",
+        "name": "Serie D - Group G",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Citta di Anagni",
+        "name": "Citta di Anagni"
+      },
+      "awayTeam": {
+        "id": "team_unipomezia",
+        "name": "Unipomezia"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.298Z"
+    },
+    "dWKpQ6vR": {
+      "id": "dWKpQ6vR",
+      "provider": "flashscore",
+      "league": {
+        "id": "j1GNXkhl",
+        "name": "Serie D - Group G",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Sarrabus Ogliastra",
+        "name": "Sarrabus Ogliastra"
+      },
+      "awayTeam": {
+        "id": "team_certosa_v__campagnano",
+        "name": "Certosa V. Campagnano"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.300Z"
+    },
+    "rctL3rtf": {
+      "id": "rctL3rtf",
+      "provider": "flashscore",
+      "league": {
+        "id": "KKE4nk7s",
+        "name": "Serie D - Group H",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Real Normanna",
+        "name": "Real Normanna"
+      },
+      "awayTeam": {
+        "id": "team_martina_calcio",
+        "name": "Martina Calcio"
+      },
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:02:31.141Z"
+    },
+    "v1isBQmK": {
+      "id": "v1isBQmK",
+      "provider": "flashscore",
+      "league": {
+        "id": "KKE4nk7s",
+        "name": "Serie D - Group H",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "A.C.D. Nardo",
+        "name": "A.C.D. Nardo"
+      },
+      "awayTeam": {
+        "id": "team_melfi",
+        "name": "Melfi"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.949Z"
+    },
+    "2179dRYQ": {
+      "id": "2179dRYQ",
+      "provider": "flashscore",
+      "league": {
+        "id": "KKE4nk7s",
+        "name": "Serie D - Group H",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Ebolitana",
+        "name": "Ebolitana"
+      },
+      "awayTeam": {
+        "id": "team_bisceglie",
+        "name": "Bisceglie"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.951Z"
+    },
+    "jTnIKqKc": {
+      "id": "jTnIKqKc",
+      "provider": "flashscore",
+      "league": {
+        "id": "fHgn2CGF",
+        "name": "FA Cup",
+        "country": "MALAYSIA",
+        "countryCode": "121",
+        "flag": "OxL9KjA7-IVz5X4Z5.png"
+      },
+      "homeTeam": {
+        "id": "Terengganu",
+        "name": "Terengganu"
+      },
+      "awayTeam": {
+        "id": "team_dpmm",
+        "name": "DPMM"
+      },
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:59:16.194Z"
+    },
+    "pO7d9dkd": {
+      "id": "pO7d9dkd",
+      "provider": "flashscore",
+      "league": {
+        "id": "fqvAukVF",
+        "name": "FNL",
+        "country": "RUSSIA",
+        "countryCode": "158",
+        "flag": "hlJ3VIVI-QggzoR54.png"
+      },
+      "homeTeam": {
+        "id": "Yenisey",
+        "name": "Yenisey"
+      },
+      "awayTeam": {
+        "id": "team_arsenal_tula",
+        "name": "Arsenal Tula"
+      },
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T12:30:00.000Z",
+      "lastUpdated": "2026-09-16T14:27:23.061Z"
+    },
+    "hfCL6hve": {
+      "id": "hfCL6hve",
+      "provider": "flashscore",
+      "league": {
+        "id": "rDtzRbA5",
+        "name": "Premier League",
+        "country": "RWANDA",
+        "countryCode": "159",
+        "flag": "Wrbe9PA7-KC2YGhsl.png"
+      },
+      "homeTeam": {
+        "id": "Kigali FC",
+        "name": "Kigali FC"
+      },
+      "awayTeam": {
+        "id": "team_al_hilal_omdurman",
+        "name": "Al-Hilal Omdurman"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.350Z"
+    },
+    "lz3sdsPb": {
+      "id": "lz3sdsPb",
+      "provider": "flashscore",
+      "league": {
+        "id": "UZax3GkB",
+        "name": "South American Games U19",
+        "country": "SOUTH AMERICA",
+        "countryCode": "3",
+        "flag": "ttr6q5kd-YNUhrMDG.png"
+      },
+      "homeTeam": {
+        "id": "Colombia U19",
+        "name": "Colombia U19"
+      },
+      "awayTeam": {
+        "id": "team_peru_u19",
+        "name": "Peru U19"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.355Z"
+    },
+    "vDTgJHKH": {
+      "id": "vDTgJHKH",
+      "provider": "flashscore",
+      "league": {
+        "id": "dppHeYso",
+        "name": "South American Games Women U20",
+        "country": "SOUTH AMERICA",
+        "countryCode": "3",
+        "flag": "SvwQVRVI-hhy2lh32.png"
+      },
+      "homeTeam": {
+        "id": "Venezuela U20 W",
+        "name": "Venezuela U20 W"
+      },
+      "awayTeam": {
+        "id": "team_paraguay_u20_w",
+        "name": "Paraguay U20 W"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:59:16.201Z"
+    },
+    "6imlayDE": {
+      "id": "6imlayDE",
+      "provider": "flashscore",
+      "league": {
+        "id": "nRUInUpp",
+        "name": "Turkish Cup - Qualification",
+        "country": "TURKEY",
+        "countryCode": "191",
+        "flag": "MoQtBchD-dOMV9WxA.png"
+      },
+      "homeTeam": {
+        "id": "Galata",
+        "name": "Galata"
+      },
+      "awayTeam": {
+        "id": "team_yesil_yalova_fk",
+        "name": "Yesil Yalova FK"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "6",
+      "minute": 6,
+      "startTime": "2026-09-16T12:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:31:45.386Z"
+    },
+    "z9hslB4D": {
+      "id": "z9hslB4D",
+      "provider": "flashscore",
+      "league": {
+        "id": "nRUInUpp",
+        "name": "Turkish Cup - Qualification",
+        "country": "TURKEY",
+        "countryCode": "191",
+        "flag": "MoQtBchD-dOMV9WxA.png"
+      },
+      "homeTeam": {
+        "id": "Uzunkopruspor",
+        "name": "Uzunkopruspor"
+      },
+      "awayTeam": {
+        "id": "team_bulvarspor",
+        "name": "Bulvarspor"
+      },
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T12:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:01:22.894Z"
+    },
+    "Wr4ctCGa": {
+      "id": "Wr4ctCGa",
+      "provider": "flashscore",
+      "league": {
+        "id": "E7eBZQeK",
+        "name": "Premier League",
+        "country": "UGANDA",
+        "countryCode": "194",
+        "flag": "jBDyuBhU-p2t5fzRg.png"
+      },
+      "homeTeam": {
+        "id": "Kampala City",
+        "name": "Kampala City"
+      },
+      "awayTeam": {
+        "id": "team_kataka",
+        "name": "Kataka"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.359Z"
+    },
+    "favI0t2E": {
+      "id": "favI0t2E",
+      "provider": "flashscore",
+      "league": {
+        "id": "E7eBZQeK",
+        "name": "Premier League",
+        "country": "UGANDA",
+        "countryCode": "194",
+        "flag": "jBDyuBhU-p2t5fzRg.png"
+      },
+      "homeTeam": {
+        "id": "Lugazi",
+        "name": "Lugazi"
+      },
+      "awayTeam": {
+        "id": "team_police",
+        "name": "Police"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.360Z"
+    },
+    "ShnWxwA7": {
+      "id": "ShnWxwA7",
+      "provider": "flashscore",
+      "league": {
+        "id": "E7eBZQeK",
+        "name": "Premier League",
+        "country": "UGANDA",
+        "countryCode": "194",
+        "flag": "jBDyuBhU-p2t5fzRg.png"
+      },
+      "homeTeam": {
+        "id": "Mbarara City",
+        "name": "Mbarara City"
+      },
+      "awayTeam": {
+        "id": "team_entebbe_uppc",
+        "name": "Entebbe UPPC"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.327Z"
+    },
+    "2qUYQeQi": {
+      "id": "2qUYQeQi",
+      "provider": "flashscore",
+      "league": {
+        "id": "O8P9ltWA",
+        "name": "Ukrainian Cup",
+        "country": "UKRAINE",
+        "countryCode": "195",
+        "flag": "bNapjVT1-SfZyQ4hI.png"
+      },
+      "homeTeam": {
+        "id": "Bukovyna",
+        "name": "Bukovyna"
+      },
+      "awayTeam": {
+        "id": "team_lnz_cherkasy",
+        "name": "LNZ Cherkasy"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "7'",
+      "minute": 7,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:05:46.204Z"
+    },
+    "AR6YNlLP": {
+      "id": "AR6YNlLP",
+      "provider": "flashscore",
+      "league": {
+        "id": "2RWRTvyB",
+        "name": "Uzbekistan Cup",
+        "country": "UZBEKISTAN",
+        "countryCode": "202",
+        "flag": "KMBq96CO-MR9mhECH.png"
+      },
+      "homeTeam": {
+        "id": "OKMK",
+        "name": "OKMK"
+      },
+      "awayTeam": {
+        "id": "team_xorazm_urganch",
+        "name": "Xorazm Urganch"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T13:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.988Z"
+    },
+    "vXZU9EEr": {
+      "id": "vXZU9EEr",
+      "provider": "flashscore",
+      "league": {
+        "id": "04TSt6MU",
+        "name": "World Cup Women U20 - Play Offs",
+        "country": "WORLD",
+        "countryCode": "8",
+        "flag": "GGT5HgW1-jayGFGaB.png"
+      },
+      "homeTeam": {
+        "id": "Argentina U20 W",
+        "name": "Argentina U20 W"
+      },
+      "awayTeam": {
+        "id": "team_south_korea_u20_w",
+        "name": "South Korea U20 W"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:52:46.367Z"
+    },
+    "KxQJMnZR": {
+      "id": "KxQJMnZR",
+      "provider": "flashscore",
+      "league": {
+        "id": "04TSt6MU",
+        "name": "World Cup Women U20 - Play Offs",
+        "country": "WORLD",
+        "countryCode": "8",
+        "flag": "GGT5HgW1-jayGFGaB.png"
+      },
+      "homeTeam": {
+        "id": "Brazil U20 W",
+        "name": "Brazil U20 W"
+      },
+      "awayTeam": {
+        "id": "team_usa_u20_w",
+        "name": "USA U20 W"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "6'",
+      "minute": 6,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.991Z"
+    },
+    "WUhSJ7RQ": {
+      "id": "WUhSJ7RQ",
+      "provider": "flashscore",
+      "league": {
+        "id": "ttKcgCbd",
+        "name": "Chibuku Super Cup",
+        "country": "ZIMBABWE",
+        "countryCode": "210",
+        "flag": "ShhYkwTp-Y53No1rT.png"
+      },
+      "homeTeam": {
+        "id": "Scottland",
+        "name": "Scottland"
+      },
+      "awayTeam": {
+        "id": "team_hardrock",
+        "name": "Hardrock"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13",
+      "minute": 13,
+      "startTime": "2026-09-16T13:00:00.000Z",
+      "lastUpdated": "2026-09-16T14:56:01.335Z"
+    },
+    "nJbm6k04": {
+      "id": "nJbm6k04",
+      "provider": "flashscore",
+      "league": {
+        "id": "Y1JlI3U1",
+        "name": "Kategoria e Parë",
+        "country": "ALBANIA",
+        "countryCode": "17",
+        "flag": "Icu5XdCO-buwFyo8h.png"
+      },
+      "homeTeam": {
+        "id": "Besa Kavaje",
+        "name": "Besa Kavaje"
+      },
+      "awayTeam": {
+        "id": "team_oriku",
+        "name": "Oriku"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.881Z"
+    },
+    "E50u8BVi": {
+      "id": "E50u8BVi",
+      "provider": "flashscore",
+      "league": {
+        "id": "Y1JlI3U1",
+        "name": "Kategoria e Parë",
+        "country": "ALBANIA",
+        "countryCode": "17",
+        "flag": "Icu5XdCO-buwFyo8h.png"
+      },
+      "homeTeam": {
+        "id": "Bylis",
+        "name": "Bylis"
+      },
+      "awayTeam": {
+        "id": "team_beselidhja_lezha",
+        "name": "Beselidhja Lezha"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.885Z"
+    },
+    "t00327aT": {
+      "id": "t00327aT",
+      "provider": "flashscore",
+      "league": {
+        "id": "Y1JlI3U1",
+        "name": "Kategoria e Parë",
+        "country": "ALBANIA",
+        "countryCode": "17",
+        "flag": "Icu5XdCO-buwFyo8h.png"
+      },
+      "homeTeam": {
+        "id": "Kastrioti",
+        "name": "Kastrioti"
+      },
+      "awayTeam": {
+        "id": "team_flamurtari",
+        "name": "Flamurtari"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.886Z"
+    },
+    "zkWnKs0B": {
+      "id": "zkWnKs0B",
+      "provider": "flashscore",
+      "league": {
+        "id": "hn4BnBIP",
+        "name": "Prva Liga - RS",
+        "country": "BOSNIA AND HERZEGOVINA",
+        "countryCode": "37",
+        "flag": "fRvGGdV1-n5sQK89E.png"
+      },
+      "homeTeam": {
+        "id": "Majevica",
+        "name": "Majevica"
+      },
+      "awayTeam": {
+        "id": "team_prijedor",
+        "name": "Prijedor"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.894Z"
+    },
+    "vNpE2ypB": {
+      "id": "vNpE2ypB",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "FK Kozlovice",
+        "name": "FK Kozlovice"
+      },
+      "awayTeam": {
+        "id": "team_fk_pardubice",
+        "name": "FK Pardubice"
+      },
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.902Z"
+    },
+    "pSTij7fl": {
+      "id": "pSTij7fl",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "Havirov",
+        "name": "Havirov"
+      },
+      "awayTeam": {
+        "id": "team_zlin",
+        "name": "Zlin"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.904Z"
+    },
+    "UgOgFETG": {
+      "id": "UgOgFETG",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "Kraluv Dvur",
+        "name": "Kraluv Dvur"
+      },
+      "awayTeam": {
+        "id": "team_brno",
+        "name": "Brno"
+      },
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.906Z"
+    },
+    "jqNgASoK": {
+      "id": "jqNgASoK",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "Pribram",
+        "name": "Pribram"
+      },
+      "awayTeam": {
+        "id": "team_hradec_kralove",
+        "name": "Hradec Kralove"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.909Z"
+    },
+    "lMDma2wJ": {
+      "id": "lMDma2wJ",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "Taborsko",
+        "name": "Taborsko"
+      },
+      "awayTeam": {
+        "id": "team_teplice",
+        "name": "Teplice"
+      },
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.911Z"
+    },
+    "rwQoHza4": {
+      "id": "rwQoHza4",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "Vitkovice",
+        "name": "Vitkovice"
+      },
+      "awayTeam": {
+        "id": "team_artis_brno",
+        "name": "Artis Brno"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.914Z"
+    },
+    "EHxgDcal": {
+      "id": "EHxgDcal",
+      "provider": "flashscore",
+      "league": {
+        "id": "jD0zriYA",
+        "name": "Premier League",
+        "country": "EGYPT",
+        "countryCode": "69",
+        "flag": "Cb1oAZXI-lMqSSt1a.png"
+      },
+      "homeTeam": {
+        "id": "El Gouna",
+        "name": "El Gouna"
+      },
+      "awayTeam": {
+        "id": "team_petrojet",
+        "name": "Petrojet"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.922Z"
+    },
+    "nJCcvEoD": {
+      "id": "nJCcvEoD",
+      "provider": "flashscore",
+      "league": {
+        "id": "AcNlCiqf",
+        "name": "Azadegan League",
+        "country": "IRAN",
+        "countryCode": "94",
+        "flag": "OnKmItjd-0Oslp8bD.png"
+      },
+      "homeTeam": {
+        "id": "Ario Eslamshahr",
+        "name": "Ario Eslamshahr"
+      },
+      "awayTeam": {
+        "id": "team_naft_m_i_s",
+        "name": "Naft M.I.S"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "42'",
+      "minute": 42,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.938Z"
+    },
+    "UqNgz7s3": {
+      "id": "UqNgz7s3",
+      "provider": "flashscore",
+      "league": {
+        "id": "nyAZFdF5",
+        "name": "Serie D - Group A",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Ligorna",
+        "name": "Ligorna"
+      },
+      "awayTeam": {
+        "id": "team_derthona_fbc",
+        "name": "Derthona FbC"
+      },
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.943Z"
+    },
+    "QPcEO0pf": {
+      "id": "QPcEO0pf",
+      "provider": "flashscore",
+      "league": {
+        "id": "27zpSfG8",
+        "name": "Serie D - Group E",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Lucchese",
+        "name": "Lucchese"
+      },
+      "awayTeam": {
+        "id": "team_scd_progresso",
+        "name": "SCD Progresso"
+      },
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.948Z"
+    },
+    "QytKw6As": {
+      "id": "QytKw6As",
+      "provider": "flashscore",
+      "league": {
+        "id": "Q9FdEwng",
+        "name": "Slovak Cup",
+        "country": "SLOVAKIA",
+        "countryCode": "171",
+        "flag": "UsIsBKld-Qqv6uL6t.png"
+      },
+      "homeTeam": {
+        "id": "Druzstevnik Latky",
+        "name": "Druzstevnik Latky"
+      },
+      "awayTeam": {
+        "id": "team_pohronie",
+        "name": "Pohronie"
+      },
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.980Z"
+    },
+    "AmxSig5l": {
+      "id": "AmxSig5l",
+      "provider": "flashscore",
+      "league": {
+        "id": "nRUInUpp",
+        "name": "Turkish Cup - Qualification",
+        "country": "TURKEY",
+        "countryCode": "191",
+        "flag": "MoQtBchD-dOMV9WxA.png"
+      },
+      "homeTeam": {
+        "id": "Bucaspor 1928",
+        "name": "Bucaspor 1928"
+      },
+      "awayTeam": {
+        "id": "team_gaziemirspor",
+        "name": "Gaziemirspor"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.985Z"
+    },
+    "YZde4TUG": {
+      "id": "YZde4TUG",
+      "provider": "flashscore",
+      "league": {
+        "id": "Y1JlI3U1",
+        "name": "Kategoria e Parë",
+        "country": "ALBANIA",
+        "countryCode": "17",
+        "flag": "Icu5XdCO-buwFyo8h.png"
+      },
+      "homeTeam": {
+        "id": "Burreli",
+        "name": "Burreli"
+      },
+      "awayTeam": {
+        "id": "team_sopoti_librazhd",
+        "name": "Sopoti Librazhd"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.883Z"
+    },
+    "na8gp8wo": {
+      "id": "na8gp8wo",
+      "provider": "flashscore",
+      "league": {
+        "id": "Y1JlI3U1",
+        "name": "Kategoria e Parë",
+        "country": "ALBANIA",
+        "countryCode": "17",
+        "flag": "Icu5XdCO-buwFyo8h.png"
+      },
+      "homeTeam": {
+        "id": "Korabi Peshkopi",
+        "name": "Korabi Peshkopi"
+      },
+      "awayTeam": {
+        "id": "team_iliria_fushe_kruje",
+        "name": "Iliria Fushe-Kruje"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.888Z"
+    },
+    "t0tM2GgC": {
+      "id": "t0tM2GgC",
+      "provider": "flashscore",
+      "league": {
+        "id": "Y1JlI3U1",
+        "name": "Kategoria e Parë",
+        "country": "ALBANIA",
+        "countryCode": "17",
+        "flag": "Icu5XdCO-buwFyo8h.png"
+      },
+      "homeTeam": {
+        "id": "Kukesi",
+        "name": "Kukesi"
+      },
+      "awayTeam": {
+        "id": "team_pogradeci",
+        "name": "Pogradeci"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.890Z"
+    },
+    "APRwJdUi": {
+      "id": "APRwJdUi",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "Neratovice",
+        "name": "Neratovice"
+      },
+      "awayTeam": {
+        "id": "team_slovacko",
+        "name": "Slovacko"
+      },
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.907Z"
+    },
+    "vkPb6Jpn": {
+      "id": "vkPb6Jpn",
+      "provider": "flashscore",
+      "league": {
+        "id": "8xLkGAg3",
+        "name": "MOL Cup",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "0r6aV6B7-WtPomij7.png"
+      },
+      "homeTeam": {
+        "id": "Varnsdorf",
+        "name": "Varnsdorf"
+      },
+      "awayTeam": {
+        "id": "team_slavia_prague",
+        "name": "Slavia Prague"
+      },
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.912Z"
+    },
+    "nNdZmtnc": {
+      "id": "nNdZmtnc",
+      "provider": "flashscore",
+      "league": {
+        "id": "MwvWjCoo",
+        "name": "NB I Women",
+        "country": "HUNGARY",
+        "countryCode": "91",
+        "flag": "ptFp0lfU-dfuJhBEK.png"
+      },
+      "homeTeam": {
+        "id": "Szekszardi W",
+        "name": "Szekszardi W"
+      },
+      "awayTeam": {
+        "id": "team_gyor_w",
+        "name": "Gyor W"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.932Z"
+    },
+    "lSt4QC16": {
+      "id": "lSt4QC16",
+      "provider": "flashscore",
+      "league": {
+        "id": "CWQdTnzG",
+        "name": "Serie D - Group D",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Cittadella Vis Modena",
+        "name": "Cittadella Vis Modena"
+      },
+      "awayTeam": {
+        "id": "team_varese_fc",
+        "name": "Varese FC"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.946Z"
+    },
+    "4Q7cP1Oj": {
+      "id": "4Q7cP1Oj",
+      "provider": "flashscore",
+      "league": {
+        "id": "CxnjHHk1",
+        "name": "Mozzart Bet Prva Liga",
+        "country": "SERBIA",
+        "countryCode": "167",
+        "flag": "rZHuIckd-AuYU5jp9.png"
+      },
+      "homeTeam": {
+        "id": "Smederevo",
+        "name": "Smederevo"
+      },
+      "awayTeam": {
+        "id": "team_sp__subotica",
+        "name": "Sp. Subotica"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.978Z"
+    },
+    "OGXyXRct": {
+      "id": "OGXyXRct",
+      "provider": "flashscore",
+      "league": {
+        "id": "2RWRTvyB",
+        "name": "Uzbekistan Cup",
+        "country": "UZBEKISTAN",
+        "countryCode": "202",
+        "flag": "KMBq96CO-MR9mhECH.png"
+      },
+      "homeTeam": {
+        "id": "Gazalkent",
+        "name": "Gazalkent"
+      },
+      "awayTeam": {
+        "id": "team_kokand_1912",
+        "name": "Kokand 1912"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.990Z"
+    },
+    "EP4q2HwK": {
+      "id": "EP4q2HwK",
+      "provider": "flashscore",
+      "league": {
+        "id": "AcNlCiqf",
+        "name": "Azadegan League",
+        "country": "IRAN",
+        "countryCode": "94",
+        "flag": "OnKmItjd-0Oslp8bD.png"
+      },
+      "homeTeam": {
+        "id": "Saipa",
+        "name": "Saipa"
+      },
+      "awayTeam": {
+        "id": "team_kara_gostar",
+        "name": "Kara Gostar"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.939Z"
+    },
+    "zecS1W8e": {
+      "id": "zecS1W8e",
+      "provider": "flashscore",
+      "league": {
+        "id": "lpOxsoyJ",
+        "name": "Serie D - Group I",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Athletic Palermo",
+        "name": "Athletic Palermo"
+      },
+      "awayTeam": {
+        "id": "team_digiesse_praiatortora",
+        "name": "Digiesse PraiaTortora"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.955Z"
+    },
+    "WvdO3Det": {
+      "id": "WvdO3Det",
+      "provider": "flashscore",
+      "league": {
+        "id": "lpOxsoyJ",
+        "name": "Serie D - Group I",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Sambiase",
+        "name": "Sambiase"
+      },
+      "awayTeam": {
+        "id": "team_modica",
+        "name": "Modica"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.965Z"
+    },
+    "xIWl3Uze": {
+      "id": "xIWl3Uze",
+      "provider": "flashscore",
+      "league": {
+        "id": "hn4BnBIP",
+        "name": "Prva Liga - RS",
+        "country": "BOSNIA AND HERZEGOVINA",
+        "countryCode": "37",
+        "flag": "fRvGGdV1-n5sQK89E.png"
+      },
+      "homeTeam": {
+        "id": "Famos Vojkovici",
+        "name": "Famos Vojkovici"
+      },
+      "awayTeam": {
+        "id": "team_laktasi",
+        "name": "Laktasi"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.892Z"
+    },
+    "88ez0Aw8": {
+      "id": "88ez0Aw8",
+      "provider": "flashscore",
+      "league": {
+        "id": "lpOxsoyJ",
+        "name": "Serie D - Group I",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Castrumfavara",
+        "name": "Castrumfavara"
+      },
+      "awayTeam": {
+        "id": "team_licata",
+        "name": "Licata"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.961Z"
+    },
+    "xrzK7MdE": {
+      "id": "xrzK7MdE",
+      "provider": "flashscore",
+      "league": {
+        "id": "lpOxsoyJ",
+        "name": "Serie D - Group I",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Enna",
+        "name": "Enna"
+      },
+      "awayTeam": {
+        "id": "team_milazzo",
+        "name": "Milazzo"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "13'",
+      "minute": 13,
+      "startTime": "2026-09-16T14:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.963Z"
+    },
+    "bZ18964j": {
+      "id": "bZ18964j",
+      "provider": "flashscore",
+      "league": {
+        "id": "nD5FRIO9",
+        "name": "Norway Cup Women",
+        "country": "NORWAY",
+        "countryCode": "145",
+        "flag": "8hwhaQfU-G8a8pPbb.png"
+      },
+      "homeTeam": {
+        "id": "Raufoss W",
+        "name": "Raufoss W"
+      },
+      "awayTeam": {
+        "id": "team_klepp_w",
+        "name": "Klepp W"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.976Z"
+    },
+    "zaD77L4d": {
+      "id": "zaD77L4d",
+      "provider": "flashscore",
+      "league": {
+        "id": "WMbqZT8c",
+        "name": "Croatian Cup",
+        "country": "CROATIA",
+        "countryCode": "59",
+        "flag": "hlXNLFU1-tQuYSysP.png"
+      },
+      "homeTeam": {
+        "id": "Kustosija",
+        "name": "Kustosija"
+      },
+      "awayTeam": {
+        "id": "team_bijelo_brdo",
+        "name": "Bijelo Brdo"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.895Z"
+    },
+    "rq79RtdS": {
+      "id": "rq79RtdS",
+      "provider": "flashscore",
+      "league": {
+        "id": "WMbqZT8c",
+        "name": "Croatian Cup",
+        "country": "CROATIA",
+        "countryCode": "59",
+        "flag": "hlXNLFU1-tQuYSysP.png"
+      },
+      "homeTeam": {
+        "id": "Vrbovec",
+        "name": "Vrbovec"
+      },
+      "awayTeam": {
+        "id": "team_rijeka",
+        "name": "Rijeka"
+      },
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.897Z"
+    },
+    "IqzrZPWI": {
+      "id": "IqzrZPWI",
+      "provider": "flashscore",
+      "league": {
+        "id": "SChKbWpA",
+        "name": "Betano Pokalen",
+        "country": "DENMARK",
+        "countryCode": "63",
+        "flag": "4Yod1A97-fR0gqzJQ.png"
+      },
+      "homeTeam": {
+        "id": "Brabrand",
+        "name": "Brabrand"
+      },
+      "awayTeam": {
+        "id": "team_viborg",
+        "name": "Viborg"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.916Z"
+    },
+    "W8VJvU2s": {
+      "id": "W8VJvU2s",
+      "provider": "flashscore",
+      "league": {
+        "id": "SChKbWpA",
+        "name": "Betano Pokalen",
+        "country": "DENMARK",
+        "countryCode": "63",
+        "flag": "4Yod1A97-fR0gqzJQ.png"
+      },
+      "homeTeam": {
+        "id": "Horsholm-Usserod",
+        "name": "Horsholm-Usserod"
+      },
+      "awayTeam": {
+        "id": "team_aarhus_fremad",
+        "name": "Aarhus Fremad"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.917Z"
+    },
+    "plPpATGb": {
+      "id": "plPpATGb",
+      "provider": "flashscore",
+      "league": {
+        "id": "SChKbWpA",
+        "name": "Betano Pokalen",
+        "country": "DENMARK",
+        "countryCode": "63",
+        "flag": "4Yod1A97-fR0gqzJQ.png"
+      },
+      "homeTeam": {
+        "id": "Naesby",
+        "name": "Naesby"
+      },
+      "awayTeam": {
+        "id": "team_horsens",
+        "name": "Horsens"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.919Z"
+    },
+    "r3TErw4F": {
+      "id": "r3TErw4F",
+      "provider": "flashscore",
+      "league": {
+        "id": "SChKbWpA",
+        "name": "Betano Pokalen",
+        "country": "DENMARK",
+        "countryCode": "63",
+        "flag": "4Yod1A97-fR0gqzJQ.png"
+      },
+      "homeTeam": {
+        "id": "Vatanspor",
+        "name": "Vatanspor"
+      },
+      "awayTeam": {
+        "id": "team_nordsjaelland",
+        "name": "Nordsjaelland"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.921Z"
+    },
+    "vDg2cEt2": {
+      "id": "vDg2cEt2",
+      "provider": "flashscore",
+      "league": {
+        "id": "bkODj8PH",
+        "name": "Regionalliga North",
+        "country": "GERMANY",
+        "countryCode": "81",
+        "flag": "ddURPITp-Uey8D69p.png"
+      },
+      "homeTeam": {
+        "id": "Bremer",
+        "name": "Bremer"
+      },
+      "awayTeam": {
+        "id": "team_vfb_oldenburg",
+        "name": "VfB Oldenburg"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "38'",
+      "minute": 38,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.926Z"
+    },
+    "AejFde1s": {
+      "id": "AejFde1s",
+      "provider": "flashscore",
+      "league": {
+        "id": "AcNlCiqf",
+        "name": "Azadegan League",
+        "country": "IRAN",
+        "countryCode": "94",
+        "flag": "OnKmItjd-0Oslp8bD.png"
+      },
+      "homeTeam": {
+        "id": "Mes Rafsanjan",
+        "name": "Mes Rafsanjan"
+      },
+      "awayTeam": {
+        "id": "team_havadar_sc",
+        "name": "Havadar SC"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.941Z"
+    },
+    "SOGjkEtm": {
+      "id": "SOGjkEtm",
+      "provider": "flashscore",
+      "league": {
+        "id": "lpOxsoyJ",
+        "name": "Serie D - Group I",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Nissa",
+        "name": "Nissa"
+      },
+      "awayTeam": {
+        "id": "team_trapani",
+        "name": "Trapani"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T14:30:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.966Z"
+    },
+    "YivAjtHO": {
+      "id": "YivAjtHO",
+      "provider": "flashscore",
+      "league": {
+        "id": "QVA4ECc4",
+        "name": "Greek Cup",
+        "country": "GREECE",
+        "countryCode": "83",
+        "flag": "buTVc0md-Y7lJE6YQ.png"
+      },
+      "homeTeam": {
+        "id": "Kifisia",
+        "name": "Kifisia"
+      },
+      "awayTeam": {
+        "id": "team_panathinaikos",
+        "name": "Panathinaikos"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T14:45:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.931Z"
+    },
+    "EawrsskB": {
+      "id": "EawrsskB",
+      "provider": "flashscore",
+      "league": {
+        "id": "ImhRkuPF",
+        "name": "CAF Confederation Cup - Qualification",
+        "country": "AFRICA",
+        "countryCode": "1",
+        "flag": "4UcvCwA7-vNpyuxRB.png"
+      },
+      "homeTeam": {
+        "id": "ASPAC (Ben)",
+        "name": "ASPAC (Ben)"
+      },
+      "awayTeam": {
+        "id": "team_panthers__gnq_",
+        "name": "Panthers (Gnq)"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.879Z"
+    },
+    "2aYGUx97": {
+      "id": "2aYGUx97",
+      "provider": "flashscore",
+      "league": {
+        "id": "ClOlMrL0",
+        "name": "3. CFL - Group B",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "SlQbIJkD-p6MP5IOh.png"
+      },
+      "homeTeam": {
+        "id": "Brozany",
+        "name": "Brozany"
+      },
+      "awayTeam": {
+        "id": "team_pardubice_b",
+        "name": "Pardubice B"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.899Z"
+    },
+    "Uoz9Wbve": {
+      "id": "Uoz9Wbve",
+      "provider": "flashscore",
+      "league": {
+        "id": "ClOlMrL0",
+        "name": "3. CFL - Group B",
+        "country": "CZECH REPUBLIC",
+        "countryCode": "62",
+        "flag": "SlQbIJkD-p6MP5IOh.png"
+      },
+      "homeTeam": {
+        "id": "Zapy",
+        "name": "Zapy"
+      },
+      "awayTeam": {
+        "id": "team_liberec_b",
+        "name": "Liberec B"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.901Z"
+    },
+    "lWBPfZU1": {
+      "id": "lWBPfZU1",
+      "provider": "flashscore",
+      "league": {
+        "id": "dQ1PEM25",
+        "name": "Crystalbet Erovnuli Liga 2",
+        "country": "GEORGIA",
+        "countryCode": "80",
+        "flag": "MNuu3B97-ULlPlk2I.png"
+      },
+      "homeTeam": {
+        "id": "Telavi",
+        "name": "Telavi"
+      },
+      "awayTeam": {
+        "id": "team_shturmi",
+        "name": "Shturmi"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.924Z"
+    },
+    "vkc4O8ve": {
+      "id": "vkc4O8ve",
+      "provider": "flashscore",
+      "league": {
+        "id": "KrJn7T9b",
+        "name": "Regionalliga Nordost",
+        "country": "GERMANY",
+        "countryCode": "81",
+        "flag": "UNFDwiT1-Y95bIAD2.png"
+      },
+      "homeTeam": {
+        "id": "RSV Eintracht",
+        "name": "RSV Eintracht"
+      },
+      "awayTeam": {
+        "id": "team_greifswald",
+        "name": "Greifswald"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.928Z"
+    },
+    "YaQMRkVf": {
+      "id": "YaQMRkVf",
+      "provider": "flashscore",
+      "league": {
+        "id": "MwvWjCoo",
+        "name": "NB I Women",
+        "country": "HUNGARY",
+        "countryCode": "91",
+        "flag": "ptFp0lfU-dfuJhBEK.png"
+      },
+      "homeTeam": {
+        "id": "Videoton W",
+        "name": "Videoton W"
+      },
+      "awayTeam": {
+        "id": "team_dvtk_w",
+        "name": "DVTK W"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.934Z"
+    },
+    "vs1mkqR0": {
+      "id": "vs1mkqR0",
+      "provider": "flashscore",
+      "league": {
+        "id": "KKE4nk7s",
+        "name": "Serie D - Group H",
+        "country": "ITALY",
+        "countryCode": "98",
+        "flag": "fHHNuvjd-E98JCS6I.png"
+      },
+      "homeTeam": {
+        "id": "Turris",
+        "name": "Turris"
+      },
+      "awayTeam": {
+        "id": "team_gravina",
+        "name": "Gravina"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.953Z"
+    },
+    "E9WkGCMG": {
+      "id": "E9WkGCMG",
+      "provider": "flashscore",
+      "league": {
+        "id": "xjdVkm8K",
+        "name": "NPFL",
+        "country": "NIGERIA",
+        "countryCode": "143",
+        "flag": "8Qpqm6kd-SdhfFoOC.png"
+      },
+      "homeTeam": {
+        "id": "Rivers United",
+        "name": "Rivers United"
+      },
+      "awayTeam": {
+        "id": "team_warri_wolves",
+        "name": "Warri Wolves"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.969Z"
+    },
+    "xvqInovf": {
+      "id": "xvqInovf",
+      "provider": "flashscore",
+      "league": {
+        "id": "nc5HnmHq",
+        "name": "Division 2 - Group 2",
+        "country": "NORWAY",
+        "countryCode": "145",
+        "flag": "Y5et3eW1-Yo3njntc.png"
+      },
+      "homeTeam": {
+        "id": "Grorud",
+        "name": "Grorud"
+      },
+      "awayTeam": {
+        "id": "team_tromsdalen",
+        "name": "Tromsdalen"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.971Z"
+    },
+    "MaVfRxfJ": {
+      "id": "MaVfRxfJ",
+      "provider": "flashscore",
+      "league": {
+        "id": "OW3kHtgf",
+        "name": "NM Cup",
+        "country": "NORWAY",
+        "countryCode": "145",
+        "flag": "CAaiTEkD-UcGOb262.png"
+      },
+      "homeTeam": {
+        "id": "Forde",
+        "name": "Forde"
+      },
+      "awayTeam": {
+        "id": "team_aalesund",
+        "name": "Aalesund"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.973Z"
+    },
+    "prBaFiVQ": {
+      "id": "prBaFiVQ",
+      "provider": "flashscore",
+      "league": {
+        "id": "bqLCwpQF",
+        "name": "Division 1 Women",
+        "country": "NORWAY",
+        "countryCode": "145",
+        "flag": "4nRqdpXI-xf8J6T2T.png"
+      },
+      "homeTeam": {
+        "id": "Asane W",
+        "name": "Asane W"
+      },
+      "awayTeam": {
+        "id": "team_grei_w",
+        "name": "Grei W"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.974Z"
+    },
+    "E33oQE8U": {
+      "id": "E33oQE8U",
+      "provider": "flashscore",
+      "league": {
+        "id": "G4Jhegue",
+        "name": "Ligue Professionnelle 1",
+        "country": "TUNISIA",
+        "countryCode": "190",
+        "flag": "YBrafEB7-QcRFrmHj.png"
+      },
+      "homeTeam": {
+        "id": "Ben Guerdane",
+        "name": "Ben Guerdane"
+      },
+      "awayTeam": {
+        "id": "team_cs_sfaxien",
+        "name": "CS Sfaxien"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.981Z"
+    },
+    "IXcIvENN": {
+      "id": "IXcIvENN",
+      "provider": "flashscore",
+      "league": {
+        "id": "G4Jhegue",
+        "name": "Ligue Professionnelle 1",
+        "country": "TUNISIA",
+        "countryCode": "190",
+        "flag": "YBrafEB7-QcRFrmHj.png"
+      },
+      "homeTeam": {
+        "id": "Zarzis",
+        "name": "Zarzis"
+      },
+      "awayTeam": {
+        "id": "team_monastir",
+        "name": "Monastir"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.983Z"
+    },
+    "ngfhL44D": {
+      "id": "ngfhL44D",
+      "provider": "flashscore",
+      "league": {
+        "id": "lvwo7fJF",
+        "name": "USL League One",
+        "country": "USA",
+        "countryCode": "200",
+        "flag": "bVBva9EO-6srzwGmT.png"
+      },
+      "homeTeam": {
+        "id": "Greenville",
+        "name": "Greenville"
+      },
+      "awayTeam": {
+        "id": "team_corpus_christi_fc",
+        "name": "Corpus Christi FC"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.986Z"
+    },
+    "OSTRiwPc": {
+      "id": "OSTRiwPc",
+      "provider": "flashscore",
+      "league": {
+        "id": "I74DWmC4",
+        "name": "Druga Liga",
+        "country": "MONTENEGRO",
+        "countryCode": "133",
+        "flag": "YexELm7j-noHC0SJ0.png"
+      },
+      "homeTeam": {
+        "id": "Lovcen",
+        "name": "Lovcen"
+      },
+      "awayTeam": {
+        "id": "team_rudar",
+        "name": "Rudar"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "12'",
+      "minute": 12,
+      "startTime": "2026-09-16T15:00:00.000Z",
+      "lastUpdated": "2026-09-16T15:21:04.968Z"
+    },
+    "IsPIvYuT": {
+      "id": "IsPIvYuT",
+      "provider": "flashscore",
+      "league": {
+        "id": "WnCWOwWq",
+        "name": "Asian Games Women",
+        "country": "ASIA",
+        "countryCode": "5",
+        "flag": "djRbC8V1-fc1XH2Tg.png"
+      },
+      "homeTeam": {
+        "id": "Bangladesh W",
+        "name": "Bangladesh W"
+      },
+      "awayTeam": {
+        "id": "team_south_korea_w",
+        "name": "South Korea W"
+      },
+      "homeScore": 0,
+      "awayScore": 6,
+      "status": "IN_PLAY",
+      "statusText": "95' (2nd Half)",
+      "minute": 95,
+      "startTime": "2026-09-17T07:00:00.000Z",
+      "lastUpdated": "2026-09-17T08:52:23.416Z"
+    },
+    "2iI2rGt4": {
+      "id": "2iI2rGt4",
+      "provider": "flashscore",
+      "league": {
+        "id": "WnCWOwWq",
+        "name": "Asian Games Women",
+        "country": "ASIA",
+        "countryCode": "5",
+        "flag": "djRbC8V1-fc1XH2Tg.png"
+      },
+      "homeTeam": {
+        "id": "Thailand W",
+        "name": "Thailand W"
+      },
+      "awayTeam": {
+        "id": "team_chinese_taipei_w",
+        "name": "Chinese Taipei W"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "96' (2nd Half)",
+      "minute": 96,
+      "startTime": "2026-09-17T07:00:00.000Z",
+      "lastUpdated": "2026-09-17T08:55:38.428Z"
+    },
+    "0WoI6KE6": {
+      "id": "0WoI6KE6",
+      "provider": "flashscore",
+      "league": {
+        "id": "IcsFDKFN",
+        "name": "League Women - Play Offs",
+        "country": "KAZAKHSTAN",
+        "countryCode": "102",
+        "flag": "CGl2WxUp-boAh0IpR.png"
+      },
+      "homeTeam": {
+        "id": "Zhenis Astana W",
+        "name": "Zhenis Astana W"
+      },
+      "awayTeam": {
+        "id": "team_aktobe_w",
+        "name": "Aktobe W"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "97' (2nd Half)",
+      "minute": 97,
+      "startTime": "2026-09-17T07:00:00.000Z",
+      "lastUpdated": "2026-09-17T08:55:38.430Z"
+    },
+    "K4A2ZwPj": {
+      "id": "K4A2ZwPj",
+      "provider": "flashscore",
+      "league": {
+        "id": "jqeQc4eS",
+        "name": "Friendly International Women",
+        "country": "WORLD",
+        "countryCode": "8",
+        "flag": "lvaRPeWI-SWnnC7wD.png"
+      },
+      "homeTeam": {
+        "id": "Fiji W",
+        "name": "Fiji W"
+      },
+      "awayTeam": {
+        "id": "team_papua_new_guinea_w",
+        "name": "Papua New Guinea W"
+      },
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "IN_PLAY",
+      "statusText": "97' (2nd Half)",
+      "minute": 97,
+      "startTime": "2026-09-17T07:00:00.000Z",
+      "lastUpdated": "2026-09-17T08:55:38.434Z"
+    },
+    "QBfNIzq4": {
+      "id": "QBfNIzq4",
+      "provider": "flashscore",
+      "league": {
+        "id": "vaA8Nz3t",
+        "name": "Premier League",
+        "country": "MONGOLIA",
+        "countryCode": "132",
+        "flag": "rqLGJwAj-SbTYBjj8.png"
+      },
+      "homeTeam": {
+        "id": "Central Stallions",
+        "name": "Central Stallions"
+      },
+      "awayTeam": {
+        "id": "team_hunters",
+        "name": "Hunters"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "70' (2nd Half)",
+      "minute": 70,
+      "startTime": "2026-09-17T08:00:00.000Z",
+      "lastUpdated": "2026-09-17T09:28:41.558Z"
+    },
+    "ljmhSrZ8": {
+      "id": "ljmhSrZ8",
+      "provider": "flashscore",
+      "league": {
+        "id": "j5xb1kHL",
+        "name": "Asian Games",
+        "country": "ASIA",
+        "countryCode": "5",
+        "flag": "IVMQwKld-t2o6IE27.png"
+      },
+      "homeTeam": {
+        "id": "Saudi Arabia U23",
+        "name": "Saudi Arabia U23"
+      },
+      "awayTeam": {
+        "id": "team_qatar_u23",
+        "name": "Qatar U23"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "94' (2nd Half)",
+      "minute": 94,
+      "startTime": "2026-09-18T10:30:00.000Z",
+      "lastUpdated": "2026-09-18T12:23:19.521Z"
+    },
+    "O28k4jPa": {
+      "id": "O28k4jPa",
+      "provider": "flashscore",
+      "league": {
+        "id": "AVQ0yCxS",
+        "name": "I Liqa",
+        "country": "AZERBAIJAN",
+        "countryCode": "26",
+        "flag": "KSxh5gmd-OlknE363.png"
+      },
+      "homeTeam": {
+        "id": "Khankendi",
+        "name": "Khankendi"
+      },
+      "awayTeam": {
+        "id": "team_moik_baku",
+        "name": "MOIK Baku"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.549Z"
+    },
+    "MZPjmUN9": {
+      "id": "MZPjmUN9",
+      "provider": "flashscore",
+      "league": {
+        "id": "GdLgp3Vs",
+        "name": "Premier League",
+        "country": "BHUTAN",
+        "countryCode": "35",
+        "flag": "0QfQF4C7-8S9DjIW3.png"
+      },
+      "homeTeam": {
+        "id": "Transport United",
+        "name": "Transport United"
+      },
+      "awayTeam": {
+        "id": "team_rtc",
+        "name": "RTC"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.551Z"
+    },
+    "fVlFSFPk": {
+      "id": "fVlFSFPk",
+      "provider": "flashscore",
+      "league": {
+        "id": "6qZmcKtB",
+        "name": "Super League",
+        "country": "CHINA",
+        "countryCode": "52",
+        "flag": "nsc6uMBO-SzPusglj.png"
+      },
+      "homeTeam": {
+        "id": "Zhejiang Professional",
+        "name": "Zhejiang Professional"
+      },
+      "awayTeam": {
+        "id": "team_wuhan_three_towns",
+        "name": "Wuhan Three Towns"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "51' (1st Half)",
+      "minute": 51,
+      "startTime": "2026-09-18T11:35:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.552Z"
+    },
+    "AuCT5PSG": {
+      "id": "AuCT5PSG",
+      "provider": "flashscore",
+      "league": {
+        "id": "2BSdebBN",
+        "name": "League One",
+        "country": "CHINA",
+        "countryCode": "52",
+        "flag": "lxz3cO7j-KWKE6aiG.png"
+      },
+      "homeTeam": {
+        "id": "Dalian K'un City",
+        "name": "Dalian K'un City"
+      },
+      "awayTeam": {
+        "id": "team_ningbo_professional",
+        "name": "Ningbo Professional"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "68' (2nd Half)",
+      "minute": 68,
+      "startTime": "2026-09-18T11:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.554Z"
+    },
+    "rgAy43cT": {
+      "id": "rgAy43cT",
+      "provider": "flashscore",
+      "league": {
+        "id": "2BSdebBN",
+        "name": "League One",
+        "country": "CHINA",
+        "countryCode": "52",
+        "flag": "lxz3cO7j-KWKE6aiG.png"
+      },
+      "homeTeam": {
+        "id": "Nantong Zhiyun",
+        "name": "Nantong Zhiyun"
+      },
+      "awayTeam": {
+        "id": "team_guangxi_hengchen",
+        "name": "Guangxi Hengchen"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "PAUSED",
+      "statusText": "HT (45')",
+      "minute": 45,
+      "startTime": "2026-09-18T11:30:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.556Z"
+    },
+    "KCW2ETx8": {
+      "id": "KCW2ETx8",
+      "provider": "flashscore",
+      "league": {
+        "id": "I7KNDuRi",
+        "name": "League Two - Promotion Group",
+        "country": "CHINA",
+        "countryCode": "52",
+        "flag": "SdvyWCld-2FjO1emb.png"
+      },
+      "homeTeam": {
+        "id": "Jiangxi Lushan",
+        "name": "Jiangxi Lushan"
+      },
+      "awayTeam": {
+        "id": "team_shandong_taishan_b",
+        "name": "Shandong Taishan B"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "PAUSED",
+      "statusText": "HT (45')",
+      "minute": 45,
+      "startTime": "2026-09-18T11:30:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.558Z"
+    },
+    "lrsaOkyn": {
+      "id": "lrsaOkyn",
+      "provider": "flashscore",
+      "league": {
+        "id": "Cv3R6iIa",
+        "name": "Premier League 2",
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "team"
+      },
+      "homeTeam": {
+        "id": "Birmingham U21",
+        "name": "Birmingham U21"
+      },
+      "awayTeam": {
+        "id": "team_arsenal_u21",
+        "name": "Arsenal U21"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.559Z"
+    },
+    "MNB73XBa": {
+      "id": "MNB73XBa",
+      "provider": "flashscore",
+      "league": {
+        "id": "Kfq5a0Gj",
+        "name": "Professional Development League",
+        "country": "ENGLAND",
+        "countryCode": "198",
+        "flag": "team"
+      },
+      "homeTeam": {
+        "id": "Fleetwood U21",
+        "name": "Fleetwood U21"
+      },
+      "awayTeam": {
+        "id": "team_swansea_u21",
+        "name": "Swansea U21"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.561Z"
+    },
+    "4Uek6gdR": {
+      "id": "4Uek6gdR",
+      "provider": "flashscore",
+      "league": {
+        "id": "A13mN8cC",
+        "name": "Super League",
+        "country": "INDONESIA",
+        "countryCode": "228",
+        "flag": "EoERKLld-00wcRZd9.png"
+      },
+      "homeTeam": {
+        "id": "Madura United",
+        "name": "Madura United"
+      },
+      "awayTeam": {
+        "id": "team_psim_yogyakarta",
+        "name": "PSIM Yogyakarta"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.562Z"
+    },
+    "vVbB0Hlf": {
+      "id": "vVbB0Hlf",
+      "provider": "flashscore",
+      "league": {
+        "id": "zwzXAflo",
+        "name": "Championship",
+        "country": "INDONESIA",
+        "countryCode": "228",
+        "flag": "UTlrJGBO-zDrZsz3i.png"
+      },
+      "homeTeam": {
+        "id": "Bekasi City",
+        "name": "Bekasi City"
+      },
+      "awayTeam": {
+        "id": "team_persikad_depok",
+        "name": "Persikad Depok"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.564Z"
+    },
+    "nsg2ERne": {
+      "id": "nsg2ERne",
+      "provider": "flashscore",
+      "league": {
+        "id": "zwjnTClT",
+        "name": "Liga Alef North",
+        "country": "ISRAEL",
+        "countryCode": "97",
+        "flag": "WtHokojD-WUhe1sd5.png"
+      },
+      "homeTeam": {
+        "id": "Hapoel Bnei Musmus",
+        "name": "Hapoel Bnei Musmus"
+      },
+      "awayTeam": {
+        "id": "team_nahariya",
+        "name": "Nahariya"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "PAUSED",
+      "statusText": "HT (45')",
+      "minute": 45,
+      "startTime": "2026-09-18T11:25:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.565Z"
+    },
+    "04PEzI3c": {
+      "id": "04PEzI3c",
+      "provider": "flashscore",
+      "league": {
+        "id": "zwjnTClT",
+        "name": "Liga Alef North",
+        "country": "ISRAEL",
+        "countryCode": "97",
+        "flag": "WtHokojD-WUhe1sd5.png"
+      },
+      "homeTeam": {
+        "id": "Maccabi Nujeidat Ahmad",
+        "name": "Maccabi Nujeidat Ahmad"
+      },
+      "awayTeam": {
+        "id": "team_h__migdal_haemek",
+        "name": "H. Migdal HaEmek"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.567Z"
+    },
+    "pxqQl8pf": {
+      "id": "pxqQl8pf",
+      "provider": "flashscore",
+      "league": {
+        "id": "pYzMqYY9",
+        "name": "Liga Alef South",
+        "country": "ISRAEL",
+        "countryCode": "97",
+        "flag": "A5iLAmgU-xSe4YoNf.png"
+      },
+      "homeTeam": {
+        "id": "M. Ironi Ashdod",
+        "name": "M. Ironi Ashdod"
+      },
+      "awayTeam": {
+        "id": "team_ironi_beit_shemesh",
+        "name": "Ironi Beit Shemesh"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "90' (2nd Half)",
+      "minute": 90,
+      "startTime": "2026-09-18T10:30:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.569Z"
+    },
+    "nJdwr7he": {
+      "id": "nJdwr7he",
+      "provider": "flashscore",
+      "league": {
+        "id": "pYzMqYY9",
+        "name": "Liga Alef South",
+        "country": "ISRAEL",
+        "countryCode": "97",
+        "flag": "A5iLAmgU-xSe4YoNf.png"
+      },
+      "homeTeam": {
+        "id": "Maccabi Yavne",
+        "name": "Maccabi Yavne"
+      },
+      "awayTeam": {
+        "id": "team_hapoel_herzliya",
+        "name": "Hapoel Herzliya"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "91' (2nd Half)",
+      "minute": 91,
+      "startTime": "2026-09-18T10:35:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.570Z"
+    },
+    "Q3SRzjoS": {
+      "id": "Q3SRzjoS",
+      "provider": "flashscore",
+      "league": {
+        "id": "pYzMqYY9",
+        "name": "Liga Alef South",
+        "country": "ISRAEL",
+        "countryCode": "97",
+        "flag": "A5iLAmgU-xSe4YoNf.png"
+      },
+      "homeTeam": {
+        "id": "M. Ironi Kiryat Malachi",
+        "name": "M. Ironi Kiryat Malachi"
+      },
+      "awayTeam": {
+        "id": "team_hapoel_azor",
+        "name": "Hapoel Azor"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "65' (2nd Half)",
+      "minute": 65,
+      "startTime": "2026-09-18T11:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.572Z"
+    },
+    "f3IAWl5d": {
+      "id": "f3IAWl5d",
+      "provider": "flashscore",
+      "league": {
+        "id": "OOcDTlkn",
+        "name": "Premier League",
+        "country": "KAZAKHSTAN",
+        "countryCode": "102",
+        "flag": "r7Nl3ORp-6HvdR1WK.png"
+      },
+      "homeTeam": {
+        "id": "Okzhetpes",
+        "name": "Okzhetpes"
+      },
+      "awayTeam": {
+        "id": "team_zhenis",
+        "name": "Zhenis"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "67' (2nd Half)",
+      "minute": 67,
+      "startTime": "2026-09-18T11:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.574Z"
+    },
+    "GfOWwXCM": {
+      "id": "GfOWwXCM",
+      "provider": "flashscore",
+      "league": {
+        "id": "OOcDTlkn",
+        "name": "Premier League",
+        "country": "KAZAKHSTAN",
+        "countryCode": "102",
+        "flag": "r7Nl3ORp-6HvdR1WK.png"
+      },
+      "homeTeam": {
+        "id": "Altai",
+        "name": "Altai"
+      },
+      "awayTeam": {
+        "id": "team_ertis_pavlodar",
+        "name": "Ertis Pavlodar"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.576Z"
+    },
+    "OSFVJBLj": {
+      "id": "OSFVJBLj",
+      "provider": "flashscore",
+      "league": {
+        "id": "OOcDTlkn",
+        "name": "Premier League",
+        "country": "KAZAKHSTAN",
+        "countryCode": "102",
+        "flag": "r7Nl3ORp-6HvdR1WK.png"
+      },
+      "homeTeam": {
+        "id": "Zhetysu Taldykorgan",
+        "name": "Zhetysu Taldykorgan"
+      },
+      "awayTeam": {
+        "id": "team_kaspij_aktau",
+        "name": "Kaspij Aktau"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.578Z"
+    },
+    "2iSyEb8j": {
+      "id": "2iSyEb8j",
+      "provider": "flashscore",
+      "league": {
+        "id": "OA0McLh2",
+        "name": "FNL 2 - Division B - Group 2",
+        "country": "RUSSIA",
+        "countryCode": "158",
+        "flag": "f1o8q8T1-rew2tSIG.png"
+      },
+      "homeTeam": {
+        "id": "Zvezda St. Peterburg",
+        "name": "Zvezda St. Peterburg"
+      },
+      "awayTeam": {
+        "id": "team_murom",
+        "name": "Murom"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "70' (2nd Half)",
+      "minute": 70,
+      "startTime": "2026-09-18T11:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.580Z"
+    },
+    "KhpCcRZ7": {
+      "id": "KhpCcRZ7",
+      "provider": "flashscore",
+      "league": {
+        "id": "lIw2btAa",
+        "name": "Youth League",
+        "country": "RUSSIA",
+        "countryCode": "158",
+        "flag": "UgG5R4hU-zNZ2h2nh.png"
+      },
+      "homeTeam": {
+        "id": "CSKA Moscow U19",
+        "name": "CSKA Moscow U19"
+      },
+      "awayTeam": {
+        "id": "team_fakel_voronezh_u19",
+        "name": "Fakel Voronezh U19"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.582Z"
+    },
+    "QPHhhWcS": {
+      "id": "QPHhhWcS",
+      "provider": "flashscore",
+      "league": {
+        "id": "lIw2btAa",
+        "name": "Youth League",
+        "country": "RUSSIA",
+        "countryCode": "158",
+        "flag": "UgG5R4hU-zNZ2h2nh.png"
+      },
+      "homeTeam": {
+        "id": "Konoplev Academy U19",
+        "name": "Konoplev Academy U19"
+      },
+      "awayTeam": {
+        "id": "team_rubin_kazan_u19",
+        "name": "Rubin Kazan U19"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.583Z"
+    },
+    "lQPRS1jf": {
+      "id": "lQPRS1jf",
+      "provider": "flashscore",
+      "league": {
+        "id": "KvmJZJZg",
+        "name": "Premier League",
+        "country": "SINGAPORE",
+        "countryCode": "170",
+        "flag": "GKDfGw7j-Ohg2fQ0t.png"
+      },
+      "homeTeam": {
+        "id": "FC Jurong",
+        "name": "FC Jurong"
+      },
+      "awayTeam": {
+        "id": "team_hougang",
+        "name": "Hougang"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "56' (1st Half)",
+      "minute": 56,
+      "startTime": "2026-09-18T11:30:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.585Z"
+    },
+    "h8a7Wvwf": {
+      "id": "h8a7Wvwf",
+      "provider": "flashscore",
+      "league": {
+        "id": "QXwLLMqB",
+        "name": "Thai League 1",
+        "country": "THAILAND",
+        "countryCode": "186",
+        "flag": "noZH0T7j-WIpgnHu1.png"
+      },
+      "homeTeam": {
+        "id": "Ayutthaya Utd",
+        "name": "Ayutthaya Utd"
+      },
+      "awayTeam": {
+        "id": "team_uthai_thani",
+        "name": "Uthai Thani"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "26' (1st Half)",
+      "minute": 26,
+      "startTime": "2026-09-18T12:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.586Z"
+    },
+    "CW6HiP0m": {
+      "id": "CW6HiP0m",
+      "provider": "flashscore",
+      "league": {
+        "id": "Q1caF54l",
+        "name": "Premier League",
+        "country": "UKRAINE",
+        "countryCode": "195",
+        "flag": "2gsefYkd-S6s7M6lC.png"
+      },
+      "homeTeam": {
+        "id": "Ch. Odesa",
+        "name": "Ch. Odesa"
+      },
+      "awayTeam": {
+        "id": "team_obolon",
+        "name": "Obolon"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "57' (2nd Half)",
+      "minute": 57,
+      "startTime": "2026-09-18T10:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.588Z"
+    },
+    "6cKq3LV0": {
+      "id": "6cKq3LV0",
+      "provider": "flashscore",
+      "league": {
+        "id": "6iB1gTvo",
+        "name": "Vietnamese Cup",
+        "country": "VIETNAM",
+        "countryCode": "206",
+        "flag": "Ei3dOmDO-vDylMxZj.png"
+      },
+      "homeTeam": {
+        "id": "Quy Nhon United",
+        "name": "Quy Nhon United"
+      },
+      "awayTeam": {
+        "id": "team_ho_chi_minh_city",
+        "name": "Ho Chi Minh City"
+      },
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "68' (2nd Half)",
+      "minute": 68,
+      "startTime": "2026-09-18T11:00:00.000Z",
+      "lastUpdated": "2026-09-18T12:26:04.590Z"
+    }
+  },
+  "events": {
+    "dhpCOjWI": [
+      {
+        "id": "ev_dhpCOjWI_1789567297893_GOAL",
+        "matchId": "dhpCOjWI",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Correggese",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:01:37.893Z"
+      },
+      {
+        "id": "ev_dhpCOjWI_1789568272960_GOAL",
+        "matchId": "dhpCOjWI",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Varesina",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:17:52.960Z"
+      }
+    ],
+    "2179dRYQ": [
+      {
+        "id": "ev_2179dRYQ_1789567297912_GOAL",
+        "matchId": "2179dRYQ",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Bisceglie",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:01:37.912Z"
+      },
+      {
+        "id": "ev_2179dRYQ_1789568272991_GOAL",
+        "matchId": "2179dRYQ",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Ebolitana",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:17:52.991Z"
+      },
+      {
+        "id": "ev_2179dRYQ_1789571736827_GOAL",
+        "matchId": "2179dRYQ",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Ebolitana",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T15:15:36.827Z"
+      }
+    ],
+    "pO7d9dkd": [
+      {
+        "id": "ev_pO7d9dkd_1789567297915_GOAL",
+        "matchId": "pO7d9dkd",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Yenisey",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:01:37.915Z"
+      },
+      {
+        "id": "ev_pO7d9dkd_1789567882958_GOAL",
+        "matchId": "pO7d9dkd",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Yenisey",
+        "homeScore": 3,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:11:22.958Z"
+      }
+    ],
+    "vcTUPTa7": [
+      {
+        "id": "ev_vcTUPTa7_1789567492889_GOAL",
+        "matchId": "vcTUPTa7",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Honved W",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:04:52.889Z"
+      }
+    ],
+    "nqdeSrVr": [
+      {
+        "id": "ev_nqdeSrVr_1789567492905_GOAL",
+        "matchId": "nqdeSrVr",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Legnago Salus",
+        "homeScore": 1,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:04:52.905Z"
+      },
+      {
+        "id": "ev_nqdeSrVr_1789568272946_GOAL",
+        "matchId": "nqdeSrVr",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Altavilla",
+        "homeScore": 2,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:17:52.946Z"
+      }
+    ],
+    "I9FVBNp2": [
+      {
+        "id": "ev_I9FVBNp2_1789567492909_GOAL",
+        "matchId": "I9FVBNp2",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Luparense",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:04:52.909Z"
+      },
+      {
+        "id": "ev_I9FVBNp2_1789569053013_GOAL",
+        "matchId": "I9FVBNp2",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Luparense",
+        "homeScore": 3,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:30:53.013Z"
+      }
+    ],
+    "QPcEO0pf": [
+      {
+        "id": "ev_QPcEO0pf_1789567492926_GOAL",
+        "matchId": "QPcEO0pf",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Lucchese",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:04:52.926Z"
+      },
+      {
+        "id": "ev_QPcEO0pf_1789568858000_GOAL",
+        "matchId": "QPcEO0pf",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Lucchese",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:27:38.000Z"
+      },
+      {
+        "id": "ev_QPcEO0pf_1789571736818_GOAL",
+        "matchId": "QPcEO0pf",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Lucchese",
+        "homeScore": 4,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T15:15:36.818Z"
+      }
+    ],
+    "CSUsT8Nt": [
+      {
+        "id": "ev_CSUsT8Nt_1789567492929_GOAL",
+        "matchId": "CSUsT8Nt",
+        "type": "GOAL",
+        "minute": 38,
+        "teamSide": "away",
+        "playerName": "Teramo",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:04:52.929Z"
+      },
+      {
+        "id": "ev_CSUsT8Nt_1789568467977_GOAL",
+        "matchId": "CSUsT8Nt",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Teramo",
+        "homeScore": 0,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:21:07.977Z"
+      },
+      {
+        "id": "ev_CSUsT8Nt_1789570192500_GOAL",
+        "matchId": "CSUsT8Nt",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Angelana",
+        "homeScore": 1,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:49:52.500Z"
+      }
+    ],
+    "nJbm6k04": [
+      {
+        "id": "ev_nJbm6k04_1789567687897_GOAL",
+        "matchId": "nJbm6k04",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Besa Kavaje",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:08:07.897Z"
+      }
+    ],
+    "vNpE2ypB": [
+      {
+        "id": "ev_vNpE2ypB_1789567687910_GOAL",
+        "matchId": "vNpE2ypB",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "FK Pardubice",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:08:07.910Z"
+      },
+      {
+        "id": "ev_vNpE2ypB_1789567882878_GOAL",
+        "matchId": "vNpE2ypB",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "FK Pardubice",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:11:22.878Z"
+      },
+      {
+        "id": "ev_vNpE2ypB_1789568077911_GOAL",
+        "matchId": "vNpE2ypB",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "FK Pardubice",
+        "homeScore": 0,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:14:37.911Z"
+      },
+      {
+        "id": "ev_vNpE2ypB_1789571736750_GOAL",
+        "matchId": "vNpE2ypB",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "FK Pardubice",
+        "homeScore": 0,
+        "awayScore": 5,
+        "createdAt": "2026-09-16T15:15:36.750Z"
+      }
+    ],
+    "UgOgFETG": [
+      {
+        "id": "ev_UgOgFETG_1789567687913_GOAL",
+        "matchId": "UgOgFETG",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Brno",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:08:07.913Z"
+      },
+      {
+        "id": "ev_UgOgFETG_1789568272910_GOAL",
+        "matchId": "UgOgFETG",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Brno",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:17:52.910Z"
+      }
+    ],
+    "APRwJdUi": [
+      {
+        "id": "ev_APRwJdUi_1789567687916_GOAL",
+        "matchId": "APRwJdUi",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Slovacko",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:08:07.916Z"
+      },
+      {
+        "id": "ev_APRwJdUi_1789571736764_GOAL",
+        "matchId": "APRwJdUi",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Slovacko",
+        "homeScore": 0,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T15:15:36.764Z"
+      }
+    ],
+    "vkPb6Jpn": [
+      {
+        "id": "ev_vkPb6Jpn_1789567687920_GOAL",
+        "matchId": "vkPb6Jpn",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Slavia Prague",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:08:07.920Z"
+      },
+      {
+        "id": "ev_vkPb6Jpn_1789568077920_GOAL",
+        "matchId": "vkPb6Jpn",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Slavia Prague",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:14:37.920Z"
+      },
+      {
+        "id": "ev_vkPb6Jpn_1789569052979_GOAL",
+        "matchId": "vkPb6Jpn",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Slavia Prague",
+        "homeScore": 0,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:30:52.979Z"
+      },
+      {
+        "id": "ev_vkPb6Jpn_1789569997421_GOAL",
+        "matchId": "vkPb6Jpn",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Slavia Prague",
+        "homeScore": 0,
+        "awayScore": 5,
+        "createdAt": "2026-09-16T14:46:37.421Z"
+      }
+    ],
+    "UqNgz7s3": [
+      {
+        "id": "ev_UqNgz7s3_1789567687940_GOAL",
+        "matchId": "UqNgz7s3",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Ligorna",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:08:07.940Z"
+      },
+      {
+        "id": "ev_UqNgz7s3_1789568272939_GOAL",
+        "matchId": "UqNgz7s3",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Derthona FbC",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:17:52.939Z"
+      },
+      {
+        "id": "ev_UqNgz7s3_1789569997454_GOAL",
+        "matchId": "UqNgz7s3",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Derthona FbC",
+        "homeScore": 1,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:46:37.454Z"
+      }
+    ],
+    "KUNTtYom": [
+      {
+        "id": "ev_KUNTtYom_1789567687953_GOAL",
+        "matchId": "KUNTtYom",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Pistoiese",
+        "homeScore": 3,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:08:07.953Z"
+      },
+      {
+        "id": "ev_KUNTtYom_1789568662960_GOAL",
+        "matchId": "KUNTtYom",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Pistoiese",
+        "homeScore": 4,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:24:22.960Z"
+      }
+    ],
+    "OGXyXRct": [
+      {
+        "id": "ev_OGXyXRct_1789567687998_GOAL",
+        "matchId": "OGXyXRct",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Gazalkent",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:08:07.998Z"
+      }
+    ],
+    "na8gp8wo": [
+      {
+        "id": "ev_na8gp8wo_1789567882869_GOAL",
+        "matchId": "na8gp8wo",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Iliria Fushe-Kruje",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:11:22.869Z"
+      }
+    ],
+    "zsQ1YpCF": [
+      {
+        "id": "ev_zsQ1YpCF_1789567882906_GOAL",
+        "matchId": "zsQ1YpCF",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Millesimo",
+        "homeScore": 3,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:11:22.906Z"
+      },
+      {
+        "id": "ev_zsQ1YpCF_1789569053000_GOAL",
+        "matchId": "zsQ1YpCF",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Millesimo",
+        "homeScore": 4,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:30:53.000Z"
+      }
+    ],
+    "Yk1MMvF6": [
+      {
+        "id": "ev_Yk1MMvF6_1789567882931_GOAL",
+        "matchId": "Yk1MMvF6",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Mezzolara",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:11:22.931Z"
+      },
+      {
+        "id": "ev_Yk1MMvF6_1789570381278_GOAL",
+        "matchId": "Yk1MMvF6",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Mezzolara",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:53:01.278Z"
+      }
+    ],
+    "AoT834Hq": [
+      {
+        "id": "ev_AoT834Hq_1789567882942_GOAL",
+        "matchId": "AoT834Hq",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Fossombrone",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:11:22.942Z"
+      }
+    ],
+    "WvdO3Det": [
+      {
+        "id": "ev_WvdO3Det_1789567882955_GOAL",
+        "matchId": "WvdO3Det",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Sambiase",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:11:22.955Z"
+      }
+    ],
+    "lz3sdsPb": [
+      {
+        "id": "ev_lz3sdsPb_1789567882964_GOAL",
+        "matchId": "lz3sdsPb",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Colombia U19",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:11:22.964Z"
+      }
+    ],
+    "YZde4TUG": [
+      {
+        "id": "ev_YZde4TUG_1789568077899_GOAL",
+        "matchId": "YZde4TUG",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Burreli",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:14:37.899Z"
+      },
+      {
+        "id": "ev_YZde4TUG_1789569052945_GOAL",
+        "matchId": "YZde4TUG",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Sopoti Librazhd",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:30:52.945Z"
+      }
+    ],
+    "nDXYrVV8": [
+      {
+        "id": "ev_nDXYrVV8_1789568077959_GOAL",
+        "matchId": "nDXYrVV8",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Flaminia",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:14:37.959Z"
+      },
+      {
+        "id": "ev_nDXYrVV8_1789568857990_GOAL",
+        "matchId": "nDXYrVV8",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Sasso Marconi",
+        "homeScore": 2,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:27:37.990Z"
+      }
+    ],
+    "Ughow0am": [
+      {
+        "id": "ev_Ughow0am_1789568077968_GOAL",
+        "matchId": "Ughow0am",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Seravezza Pozzi",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:14:37.968Z"
+      }
+    ],
+    "0WZ5N4iI": [
+      {
+        "id": "ev_0WZ5N4iI_1789568077973_GOAL",
+        "matchId": "0WZ5N4iI",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Montecchio Gallo",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:14:37.973Z"
+      },
+      {
+        "id": "ev_0WZ5N4iI_1789568662982_GOAL",
+        "matchId": "0WZ5N4iI",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Montecchio Gallo",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:24:22.982Z"
+      },
+      {
+        "id": "ev_0WZ5N4iI_1789568858004_GOAL",
+        "matchId": "0WZ5N4iI",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Pietralunga",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:27:38.005Z"
+      }
+    ],
+    "jTnIKqKc": [
+      {
+        "id": "ev_jTnIKqKc_1789568077992_GOAL",
+        "matchId": "jTnIKqKc",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "DPMM",
+        "homeScore": 1,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:14:37.992Z"
+      },
+      {
+        "id": "ev_jTnIKqKc_1789568858027_GOAL",
+        "matchId": "jTnIKqKc",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "DPMM",
+        "homeScore": 1,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:27:38.027Z"
+      }
+    ],
+    "AmxSig5l": [
+      {
+        "id": "ev_AmxSig5l_1789568078004_GOAL",
+        "matchId": "AmxSig5l",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Gaziemirspor",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:14:38.004Z"
+      },
+      {
+        "id": "ev_AmxSig5l_1789571736865_GOAL",
+        "matchId": "AmxSig5l",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Gaziemirspor",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T15:15:36.865Z"
+      }
+    ],
+    "Wr4ctCGa": [
+      {
+        "id": "ev_Wr4ctCGa_1789568078007_GOAL",
+        "matchId": "Wr4ctCGa",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Kampala City",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:14:38.007Z"
+      }
+    ],
+    "jqNgASoK": [
+      {
+        "id": "ev_jqNgASoK_1789568272914_GOAL",
+        "matchId": "jqNgASoK",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Hradec Kralove",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:17:52.914Z"
+      }
+    ],
+    "CQsML7S9": [
+      {
+        "id": "ev_CQsML7S9_1789568272933_GOAL",
+        "matchId": "CQsML7S9",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "AS Biellese",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:17:52.933Z"
+      }
+    ],
+    "4Q7cP1Oj": [
+      {
+        "id": "ev_4Q7cP1Oj_1789568273003_GOAL",
+        "matchId": "4Q7cP1Oj",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Smederevo",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:17:53.003Z"
+      },
+      {
+        "id": "ev_4Q7cP1Oj_1789568858032_GOAL",
+        "matchId": "4Q7cP1Oj",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Smederevo",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:27:38.032Z"
+      }
+    ],
+    "6imlayDE": [
+      {
+        "id": "ev_6imlayDE_1789568273010_GOAL",
+        "matchId": "6imlayDE",
+        "type": "GOAL",
+        "minute": 6,
+        "teamSide": "home",
+        "playerName": "Galata",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:17:53.010Z"
+      }
+    ],
+    "KxQJMnZR": [
+      {
+        "id": "ev_KxQJMnZR_1789568273023_GOAL",
+        "matchId": "KxQJMnZR",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Brazil U20 W",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:17:53.023Z"
+      },
+      {
+        "id": "ev_KxQJMnZR_1789568468020_GOAL",
+        "matchId": "KxQJMnZR",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "USA U20 W",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:21:08.020Z"
+      }
+    ],
+    "jmLAQcd2": [
+      {
+        "id": "ev_jmLAQcd2_1789568467950_GOAL",
+        "matchId": "jmLAQcd2",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Leon",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:21:07.950Z"
+      }
+    ],
+    "AHulUf2s": [
+      {
+        "id": "ev_AHulUf2s_1789568467964_GOAL",
+        "matchId": "AHulUf2s",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Sant'Angelo",
+        "homeScore": 1,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:21:07.964Z"
+      }
+    ],
+    "44Cq6ome": [
+      {
+        "id": "ev_44Cq6ome_1789568467983_GOAL",
+        "matchId": "44Cq6ome",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Anzio Calcio 1924",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:21:07.983Z"
+      },
+      {
+        "id": "ev_44Cq6ome_1789568858010_GOAL",
+        "matchId": "44Cq6ome",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Anzio Calcio 1924",
+        "homeScore": 3,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:27:38.010Z"
+      }
+    ],
+    "hfCL6hve": [
+      {
+        "id": "ev_hfCL6hve_1789568468002_GOAL",
+        "matchId": "hfCL6hve",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Al-Hilal Omdurman",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:21:08.002Z"
+      }
+    ],
+    "80yXXu4S": [
+      {
+        "id": "ev_80yXXu4S_1789568662947_GOAL",
+        "matchId": "80yXXu4S",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Chievo",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:24:22.947Z"
+      }
+    ],
+    "0MvqwjoC": [
+      {
+        "id": "ev_0MvqwjoC_1789568662964_GOAL",
+        "matchId": "0MvqwjoC",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Lentigione",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:24:22.964Z"
+      }
+    ],
+    "dCUj4PH7": [
+      {
+        "id": "ev_dCUj4PH7_1789568662989_GOAL",
+        "matchId": "dCUj4PH7",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Aranova",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:24:22.989Z"
+      }
+    ],
+    "rctL3rtf": [
+      {
+        "id": "ev_rctL3rtf_1789568662994_GOAL",
+        "matchId": "rctL3rtf",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Martina Calcio",
+        "homeScore": 1,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:24:22.994Z"
+      }
+    ],
+    "EHxgDcal": [
+      {
+        "id": "ev_EHxgDcal_1789568857944_GOAL",
+        "matchId": "EHxgDcal",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Petrojet",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:27:37.944Z"
+      }
+    ],
+    "0nSETB0r": [
+      {
+        "id": "ev_0nSETB0r_1789568857951_GOAL",
+        "matchId": "0nSETB0r",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Ferencvaros W",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:27:37.951Z"
+      }
+    ],
+    "fqUyNmg3": [
+      {
+        "id": "ev_fqUyNmg3_1789568857975_GOAL",
+        "matchId": "fqUyNmg3",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Sandona",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:27:37.975Z"
+      },
+      {
+        "id": "ev_fqUyNmg3_1789568857977_GOAL",
+        "matchId": "fqUyNmg3",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Sandona",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:27:37.977Z"
+      }
+    ],
+    "lMDma2wJ": [
+      {
+        "id": "ev_lMDma2wJ_1789569052975_GOAL",
+        "matchId": "lMDma2wJ",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Teplice",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:30:52.975Z"
+      },
+      {
+        "id": "ev_lMDma2wJ_1789571161147_GOAL",
+        "matchId": "lMDma2wJ",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Teplice",
+        "homeScore": 0,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T15:06:01.147Z"
+      }
+    ],
+    "EFsw9QgM": [
+      {
+        "id": "ev_EFsw9QgM_1789569053045_GOAL",
+        "matchId": "EFsw9QgM",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Recanatese",
+        "homeScore": 3,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:30:53.045Z"
+      },
+      {
+        "id": "ev_EFsw9QgM_1789570192504_GOAL",
+        "matchId": "EFsw9QgM",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Recanatese",
+        "homeScore": 4,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:49:52.504Z"
+      }
+    ],
+    "favI0t2E": [
+      {
+        "id": "ev_favI0t2E_1789569053081_GOAL",
+        "matchId": "favI0t2E",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Police",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:30:53.081Z"
+      },
+      {
+        "id": "ev_favI0t2E_1789570192544_GOAL",
+        "matchId": "favI0t2E",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Police",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:49:52.544Z"
+      }
+    ],
+    "t0tM2GgC": [
+      {
+        "id": "ev_t0tM2GgC_1789570192417_GOAL",
+        "matchId": "t0tM2GgC",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Pogradeci",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:49:52.417Z"
+      }
+    ],
+    "vDg2cEt2": [
+      {
+        "id": "ev_vDg2cEt2_1789570192449_GOAL",
+        "matchId": "vDg2cEt2",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "VfB Oldenburg",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T14:49:52.449Z"
+      }
+    ],
+    "vDTgJHKH": [
+      {
+        "id": "ev_vDTgJHKH_1789570192537_GOAL",
+        "matchId": "vDTgJHKH",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Venezuela U20 W",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:49:52.537Z"
+      }
+    ],
+    "xIWl3Uze": [
+      {
+        "id": "ev_xIWl3Uze_1789570381210_GOAL",
+        "matchId": "xIWl3Uze",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Laktasi",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T14:53:01.210Z"
+      },
+      {
+        "id": "ev_xIWl3Uze_1789571931745_GOAL",
+        "matchId": "xIWl3Uze",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Laktasi",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T15:18:51.745Z"
+      }
+    ],
+    "AR6YNlLP": [
+      {
+        "id": "ev_AR6YNlLP_1789570381317_GOAL",
+        "matchId": "AR6YNlLP",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "OKMK",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:53:01.317Z"
+      },
+      {
+        "id": "ev_AR6YNlLP_1789570381321_GOAL",
+        "matchId": "AR6YNlLP",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "OKMK",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:53:01.321Z"
+      },
+      {
+        "id": "ev_AR6YNlLP_1789571931883_GOAL",
+        "matchId": "AR6YNlLP",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Xorazm Urganch",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T15:18:51.883Z"
+      }
+    ],
+    "rq79RtdS": [
+      {
+        "id": "ev_rq79RtdS_1789570576231_GOAL",
+        "matchId": "rq79RtdS",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Rijeka",
+        "homeScore": 0,
+        "awayScore": 3,
+        "createdAt": "2026-09-16T14:56:16.231Z"
+      },
+      {
+        "id": "ev_rq79RtdS_1789570966095_GOAL",
+        "matchId": "rq79RtdS",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Rijeka",
+        "homeScore": 0,
+        "awayScore": 4,
+        "createdAt": "2026-09-16T15:02:46.095Z"
+      }
+    ],
+    "SOGjkEtm": [
+      {
+        "id": "ev_SOGjkEtm_1789570576293_GOAL",
+        "matchId": "SOGjkEtm",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Nissa",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T14:56:16.293Z"
+      }
+    ],
+    "r3TErw4F": [
+      {
+        "id": "ev_r3TErw4F_1789571161164_GOAL",
+        "matchId": "r3TErw4F",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Nordsjaelland",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T15:06:01.164Z"
+      }
+    ],
+    "QytKw6As": [
+      {
+        "id": "ev_QytKw6As_1789571161236_GOAL",
+        "matchId": "QytKw6As",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Pohronie",
+        "homeScore": 1,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T15:06:01.236Z"
+      }
+    ],
+    "Uoz9Wbve": [
+      {
+        "id": "ev_Uoz9Wbve_1789571356160_GOAL",
+        "matchId": "Uoz9Wbve",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Zapy",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T15:09:16.160Z"
+      }
+    ],
+    "MaVfRxfJ": [
+      {
+        "id": "ev_MaVfRxfJ_1789571356242_GOAL",
+        "matchId": "MaVfRxfJ",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Forde",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T15:09:16.242Z"
+      }
+    ],
+    "pSTij7fl": [
+      {
+        "id": "ev_pSTij7fl_1789571736757_GOAL",
+        "matchId": "pSTij7fl",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Zlin",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T15:15:36.757Z"
+      },
+      {
+        "id": "ev_pSTij7fl_1789571931763_GOAL",
+        "matchId": "pSTij7fl",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Zlin",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-16T15:18:51.763Z"
+      }
+    ],
+    "IqzrZPWI": [
+      {
+        "id": "ev_IqzrZPWI_1789571736778_GOAL",
+        "matchId": "IqzrZPWI",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Brabrand",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T15:15:36.778Z"
+      }
+    ],
+    "vkc4O8ve": [
+      {
+        "id": "ev_vkc4O8ve_1789571736794_GOAL",
+        "matchId": "vkc4O8ve",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "away",
+        "playerName": "Greifswald",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T15:15:36.794Z"
+      }
+    ],
+    "nNdZmtnc": [
+      {
+        "id": "ev_nNdZmtnc_1789571931799_GOAL",
+        "matchId": "nNdZmtnc",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Gyor W",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-16T15:18:51.799Z"
+      }
+    ],
+    "EP4q2HwK": [
+      {
+        "id": "ev_EP4q2HwK_1789571931810_GOAL",
+        "matchId": "EP4q2HwK",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "home",
+        "playerName": "Saipa",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T15:18:51.810Z"
+      }
+    ],
+    "OSTRiwPc": [
+      {
+        "id": "ev_OSTRiwPc_1789571931856_GOAL",
+        "matchId": "OSTRiwPc",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Lovcen",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-16T15:18:51.856Z"
+      }
+    ],
+    "K4A2ZwPj": [
+      {
+        "id": "ev_K4A2ZwPj_1789632405988_GOAL",
+        "matchId": "K4A2ZwPj",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Papua New Guinea W",
+        "homeScore": 0,
+        "awayScore": 4,
+        "createdAt": "2026-09-17T08:06:45.988Z"
+      }
+    ],
+    "QBfNIzq4": [
+      {
+        "id": "ev_QBfNIzq4_1789632978365_GOAL",
+        "matchId": "QBfNIzq4",
+        "type": "GOAL",
+        "minute": 12,
+        "teamSide": "home",
+        "playerName": "Central Stallions",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-17T08:16:18.365Z"
+      },
+      {
+        "id": "ev_QBfNIzq4_1789634588386_GOAL",
+        "matchId": "QBfNIzq4",
+        "type": "GOAL",
+        "minute": 43,
+        "teamSide": "home",
+        "playerName": "Central Stallions",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-17T08:43:08.386Z"
+      },
+      {
+        "id": "ev_QBfNIzq4_1789634978414_HALF_TIME",
+        "matchId": "QBfNIzq4",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Central Stallions",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-17T08:49:38.414Z"
+      },
+      {
+        "id": "ev_QBfNIzq4_1789636283466_GOAL",
+        "matchId": "QBfNIzq4",
+        "type": "GOAL",
+        "minute": 53,
+        "teamSide": "home",
+        "playerName": "Central Stallions",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-17T09:11:23.466Z"
+      }
+    ],
+    "0WoI6KE6": [
+      {
+        "id": "ev_0WoI6KE6_1789633173379_GOAL",
+        "matchId": "0WoI6KE6",
+        "type": "GOAL",
+        "minute": 13,
+        "teamSide": "away",
+        "playerName": "Aktobe W",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-17T08:19:33.379Z"
+      }
+    ],
+    "IsPIvYuT": [
+      {
+        "id": "ev_IsPIvYuT_1789633358377_GOAL",
+        "matchId": "IsPIvYuT",
+        "type": "GOAL",
+        "minute": 65,
+        "teamSide": "away",
+        "playerName": "South Korea W",
+        "homeScore": 0,
+        "awayScore": 3,
+        "createdAt": "2026-09-17T08:22:38.377Z"
+      },
+      {
+        "id": "ev_IsPIvYuT_1789634198365_GOAL",
+        "matchId": "IsPIvYuT",
+        "type": "GOAL",
+        "minute": 79,
+        "teamSide": "away",
+        "playerName": "South Korea W",
+        "homeScore": 0,
+        "awayScore": 5,
+        "createdAt": "2026-09-17T08:36:38.365Z"
+      },
+      {
+        "id": "ev_IsPIvYuT_1789634198371_GOAL",
+        "matchId": "IsPIvYuT",
+        "type": "GOAL",
+        "minute": 79,
+        "teamSide": "away",
+        "playerName": "South Korea W",
+        "homeScore": 0,
+        "awayScore": 5,
+        "createdAt": "2026-09-17T08:36:38.371Z"
+      },
+      {
+        "id": "ev_IsPIvYuT_1789634978402_GOAL",
+        "matchId": "IsPIvYuT",
+        "type": "GOAL",
+        "minute": 92,
+        "teamSide": "away",
+        "playerName": "South Korea W",
+        "homeScore": 0,
+        "awayScore": 6,
+        "createdAt": "2026-09-17T08:49:38.402Z"
+      }
+    ],
+    "2iI2rGt4": [
+      {
+        "id": "ev_2iI2rGt4_1789634198376_GOAL",
+        "matchId": "2iI2rGt4",
+        "type": "GOAL",
+        "minute": 77,
+        "teamSide": "away",
+        "playerName": "Chinese Taipei W",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-17T08:36:38.376Z"
+      }
+    ],
+    "rgAy43cT": [
+      {
+        "id": "ev_rgAy43cT_1789733830707_HALF_TIME",
+        "matchId": "rgAy43cT",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Nantong Zhiyun",
+        "homeScore": 0,
+        "awayScore": 0,
+        "createdAt": "2026-09-18T12:17:10.707Z"
+      }
+    ],
+    "MNB73XBa": [
+      {
+        "id": "ev_MNB73XBa_1789733830714_GOAL",
+        "matchId": "MNB73XBa",
+        "type": "GOAL",
+        "minute": 17,
+        "teamSide": "home",
+        "playerName": "Fleetwood U21",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-18T12:17:10.714Z"
+      }
+    ],
+    "4Uek6gdR": [
+      {
+        "id": "ev_4Uek6gdR_1789733830717_GOAL",
+        "matchId": "4Uek6gdR",
+        "type": "GOAL",
+        "minute": 17,
+        "teamSide": "away",
+        "playerName": "PSIM Yogyakarta",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-18T12:17:10.717Z"
+      }
+    ],
+    "04PEzI3c": [
+      {
+        "id": "ev_04PEzI3c_1789734214550_GOAL",
+        "matchId": "04PEzI3c",
+        "type": "GOAL",
+        "minute": 23,
+        "teamSide": "home",
+        "playerName": "Maccabi Nujeidat Ahmad",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-18T12:23:34.550Z"
+      }
+    ],
+    "lQPRS1jf": [
+      {
+        "id": "ev_lQPRS1jf_1789734214571_GOAL",
+        "matchId": "lQPRS1jf",
+        "type": "GOAL",
+        "minute": 53,
+        "teamSide": "home",
+        "playerName": "FC Jurong",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-18T12:23:34.571Z"
+      }
+    ]
+  },
+  "facebookPosts": [
+    {
+      "matchId": "roundup_1789734305126",
+      "matchTitle": "Live Scoreboard Roundup (25 Matches)",
+      "leagueName": "Multiple Leagues",
+      "eventType": "STATUS_CHANGE",
+      "message": "⚽ LIVE MATCHES SCOREBOARD ⏱️\n📊 25 Active Match(es) in Progress (12:25 PM UTC)\n\n🏆 I Liqa\n• Khankendi 0 - 0 MOIK Baku (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 1-1 | 🟨 Cards: 0-0\n\n🏆 Premier League\n• Transport United 0 - 0 RTC (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 0-1 | 🟨 Cards: 0-0\n• Okzhetpes 2 - 0 Zhenis (⏱️ 66' • 2nd Half)\n  ↳ 🚩 Corners: 2-1 | 🟨 Cards: 0-2\n• Altai 0 - 1 Ertis Pavlodar (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n• Zhetysu Taldykorgan 0 - 0 Kaspij Aktau (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 3-2 | 🟨 Cards: 0-0\n• FC Jurong 2 - 0 Hougang (⏱️ 55' • 1st Half)\n  ↳ 🚩 Corners: 3-1 | 🟨 Cards: 0-1\n• Ch. Odesa 1 - 0 Obolon (⏱️ 56' • 2nd Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 1-2\n\n🏆 Super League\n• Zhejiang Professional 2 - 0 Wuhan Three Towns (⏱️ 50' • 1st Half)\n  ↳ 🚩 Corners: 3-4 | 🟨 Cards: 0-0\n• Madura United 0 - 1 PSIM Yogyakarta (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 2-1 | 🟨 Cards: 0-1\n\n🏆 League One\n• Dalian K'un City 1 - 0 Ningbo Professional (⏱️ 67' • 2nd Half)\n  ↳ 🚩 Corners: 1-2 | 🟨 Cards: 1-1\n• Nantong Zhiyun 0 - 0 Guangxi Hengchen (⏸️ HT (45'))\n  ↳ 🚩 Corners: 6-1 | 🟨 Cards: 0-0\n\n🏆 League Two - Promotion Group\n• Jiangxi Lushan 2 - 0 Shandong Taishan B (⏸️ HT (45'))\n  ↳ 🚩 Corners: 3-0 | 🟨 Cards: 0-0\n\n🏆 Premier League 2\n• Birmingham U21 0 - 0 Arsenal U21 (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 2-3 | 🟨 Cards: 0-0\n\n🏆 Professional Development League\n• Fleetwood U21 1 - 0 Swansea U21 (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 1-3 | 🟨 Cards: 0-0\n\n🏆 Championship\n• Bekasi City 1 - 0 Persikad Depok (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 0-2 | 🟨 Cards: 0-1\n\n🏆 Liga Alef North\n• Hapoel Bnei Musmus 1 - 0 Nahariya (⏸️ HT (45'))\n  ↳ 🚩 Corners: 1-3 | 🟨 Cards: 0-0 | 🟥 Red: 1-0\n• Maccabi Nujeidat Ahmad 2 - 1 H. Migdal HaEmek (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 1-0 | 🟨 Cards: 0-0\n\n🏆 Liga Alef South\n• M. Ironi Ashdod 2 - 1 Ironi Beit Shemesh (⏱️ 89' • 2nd Half)\n  ↳ 🚩 Corners: 2-5 | 🟨 Cards: 0-0\n• Maccabi Yavne 0 - 0 Hapoel Herzliya (⏱️ 90' • 2nd Half)\n  ↳ 🚩 Corners: 2-0 | 🟨 Cards: 0-0\n• M. Ironi Kiryat Malachi 0 - 0 Hapoel Azor (⏱️ 64' • 2nd Half)\n  ↳ 🚩 Corners: 1-1 | 🟨 Cards: 0-0\n\n🏆 FNL 2 - Division B - Group 2\n• Zvezda St. Peterburg 0 - 2 Murom (⏱️ 69' • 2nd Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n\n🏆 Youth League\n• CSKA Moscow U19 1 - 1 Fakel Voronezh U19 (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 4-1 | 🟨 Cards: 0-0\n• Konoplev Academy U19 0 - 0 Rubin Kazan U19 (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 0-1 | 🟨 Cards: 0-0\n\n🏆 Thai League 1\n• Ayutthaya Utd 0 - 0 Uthai Thani (⏱️ 25' • 1st Half)\n  ↳ 🚩 Corners: 0-2 | 🟨 Cards: 0-0\n\n🏆 Vietnamese Cup\n• Quy Nhon United 1 - 1 Ho Chi Minh City (⏱️ 67' • 2nd Half)\n  ↳ 🚩 Corners: 0-1 | 🟨 Cards: 0-0\n\n⚡ Follow for live scores and breaking goal updates!\n#ILiqa #PremierLeague #SuperLeague #LeagueOne #LeagueTwoPromotionGroup #LiveScores #GameScores",
+      "id": "fb_post_1789734305126_zp420",
+      "status": "FAILED",
+      "retryCount": 1,
+      "createdAt": "2026-09-18T12:25:05.126Z",
+      "error": "Cancelled after Meta anti-spam velocity warning (error 1390008) to protect Page. Cooldown active for 180s: We limit how often you can post, comment or do other things in a given amount of time in order to help protect the community from spam. You can try again later. Learn More"
+    },
+    {
+      "matchId": "roundup_1789733695486",
+      "matchTitle": "Live Scoreboard Roundup (26 Matches)",
+      "leagueName": "Multiple Leagues",
+      "eventType": "STATUS_CHANGE",
+      "message": "⚽ LIVE MATCHES SCOREBOARD ⏱️\n📊 26 Active Match(es) in Progress (12:14 PM UTC)\n\n🏆 Asian Games\n• Saudi Arabia U23 2 - 0 Qatar U23 (⏱️ 86' • 2nd Half)\n  ↳ 🚩 Corners: 0-4 | 🟨 Cards: 1-0\n\n🏆 I Liqa\n• Khankendi 0 - 0 MOIK Baku (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 1-1 | 🟨 Cards: 0-0\n\n🏆 Premier League\n• Transport United 0 - 0 RTC (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n• Okzhetpes 1 - 0 Zhenis (⏱️ 56' • 2nd Half)\n  ↳ 🚩 Corners: 0-1 | 🟨 Cards: 0-2\n• Altai 0 - 1 Ertis Pavlodar (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n• Zhetysu Taldykorgan 0 - 0 Kaspij Aktau (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n• FC Jurong 1 - 0 Hougang (⏱️ 44' • 1st Half)\n  ↳ 🚩 Corners: 2-1 | 🟨 Cards: 0-0\n• Ch. Odesa 1 - 0 Obolon (⏱️ 46' • 2nd Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 3-1\n\n🏆 Super League\n• Zhejiang Professional 2 - 0 Wuhan Three Towns (⏱️ 39' • 1st Half)\n  ↳ 🚩 Corners: 3-3 | 🟨 Cards: 0-0\n• Madura United 0 - 0 PSIM Yogyakarta (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 2-0 | 🟨 Cards: 0-0\n\n🏆 League One\n• Dalian K'un City 1 - 0 Ningbo Professional (⏱️ 57' • 2nd Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 1-1\n• Nantong Zhiyun 0 - 0 Guangxi Hengchen (⏱️ 44' • 1st Half)\n  ↳ 🚩 Corners: 5-1 | 🟨 Cards: 0-0\n\n🏆 League Two - Promotion Group\n• Jiangxi Lushan 2 - 0 Shandong Taishan B (⏱️ 44' • 1st Half)\n  ↳ 🚩 Corners: 3-0 | 🟨 Cards: 0-0\n\n🏆 Premier League 2\n• Birmingham U21 0 - 0 Arsenal U21 (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 2-3 | 🟨 Cards: 0-0\n\n🏆 Professional Development League\n• Fleetwood U21 0 - 0 Swansea U21 (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 1-1 | 🟨 Cards: 0-0\n\n🏆 Championship\n• Bekasi City 1 - 0 Persikad Depok (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n\n🏆 Liga Alef North\n• Hapoel Bnei Musmus 1 - 0 Nahariya (⏱️ 49' • 1st Half)\n  ↳ 🚩 Corners: 0-3 | 🟨 Cards: 0-0 | 🟥 Red: 1-0\n• Maccabi Nujeidat Ahmad 1 - 0 H. Migdal HaEmek (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n\n🏆 Liga Alef South\n• M. Ironi Ashdod 2 - 1 Ironi Beit Shemesh (⏱️ 79' • 2nd Half)\n  ↳ 🚩 Corners: 2-4 | 🟨 Cards: 0-0\n• Maccabi Yavne 0 - 0 Hapoel Herzliya (⏱️ 80' • 2nd Half)\n  ↳ 🚩 Corners: 2-0 | 🟨 Cards: 0-0\n• M. Ironi Kiryat Malachi 0 - 0 Hapoel Azor (⏱️ 54' • 2nd Half)\n  ↳ 🚩 Corners: 1-1 | 🟨 Cards: 0-0\n\n🏆 FNL 2 - Division B - Group 2\n• Zvezda St. Peterburg 0 - 2 Murom (⏱️ 59' • 2nd Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n\n🏆 Youth League\n• CSKA Moscow U19 1 - 1 Fakel Voronezh U19 (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 4-1 | 🟨 Cards: 0-0\n• Konoplev Academy U19 0 - 0 Rubin Kazan U19 (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 0-1 | 🟨 Cards: 0-0\n\n🏆 Thai League 1\n• Ayutthaya Utd 0 - 0 Uthai Thani (⏱️ 14' • 1st Half)\n  ↳ 🚩 Corners: 0-2 | 🟨 Cards: 0-0\n\n🏆 Vietnamese Cup\n• Quy Nhon United 1 - 1 Ho Chi Minh City (⏱️ 56' • 2nd Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n\n⚡ Follow for live scores and breaking goal updates!\n#AsianGames #ILiqa #PremierLeague #SuperLeague #LeagueOne #LiveScores #GameScores",
+      "id": "fb_post_1789733695486_y5vkj",
+      "status": "FAILED",
+      "retryCount": 0,
+      "createdAt": "2026-09-18T12:14:55.486Z",
+      "error": "Manually cleared from queue to reset Meta velocity limits."
+    },
+    {
+      "id": "test_1789637328963",
+      "matchId": "test",
+      "matchTitle": "Meta Connection Test",
+      "leagueName": "Live Sports App",
+      "eventType": "STATUS_CHANGE",
+      "message": "⚽ Live Sports Scores Test Post\n\n✅ Meta Graph API connection verified!\n⏱️ Dispatched: Thu, 17 Sep 2026 09:28:47 GMT\n\n#LiveScores #Football #ScoreFlow",
+      "status": "FAILED",
+      "error": "We limit how often you can post, comment or do other things in a given amount of time in order to help protect the community from spam. You can try again later. Learn More",
+      "retryCount": 0,
+      "createdAt": "2026-09-17T09:28:48.963Z"
+    },
+    {
+      "matchId": "roundup_1789637270526",
+      "matchTitle": "Live Scoreboard Roundup (1 Matches)",
+      "leagueName": "Multiple Leagues",
+      "eventType": "STATUS_CHANGE",
+      "message": "⚽ LIVE MATCHES SCOREBOARD ⏱️\n📊 1 Active Match(es) in Progress (09:27 AM UTC)\n\n🏆 Premier League\n• Central Stallions 2 - 0 Hunters (⏱️ 69' • 2nd Half)\n  ↳ 🚩 Corners: 0-0 | 🟨 Cards: 0-0\n\n⚡ Follow for live scores and breaking goal updates!\n#PremierLeague #LiveScores #GameScores",
+      "id": "fb_post_1789637270526_om20w",
+      "status": "FAILED",
+      "retryCount": 3,
+      "createdAt": "2026-09-17T09:27:50.526Z",
+      "error": "Permanently failed after 3 throttled retries: We limit how often you can post, comment or do other things in a given amount of time in order to help protect the community from spam. You can try again later. Learn More"
+    }
+  ],
+  "settings": {
+    "fbConfig": {
+      "pageId": "1136971859508742",
+      "pageName": "GameScores",
+      "category": "Sports",
+      "link": "",
+      "isConnected": false,
+      "autoPublishEnabled": true,
+      "publishGoals": true,
+      "publishRedCards": true,
+      "publishKickoff": true,
+      "publishHalfTime": true,
+      "publishFullTime": true,
+      "includeStatsInFullTime": true,
+      "targetLeagueIds": [],
+      "postTemplateGoal": "⚽ GOAL! {home_team} {home_score} - {away_score} {away_team}!\n{player} ({minute}')\n#{league_tag} #LiveScores",
+      "postTemplateRedCard": "🟥 RED CARD! {team} player {player} sent off in the {minute}'!\n{home_team} {home_score} - {away_score} {away_team}\n#{league_tag}",
+      "postTemplateKickoff": "⚡ MATCH KICK-OFF!\n{home_team} vs {away_team}\n🏆 {league_name}\nStay tuned for live score updates!",
+      "postTemplateHalfTime": "⏸️ HALF-TIME: {home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}",
+      "postTemplateFullTime": "🏁 FULL-TIME: {home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n{stats_summary}\nThanks for following!",
+      "lastRoundupPublishedAt": "2026-09-18T12:25:05.128Z",
+      "roundupIntervalMinutes": 5,
+      "publishingMode": "roundup"
+    },
+    "scraperSettings": {
+      "activeProviderId": "flashscore",
+      "pollingIntervalSeconds": 30,
+      "targetLeagues": [
+        "Premier League",
+        "LaLiga",
+        "Champions League",
+        "Serie A",
+        "Bundesliga",
+        "Ligue 1"
+      ],
+      "maxConcurrentScrapes": 4
+    }
+  },
+  "apiKeys": []
+}
