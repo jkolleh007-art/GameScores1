@@ -8,8 +8,8 @@ class FacebookPublisherQueue {
   private isProcessing = false;
   private timer: NodeJS.Timeout | null = null;
   private postTimes: number[] = []; // Timestamps for rate-limiting
-  private maxPostsPerMinute = Math.min(config.fbRateLimitPerMinute || 10, 4); // Safe ceiling: max 4 posts/min
-  private minPostSpacingMs = 25000; // Pacing: 25s minimum between posts to avoid velocity spam blocks
+  private maxPostsPerMinute = Math.min(config.fbRateLimitPerMinute || 10, 2); // Safe ceiling: max 2 posts/min to prevent Meta spam detection
+  private minPostSpacingMs = 60000; // Pacing: 60s safe minimum between posts to avoid velocity spam blocks (1390008)
   private lastPublishedAt = 0;
   private cooldownUntil = 0;
   private cooldownReason = '';
@@ -85,6 +85,13 @@ class FacebookPublisherQueue {
     if (!this.isProcessing) {
       setImmediate(() => this.processQueue());
     }
+  }
+
+  applySafeMode(minSpacingSec = 90): void {
+    this.minPostSpacingMs = Math.max(60, minSpacingSec) * 1000;
+    this.maxPostsPerMinute = 1;
+    this.resetCooldown();
+    console.log(`[FB Queue] Anti-Spam Safe Mode applied: minimum ${minSpacingSec}s spacing between posts.`);
   }
 
   /**

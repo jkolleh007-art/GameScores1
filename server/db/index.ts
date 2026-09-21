@@ -1,8 +1,18 @@
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import pg from 'pg';
 import { config } from '../config.js';
-import { Match, MatchEvent, FacebookPostRecord, ApiKeyRecord, DailyLeagueSelection, FacebookPageConfig } from '../types.js';
+import {
+  Match,
+  MatchEvent,
+  FacebookPostRecord,
+  ApiKeyRecord,
+  DailyLeagueSelection,
+  FacebookPageConfig,
+  AdminUser,
+  AdminSession,
+} from '../types.js';
 
 const { Pool } = pg;
 
@@ -29,12 +39,24 @@ export interface PublishedFtRecord {
   publishedAt: string;
 }
 
+interface StoredAdminUser {
+  id: string;
+  username: string;
+  passwordHash: string;
+  salt: string;
+  role: 'superadmin' | 'admin' | 'moderator';
+  createdAt: string;
+  lastLogin?: string;
+}
+
 interface LocalDbSchema {
   matches: Record<string, Match>;
   events: Record<string, MatchEvent[]>;
   facebookPosts: FacebookPostRecord[];
   settings: Record<string, any>;
   apiKeys: ApiKeyRecord[];
+  adminUsers: StoredAdminUser[];
+  adminSessions: AdminSession[];
 }
 
 class DatabaseManager {
@@ -91,7 +113,9 @@ class DatabaseManager {
             createdAt: new Date().toISOString(),
           },
         ]
-      : []
+      : [],
+    adminUsers: [],
+    adminSessions: [],
   };
 
   async init(): Promise<void> {
@@ -104,12 +128,14 @@ class DatabaseManager {
       try {
         this.pgPool = new Pool({
           connectionString: config.databaseUrl,
-          ssl: config.databaseUrl.includes('localhost') ? false : { rejectUnauthorized: false }
+          ssl: config.databaseUrl.includes('localhost') ? false : { rejectUnauthorized: false },
+          connectionTimeoutMillis: 4000,
         });
         await this.pgPool.query('SELECT NOW()');
         this.isPostgres = true;
         console.log('[DB] Connected to PostgreSQL successfully.');
         await this.initPostgresSchema();
+        await this.initAdminUserIfNone();
         return;
       } catch (err) {
         console.warn('[DB] Could not connect to PostgreSQL, falling back to local persistent store:', (err as Error).message);
@@ -123,7 +149,12 @@ class DatabaseManager {
       try {
         const raw = fs.readFileSync(this.localDataPath, 'utf-8');
         const parsed = JSON.parse(raw);
-        this.localData = { ...this.localData, ...parsed };
+        this.localData = {
+          ...this.localData,
+          ...parsed,
+          adminUsers: parsed.adminUsers || [],
+          adminSessions: parsed.adminSessions || [],
+        };
         console.log('[DB] Loaded persistent local store from disk.');
       } catch (e) {
         console.error('[DB] Error loading local store, initializing fresh:', e);
@@ -132,6 +163,8 @@ class DatabaseManager {
     } else {
       this.saveLocalData();
     }
+
+    await this.initAdminUserIfNone();
   }
 
   private saveLocalData(): void {
@@ -209,6 +242,25 @@ class DatabaseManager {
         role VARCHAR(32) NOT NULL DEFAULT 'read',
         created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
         last_used_at TIMESTAMP WITH TIME ZONE
+      );
+
+      CREATE TABLE IF NOT EXISTS admin_users (
+        id VARCHAR(64) PRIMARY KEY,
+        username VARCHAR(64) UNIQUE NOT NULL,
+        password_hash VARCHAR(256) NOT NULL,
+        salt VARCHAR(64) NOT NULL,
+        role VARCHAR(32) NOT NULL DEFAULT 'superadmin',
+        created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        last_login TIMESTAMP WITH TIME ZONE
+      );
+
+      CREATE TABLE IF NOT EXISTS admin_sessions (
+        token VARCHAR(128) PRIMARY KEY,
+        admin_id VARCHAR(64) NOT NULL,
+        username VARCHAR(64) NOT NULL,
+        role VARCHAR(32) NOT NULL DEFAULT 'superadmin',
+        created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        expires_at TIMESTAMP WITH TIME ZONE NOT NULL
       );
     `;
     await this.pgPool.query(schemaSql);
@@ -464,6 +516,38 @@ class DatabaseManager {
     }
   }
 
+  async deleteFacebookPost(id: string): Promise<boolean> {
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query('DELETE FROM facebook_posts WHERE id = $1', [id]);
+      return (res.rowCount ?? 0) > 0;
+    } else {
+      const initial = this.localData.facebookPosts.length;
+      this.localData.facebookPosts = this.localData.facebookPosts.filter(p => p.id !== id);
+      const changed = this.localData.facebookPosts.length !== initial;
+      if (changed) this.saveLocalData();
+      return changed;
+    }
+  }
+
+  async dismissAntiSpamWarnings(): Promise<number> {
+    let count = 0;
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        "UPDATE facebook_posts SET error = NULL WHERE error LIKE '%1390008%' OR error LIKE '%velocity%' OR error LIKE '%spam%'"
+      );
+      count = res.rowCount ?? 0;
+    } else {
+      for (const p of this.localData.facebookPosts) {
+        if (p.error && (p.error.includes('1390008') || p.error.includes('velocity') || p.error.includes('spam'))) {
+          p.error = undefined;
+          count++;
+        }
+      }
+      if (count > 0) this.saveLocalData();
+    }
+    return count;
+  }
+
   async getSettings<T>(key: string, defaultValue: T): Promise<T> {
     if (this.isPostgres && this.pgPool) {
       const res = await this.pgPool.query('SELECT value FROM system_settings WHERE key = $1', [key]);
@@ -681,6 +765,319 @@ class DatabaseManager {
       eventCount,
       fbPostCount,
       dbType: 'Persistent SQL/JSON Store'
+    };
+  }
+
+  // -------------------------------------------------------------
+  // Admin User & Session Authentication
+  // -------------------------------------------------------------
+
+  hashPassword(password: string, salt: string): string {
+    return crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
+  }
+
+  generateSalt(): string {
+    return crypto.randomBytes(16).toString('hex');
+  }
+
+  async initAdminUserIfNone(): Promise<void> {
+    try {
+      const count = await this.getAdminCount();
+      if (count === 0) {
+        const salt = this.generateSalt();
+        const defaultUsername = 'admin';
+        const defaultPassword = 'admin12345';
+        const passwordHash = this.hashPassword(defaultPassword, salt);
+        const adminId = 'admin_' + crypto.randomBytes(8).toString('hex');
+
+        if (this.isPostgres && this.pgPool) {
+          await this.pgPool.query(
+            `INSERT INTO admin_users (id, username, password_hash, salt, role, created_at)
+             VALUES ($1, $2, $3, $4, $5, NOW())
+             ON CONFLICT (username) DO NOTHING`,
+            [adminId, defaultUsername, passwordHash, salt, 'superadmin']
+          );
+        } else {
+          this.localData.adminUsers.push({
+            id: adminId,
+            username: defaultUsername,
+            passwordHash,
+            salt,
+            role: 'superadmin',
+            createdAt: new Date().toISOString(),
+          });
+          this.saveLocalData();
+        }
+        console.log(`[Auth] Initialized default superadmin user ('${defaultUsername}'). Password: '${defaultPassword}'`);
+      }
+    } catch (e) {
+      console.error('[Auth] Error initializing default admin:', e);
+    }
+  }
+
+  async getAdminCount(): Promise<number> {
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query('SELECT COUNT(*) FROM admin_users');
+      return parseInt(res.rows[0].count, 10);
+    }
+    return (this.localData.adminUsers || []).length;
+  }
+
+  async getAdminByUsername(username: string): Promise<(AdminUser & { passwordHash: string; salt: string }) | null> {
+    const cleanUsername = username.trim().toLowerCase();
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        'SELECT id, username, password_hash, salt, role, created_at, last_login FROM admin_users WHERE LOWER(username) = $1 LIMIT 1',
+        [cleanUsername]
+      );
+      if (res.rows.length === 0) return null;
+      const r = res.rows[0];
+      return {
+        id: r.id,
+        username: r.username,
+        passwordHash: r.password_hash,
+        salt: r.salt,
+        role: r.role,
+        createdAt: r.created_at,
+        lastLogin: r.last_login,
+      };
+    }
+
+    const found = (this.localData.adminUsers || []).find(u => u.username.toLowerCase() === cleanUsername);
+    if (!found) return null;
+    return {
+      id: found.id,
+      username: found.username,
+      passwordHash: found.passwordHash,
+      salt: found.salt,
+      role: found.role,
+      createdAt: found.createdAt,
+      lastLogin: found.lastLogin,
+    };
+  }
+
+  async getAdminById(id: string): Promise<AdminUser | null> {
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        'SELECT id, username, role, created_at, last_login FROM admin_users WHERE id = $1 LIMIT 1',
+        [id]
+      );
+      if (res.rows.length === 0) return null;
+      const r = res.rows[0];
+      return {
+        id: r.id,
+        username: r.username,
+        role: r.role,
+        createdAt: r.created_at,
+        lastLogin: r.last_login,
+      };
+    }
+
+    const found = (this.localData.adminUsers || []).find(u => u.id === id);
+    if (!found) return null;
+    return {
+      id: found.id,
+      username: found.username,
+      role: found.role,
+      createdAt: found.createdAt,
+      lastLogin: found.lastLogin,
+    };
+  }
+
+  async createAdminUser(data: { username: string; password: string; role?: 'superadmin' | 'admin' | 'moderator' }): Promise<AdminUser> {
+    const cleanUsername = data.username.trim().toLowerCase();
+    const existing = await this.getAdminByUsername(cleanUsername);
+    if (existing) {
+      throw new Error(`Username "${data.username}" already exists.`);
+    }
+
+    const salt = this.generateSalt();
+    const passwordHash = this.hashPassword(data.password, salt);
+    const id = 'admin_' + crypto.randomBytes(8).toString('hex');
+    const role = data.role || 'admin';
+    const now = new Date().toISOString();
+
+    if (this.isPostgres && this.pgPool) {
+      await this.pgPool.query(
+        `INSERT INTO admin_users (id, username, password_hash, salt, role, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [id, cleanUsername, passwordHash, salt, role, now]
+      );
+    } else {
+      this.localData.adminUsers.push({
+        id,
+        username: cleanUsername,
+        passwordHash,
+        salt,
+        role,
+        createdAt: now,
+      });
+      this.saveLocalData();
+    }
+
+    return {
+      id,
+      username: cleanUsername,
+      role,
+      createdAt: now,
+    };
+  }
+
+  async updateAdminPassword(adminId: string, newPassword: string): Promise<boolean> {
+    const salt = this.generateSalt();
+    const passwordHash = this.hashPassword(newPassword, salt);
+
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        'UPDATE admin_users SET password_hash = $1, salt = $2 WHERE id = $3',
+        [passwordHash, salt, adminId]
+      );
+      return (res.rowCount ?? 0) > 0;
+    }
+
+    const idx = (this.localData.adminUsers || []).findIndex(u => u.id === adminId);
+    if (idx >= 0) {
+      this.localData.adminUsers[idx].passwordHash = passwordHash;
+      this.localData.adminUsers[idx].salt = salt;
+      this.saveLocalData();
+      return true;
+    }
+    return false;
+  }
+
+  async updateAdminLastLogin(adminId: string): Promise<void> {
+    const now = new Date().toISOString();
+    if (this.isPostgres && this.pgPool) {
+      await this.pgPool.query('UPDATE admin_users SET last_login = NOW() WHERE id = $1', [adminId]);
+      return;
+    }
+
+    const idx = (this.localData.adminUsers || []).findIndex(u => u.id === adminId);
+    if (idx >= 0) {
+      this.localData.adminUsers[idx].lastLogin = now;
+      this.saveLocalData();
+    }
+  }
+
+  async getAdminUsers(): Promise<AdminUser[]> {
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query('SELECT id, username, role, created_at, last_login FROM admin_users ORDER BY created_at ASC');
+      return res.rows.map(r => ({
+        id: r.id,
+        username: r.username,
+        role: r.role,
+        createdAt: r.created_at,
+        lastLogin: r.last_login,
+      }));
+    }
+
+    return (this.localData.adminUsers || []).map(u => ({
+      id: u.id,
+      username: u.username,
+      role: u.role,
+      createdAt: u.createdAt,
+      lastLogin: u.lastLogin,
+    }));
+  }
+
+  async createSession(adminId: string, username: string, role = 'superadmin', expiresInDays = 7): Promise<AdminSession> {
+    const token = crypto.randomBytes(32).toString('hex');
+    const now = new Date();
+    const expiresAt = new Date(now.getTime() + expiresInDays * 24 * 60 * 60 * 1000).toISOString();
+
+    const session: AdminSession = {
+      token,
+      adminId,
+      username,
+      role,
+      createdAt: now.toISOString(),
+      expiresAt,
+    };
+
+    if (this.isPostgres && this.pgPool) {
+      await this.pgPool.query(
+        `INSERT INTO admin_sessions (token, admin_id, username, role, created_at, expires_at)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [token, adminId, username, role, session.createdAt, expiresAt]
+      );
+    } else {
+      if (!this.localData.adminSessions) this.localData.adminSessions = [];
+      this.localData.adminSessions.push(session);
+      this.saveLocalData();
+    }
+
+    return session;
+  }
+
+  async validateSession(token: string): Promise<AdminSession | null> {
+    if (!token) return null;
+
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        'SELECT token, admin_id, username, role, created_at, expires_at FROM admin_sessions WHERE token = $1 LIMIT 1',
+        [token]
+      );
+      if (res.rows.length === 0) return null;
+      const r = res.rows[0];
+      if (new Date(r.expires_at).getTime() < Date.now()) {
+        await this.deleteSession(token);
+        return null;
+      }
+      return {
+        token: r.token,
+        adminId: r.admin_id,
+        username: r.username,
+        role: r.role,
+        createdAt: r.created_at,
+        expiresAt: r.expires_at,
+      };
+    }
+
+    const sessions = this.localData.adminSessions || [];
+    const found = sessions.find(s => s.token === token);
+    if (!found) return null;
+
+    if (new Date(found.expiresAt).getTime() < Date.now()) {
+      await this.deleteSession(token);
+      return null;
+    }
+
+    return found;
+  }
+
+  async deleteSession(token: string): Promise<boolean> {
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query('DELETE FROM admin_sessions WHERE token = $1', [token]);
+      return (res.rowCount ?? 0) > 0;
+    }
+
+    const initialLen = (this.localData.adminSessions || []).length;
+    this.localData.adminSessions = (this.localData.adminSessions || []).filter(s => s.token !== token);
+    if (this.localData.adminSessions.length !== initialLen) {
+      this.saveLocalData();
+      return true;
+    }
+    return false;
+  }
+
+  getConnectionInfo() {
+    const rawUrl = config.databaseUrl;
+    let masked = 'None';
+    let isRenderHost = false;
+    if (rawUrl) {
+      try {
+        const u = new URL(rawUrl);
+        masked = `${u.protocol}//${u.username}:****@${u.host}${u.pathname}`;
+        isRenderHost = u.host.includes('dpg-') || u.host.includes('render.com');
+      } catch {
+        masked = 'Configured (PostgreSQL)';
+      }
+    }
+    return {
+      isPostgres: this.isPostgres,
+      dbType: this.isPostgres ? 'PostgreSQL (Connected)' : (config.databaseUrl ? 'PostgreSQL (Fallback to Local Disk)' : 'Local JSON Disk Store'),
+      databaseUrlMasked: masked,
+      isRenderHost,
     };
   }
 }

@@ -20,8 +20,10 @@ import {
   Share2,
   SlidersHorizontal,
   Info,
+  Lock,
 } from 'lucide-react';
 import { DailyLeagueSelection, SystemStatus } from '../types';
+import { useAdminAuth } from '../context/AdminAuthContext';
 
 export interface AvailableLeagueItem {
   id: string;
@@ -43,6 +45,7 @@ export const DailyLeagueSelectionView: React.FC<DailyLeagueSelectionViewProps> =
   onSelectionSaved,
   onNavigateToTab,
 }) => {
+  const { isAuthenticated, authFetch, setShowLoginModal } = useAdminAuth();
   const [dailySelection, setDailySelection] = useState<DailyLeagueSelection | null>(null);
   const [availableLeagues, setAvailableLeagues] = useState<AvailableLeagueItem[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -149,6 +152,11 @@ export const DailyLeagueSelectionView: React.FC<DailyLeagueSelectionViewProps> =
 
   // Save current selection to server
   const handleSaveSelection = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
     setIsSaving(true);
     setFeedbackNotice(null);
     try {
@@ -156,7 +164,7 @@ export const DailyLeagueSelectionView: React.FC<DailyLeagueSelectionViewProps> =
         (id) => selectedNamesMap.get(id) || availableLeagues.find((l) => l.id === id)?.name || id
       );
 
-      const res = await fetch('/api/leagues/daily-selection', {
+      const res = await authFetch('/api/leagues/daily-selection', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -193,10 +201,15 @@ export const DailyLeagueSelectionView: React.FC<DailyLeagueSelectionViewProps> =
 
   // Reset / Clear all leagues for today
   const handleReset = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
     setIsResetting(true);
     setFeedbackNotice(null);
     try {
-      const res = await fetch('/api/leagues/daily-selection/reset', {
+      const res = await authFetch('/api/leagues/daily-selection/reset', {
         method: 'POST',
       });
       const json = await res.json();
@@ -226,10 +239,15 @@ export const DailyLeagueSelectionView: React.FC<DailyLeagueSelectionViewProps> =
 
   // Select all available leagues for today
   const handleSelectAll = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+
     setIsSelectingAll(true);
     setFeedbackNotice(null);
     try {
-      const res = await fetch('/api/leagues/daily-selection/select-all', {
+      const res = await authFetch('/api/leagues/daily-selection/select-all', {
         method: 'POST',
       });
       const json = await res.json();

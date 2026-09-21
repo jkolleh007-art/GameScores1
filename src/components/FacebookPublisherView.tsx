@@ -26,9 +26,11 @@ import {
   Globe,
   Flag,
   Trophy,
+  Lock,
 } from 'lucide-react';
 import { FacebookPageConfig, FacebookPostRecord, Match, PublishedFtRecord, DailyLeagueSelection } from '../types';
 import { DailyLeagueSelectionView } from './DailyLeagueSelectionView';
+import { useAdminAuth } from '../context/AdminAuthContext';
 
 interface FacebookPublisherViewProps {
   onNotify?: (msg: string) => void;
@@ -36,6 +38,7 @@ interface FacebookPublisherViewProps {
 }
 
 export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ initialSubSection }) => {
+  const { isAuthenticated, authFetch, setShowLoginModal } = useAdminAuth();
   const [config, setConfig] = useState<FacebookPageConfig>({
     pageId: '',
     isConnected: false,
@@ -195,10 +198,14 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   }, [isEditingRoundupText]);
 
   const handlePublishRoundup = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     setIsPublishingRoundup(true);
     setStatusMessage(null);
     try {
-      const res = await fetch('/api/facebook/publish-roundup', {
+      const res = await authFetch('/api/facebook/publish-roundup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -266,10 +273,14 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   }, [resultsDateOffset, filterPublishedFt, isEditingResultsText]);
 
   const handlePublishResults = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     setIsPublishingResults(true);
     setStatusMessage(null);
     try {
-      const res = await fetch('/api/facebook/publish-results-roundup', {
+      const res = await authFetch('/api/facebook/publish-results-roundup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -304,9 +315,13 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   };
 
   const handleClearFtHistory = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     setIsClearingFtHistory(true);
     try {
-      const res = await fetch('/api/facebook/clear-published-ft-matches', { method: 'POST' });
+      const res = await authFetch('/api/facebook/clear-published-ft-matches', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         setStatusMessage({ type: 'success', text: data.message });
@@ -323,9 +338,13 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   };
 
   const handleMarkCurrentAsPublished = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     setIsMarkingCurrentAsPublished(true);
     try {
-      const res = await fetch('/api/facebook/mark-current-results-as-published', {
+      const res = await authFetch('/api/facebook/mark-current-results-as-published', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ offset: resultsDateOffset }),
@@ -467,10 +486,14 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   }, [fetchConfigAndHistory, fetchRoundupPreview]);
 
   const handleSaveConfig = async (updatedConfig: Partial<FacebookPageConfig>) => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     setIsSaving(true);
     setStatusMessage(null);
     try {
-      const res = await fetch('/api/facebook/config', {
+      const res = await authFetch('/api/facebook/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedConfig),
@@ -505,6 +528,10 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   };
 
   const handleSendTestPost = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     const targetId = pageIdInput.trim() || config?.pageId;
     if (!targetId) {
       setStatusMessage({ type: 'error', text: 'Please enter or save your Facebook Page ID first.' });
@@ -514,7 +541,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
     setIsTestingPost(true);
     setStatusMessage(null);
     try {
-      const res = await fetch('/api/facebook/test-publish', {
+      const res = await authFetch('/api/facebook/test-publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -590,9 +617,13 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
 
   const handleManualPost = async () => {
     if (!manualMessage.trim()) return;
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
     setIsManualPosting(true);
     try {
-      const res = await fetch('/api/facebook/publish-manual', {
+      const res = await authFetch('/api/facebook/publish-manual', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -8,10 +8,13 @@ import { FacebookPublisherView } from './components/FacebookPublisherView';
 import { DailyLeagueSelectionView } from './components/DailyLeagueSelectionView';
 import { ApiConsoleView } from './components/ApiConsoleView';
 import { SystemMonitoringView } from './components/SystemMonitoringView';
+import { AdminAuthModal } from './components/AdminAuthModal';
+import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext';
 import { Match, SystemStatus } from './types';
 import { Radio, Calendar, CheckCircle, Bell, Trophy, Globe, Clock, ChevronRight } from 'lucide-react';
 
-export default function App() {
+function DashboardContent() {
+  const { showLoginModal, setShowLoginModal, authFetch, isAuthenticated } = useAdminAuth();
   const [activeTab, setActiveTab] = useState<string>('live');
   const [liveMatches, setLiveMatches] = useState<Match[]>([]);
   const [todayMatches, setTodayMatches] = useState<Match[]>([]);
@@ -204,7 +207,7 @@ export default function App() {
   const handleManualSync = async () => {
     setIsSyncing(true);
     try {
-      const res = await fetch('/api/system/sync', { method: 'POST' });
+      const res = await authFetch('/api/system/sync', { method: 'POST' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       if (json.success) {
@@ -223,7 +226,12 @@ export default function App() {
     eventType: string,
     customMessage?: string
   ) => {
-    const res = await fetch('/api/facebook/publish-manual', {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      throw new Error('Please sign in as Admin to publish to Facebook.');
+    }
+
+    const res = await authFetch('/api/facebook/publish-manual', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -266,6 +274,7 @@ export default function App() {
         onManualSync={handleManualSync}
         isSyncing={isSyncing}
         liveMatchCount={liveMatches.length}
+        onOpenAdminModal={() => setShowLoginModal(true)}
       />
 
       {/* Main Content Area */}
@@ -326,6 +335,20 @@ export default function App() {
         onPublishToFacebook={handlePublishToFacebook}
         isFbConnected={isFbConnected}
       />
+
+      {/* Admin Authentication & Account Modal */}
+      <AdminAuthModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AdminAuthProvider>
+      <DashboardContent />
+    </AdminAuthProvider>
   );
 }

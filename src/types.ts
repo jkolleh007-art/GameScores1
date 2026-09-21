@@ -219,4 +219,27 @@ export interface SystemStatus {
     selectedLeagueNames: string[];
     isConfigured: boolean;
   };
+  adminAuth?: {
+    enabled: boolean;
+    totalAdmins: number;
+    dbType: string;
+  };
 }
+
+export interface AdminUser {
+  id: string;
+  username: string;
+  role: 'superadmin' | 'admin' | 'moderator';
+  createdAt: string;
+  lastLogin?: string;
+}
+
+export interface AdminSession {
+  token: string;
+  adminId: string;
+  username: string;
+  role: string;
+  createdAt: string;
+  expiresAt: string;
+}
+

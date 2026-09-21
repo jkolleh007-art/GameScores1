@@ -195,3 +195,21 @@ export interface ScraperHealthStatus {
   timestamp: string;
   details?: Record<string, any>;
 }
+
+export interface AdminUser {
+  id: string;
+  username: string;
+  role: 'superadmin' | 'admin' | 'moderator';
+  createdAt: string;
+  lastLogin?: string;
+}
+
+export interface AdminSession {
+  token: string;
+  adminId: string;
+  username: string;
+  role: string;
+  createdAt: string;
+  expiresAt: string;
+}
+

@@ -11,8 +11,12 @@ import {
   CheckCircle2,
   AlertTriangle,
   Trophy,
+  ShieldCheck,
+  Lock,
+  User,
 } from 'lucide-react';
 import { SystemStatus } from '../types';
+import { useAdminAuth } from '../context/AdminAuthContext';
 
 interface HeaderProps {
   activeTab: string;
@@ -22,6 +26,7 @@ interface HeaderProps {
   onManualSync: () => void;
   isSyncing: boolean;
   liveMatchCount: number;
+  onOpenAdminModal: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -32,7 +37,9 @@ export const Header: React.FC<HeaderProps> = ({
   onManualSync,
   isSyncing,
   liveMatchCount,
+  onOpenAdminModal,
 }) => {
+  const { adminUser, isAuthenticated, databaseInfo } = useAdminAuth();
   const scraplingOnline = systemStatus?.scraplingService?.status === 'ONLINE';
   const fbConfigured = Boolean(systemStatus?.facebookPublisher?.config?.pageId);
   const selectedLeaguesCount = systemStatus?.dailyLeagueSelection?.selectedCount ?? 0;
@@ -132,6 +139,40 @@ export const Header: React.FC<HeaderProps> = ({
               <Share2 className="w-3.5 h-3.5" />
               <span>FB: {fbConfigured ? 'Connected' : 'Not Connected'}</span>
             </div>
+
+            {/* Database Engine Status */}
+            <button
+              id="header-db-status-btn"
+              onClick={onOpenAdminModal}
+              className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full border bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 border-slate-700 transition-all cursor-pointer"
+              title={`PostgreSQL: ${databaseInfo?.databaseUrlMasked || 'gamescores_8n73'}`}
+            >
+              <Database className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="font-medium">PostgreSQL</span>
+            </button>
+
+            {/* Admin Authentication Trigger */}
+            <button
+              id="header-admin-auth-btn"
+              onClick={onOpenAdminModal}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border transition-all cursor-pointer font-medium ${
+                isAuthenticated
+                  ? 'bg-emerald-950/40 text-emerald-300 border-emerald-700/50 hover:bg-emerald-900/50'
+                  : 'bg-amber-500/10 text-amber-300 border-amber-500/30 hover:bg-amber-500/20'
+              }`}
+            >
+              {isAuthenticated ? (
+                <>
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Admin: {adminUser?.username}</span>
+                </>
+              ) : (
+                <>
+                  <Lock className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Admin Login</span>
+                </>
+              )}
+            </button>
 
             {/* Manual Sync Trigger */}
             <button

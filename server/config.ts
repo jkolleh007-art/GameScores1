@@ -12,11 +12,12 @@ export const config = {
   fbPageAccessToken: process.env.FB_PAGE_ACCESS_TOKEN || '',
   
   // Database & Cache
-  databaseUrl: process.env.DATABASE_URL || '',
+  databaseUrl: process.env.DATABASE_URL || 'postgresql://gamescores_8n73_user:yytt6F2BRAftBE5oEbJebNPIcyC7GAPF@dpg-danrl90ae00c739qtqag-a/gamescores_8n73',
   redisUrl: process.env.REDIS_URL || '',
   
-  // Security
+  // Security & Admin Auth
   apiAdminKey: process.env.API_ADMIN_KEY || '',
+  jwtSecret: process.env.JWT_SECRET || 'gamescores_admin_jwt_secret_token_key_2026',
   
   // Polling & Queue intervals
   scrapeIntervalSeconds: Math.max(15, Number(process.env.SCRAPE_INTERVAL_SECONDS) || 30),

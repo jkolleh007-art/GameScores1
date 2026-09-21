@@ -89,6 +89,229 @@ async function startServer() {
   // REST API Routes
   // -------------------------------------------------------------
 
+  // Admin Authentication Middleware
+  const adminAuthMiddleware = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    try {
+      const authHeader = req.headers.authorization;
+      let token = '';
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        token = authHeader.substring(7).trim();
+      } else if (req.headers['x-admin-token']) {
+        token = String(req.headers['x-admin-token']).trim();
+      }
+
+      // API Admin Key fallback for external cron jobs or scripts
+      const apiKey = req.headers['x-api-key'];
+      if (config.apiAdminKey && apiKey === config.apiAdminKey) {
+        (req as any).adminUser = {
+          id: 'api_admin',
+          username: 'API Key Admin',
+          role: 'superadmin',
+        };
+        return next();
+      }
+
+      if (!token) {
+        return res.status(401).json({
+          success: false,
+          error: 'Administrator authentication required. Please sign in.',
+          requireLogin: true,
+        });
+      }
+
+      const session = await db.validateSession(token);
+      if (!session) {
+        return res.status(401).json({
+          success: false,
+          error: 'Administrator session expired or invalid. Please sign in again.',
+          requireLogin: true,
+        });
+      }
+
+      (req as any).adminUser = {
+        id: session.adminId,
+        username: session.username,
+        role: session.role,
+      };
+      next();
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: 'Authentication error: ' + err.message });
+    }
+  };
+
+  // -------------------------------------------------------------
+  // Admin Authentication Routes
+  // -------------------------------------------------------------
+
+  // Admin Status: Check current session and database connection info
+  app.get('/api/admin/status', async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      let token = '';
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        token = authHeader.substring(7).trim();
+      } else if (req.headers['x-admin-token']) {
+        token = String(req.headers['x-admin-token']).trim();
+      }
+
+      let currentUser: any = null;
+      if (token) {
+        const session = await db.validateSession(token);
+        if (session) {
+          currentUser = {
+            id: session.adminId,
+            username: session.username,
+            role: session.role,
+          };
+        }
+      }
+
+      const totalAdmins = await db.getAdminCount();
+      const dbInfo = db.getConnectionInfo();
+
+      res.json({
+        success: true,
+        isAuthenticated: Boolean(currentUser),
+        user: currentUser,
+        totalAdmins,
+        database: dbInfo,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Admin Login: Authenticate username & password
+  app.post('/api/admin/login', async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      if (!username || !password) {
+        return res.status(400).json({ success: false, error: 'Username and password are required.' });
+      }
+
+      const admin = await db.getAdminByUsername(username);
+      if (!admin) {
+        return res.status(401).json({ success: false, error: 'Invalid username or password.' });
+      }
+
+      const hash = db.hashPassword(password, admin.salt);
+      if (hash !== admin.passwordHash) {
+        return res.status(401).json({ success: false, error: 'Invalid username or password.' });
+      }
+
+      await db.updateAdminLastLogin(admin.id);
+      const session = await db.createSession(admin.id, admin.username, admin.role);
+
+      res.json({
+        success: true,
+        message: `Welcome back, ${admin.username}!`,
+        token: session.token,
+        user: {
+          id: admin.id,
+          username: admin.username,
+          role: admin.role,
+        },
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Admin Logout: Invalidate current token
+  app.post('/api/admin/logout', async (req, res) => {
+    try {
+      const authHeader = req.headers.authorization;
+      let token = req.body?.token;
+      if (!token && authHeader && authHeader.startsWith('Bearer ')) {
+        token = authHeader.substring(7).trim();
+      } else if (!token && req.headers['x-admin-token']) {
+        token = String(req.headers['x-admin-token']).trim();
+      }
+
+      if (token) {
+        await db.deleteSession(token);
+      }
+
+      res.json({ success: true, message: 'Signed out successfully.' });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Admin Profile: Get current logged-in admin
+  app.get('/api/admin/me', adminAuthMiddleware, async (req, res) => {
+    const user = (req as any).adminUser;
+    const dbInfo = db.getConnectionInfo();
+    res.json({ success: true, user, database: dbInfo });
+  });
+
+  // Admin: Change current admin password
+  app.post('/api/admin/change-password', adminAuthMiddleware, async (req, res) => {
+    try {
+      const { oldPassword, newPassword } = req.body;
+      if (!oldPassword || !newPassword) {
+        return res.status(400).json({ success: false, error: 'Current password and new password are required.' });
+      }
+
+      if (newPassword.length < 6) {
+        return res.status(400).json({ success: false, error: 'New password must be at least 6 characters.' });
+      }
+
+      const user = (req as any).adminUser;
+      const admin = await db.getAdminByUsername(user.username);
+      if (!admin) {
+        return res.status(404).json({ success: false, error: 'Admin account not found.' });
+      }
+
+      const oldHash = db.hashPassword(oldPassword, admin.salt);
+      if (oldHash !== admin.passwordHash) {
+        return res.status(400).json({ success: false, error: 'Current password does not match.' });
+      }
+
+      await db.updateAdminPassword(admin.id, newPassword);
+      res.json({ success: true, message: 'Admin password updated successfully.' });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Admin: List all admin accounts
+  app.get('/api/admin/users', adminAuthMiddleware, async (req, res) => {
+    try {
+      const users = await db.getAdminUsers();
+      res.json({ success: true, count: users.length, data: users });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Admin: Create additional admin account
+  app.post('/api/admin/create-user', adminAuthMiddleware, async (req, res) => {
+    try {
+      const { username, password, role } = req.body;
+      if (!username || !password) {
+        return res.status(400).json({ success: false, error: 'Username and password are required.' });
+      }
+      if (password.length < 6) {
+        return res.status(400).json({ success: false, error: 'Password must be at least 6 characters.' });
+      }
+
+      const created = await db.createAdminUser({
+        username,
+        password,
+        role: role || 'admin',
+      });
+
+      res.json({
+        success: true,
+        message: `Admin user "${created.username}" created successfully.`,
+        data: created,
+      });
+    } catch (e: any) {
+      res.status(400).json({ success: false, error: e.message });
+    }
+  });
+
   // System status and monitoring
   app.get('/api/system/status', async (req, res) => {
     let scraplingHealth: any = { status: 'OFFLINE' };
@@ -122,6 +345,8 @@ async function startServer() {
     });
 
     const dailySelection = await db.getDailyLeagueSelection(fbConfig.timezone || 'UTC');
+    const dbInfo = db.getConnectionInfo();
+    const adminCount = await db.getAdminCount();
 
     res.json({
       success: true,
@@ -140,6 +365,11 @@ async function startServer() {
         selectedLeagueNames: dailySelection.selectedLeagueNames,
         isConfigured: dailySelection.selectedLeagueIds.length > 0,
       },
+      adminAuth: {
+        enabled: true,
+        totalAdmins: adminCount,
+        dbType: dbInfo.dbType,
+      },
       facebookPublisher: {
         config: {
           pageId: fbConfig.pageId || null,
@@ -150,7 +380,7 @@ async function startServer() {
         queue: publisherQueue.getMetrics(),
       },
       persistence: {
-        type: config.databaseUrl ? 'PostgreSQL' : 'Local JSON Fallback',
+        type: dbInfo.dbType,
         connected: true,
       },
       cache: {
@@ -161,7 +391,7 @@ async function startServer() {
   });
 
   // Trigger manual sync
-  app.post('/api/system/sync', async (req, res) => {
+  app.post('/api/system/sync', adminAuthMiddleware, async (req, res) => {
     try {
       const matches = await sportsSync.syncLiveMatches();
       res.json({
@@ -432,7 +662,7 @@ async function startServer() {
   });
 
   // Sports: Save Daily League Selection
-  app.post('/api/leagues/daily-selection', async (req, res) => {
+  app.post('/api/leagues/daily-selection', adminAuthMiddleware, async (req, res) => {
     try {
       const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', { timezone: 'UTC' } as any);
       const { selectedLeagueIds, selectedLeagueNames, allLeaguesSelected } = req.body;
@@ -470,7 +700,7 @@ async function startServer() {
   });
 
   // Sports: Reset Daily League Selection (Deselect all)
-  app.post('/api/leagues/daily-selection/reset', async (req, res) => {
+  app.post('/api/leagues/daily-selection/reset', adminAuthMiddleware, async (req, res) => {
     try {
       const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', { timezone: 'UTC' } as any);
       const reset = await db.resetDailyLeagueSelection(fbConfig.timezone || 'UTC');
@@ -494,7 +724,7 @@ async function startServer() {
   });
 
   // Sports: Select All Leagues for Today
-  app.post('/api/leagues/daily-selection/select-all', async (req, res) => {
+  app.post('/api/leagues/daily-selection/select-all', adminAuthMiddleware, async (req, res) => {
     try {
       const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', { timezone: 'UTC' } as any);
 
@@ -658,7 +888,7 @@ async function startServer() {
   });
 
   // Facebook Config: Save / Connect
-  app.post('/api/facebook/config', async (req, res) => {
+  app.post('/api/facebook/config', adminAuthMiddleware, async (req, res) => {
     const incoming = req.body as Partial<FacebookPageConfig>;
     
     // Save to settings
@@ -763,7 +993,7 @@ async function startServer() {
   });
 
   // Facebook: Clear Stuck Queue and Reset Anti-Spam Cooldown
-  app.post('/api/facebook/clear-queue', async (req, res) => {
+  app.post('/api/facebook/clear-queue', adminAuthMiddleware, async (req, res) => {
     try {
       const clearedCount = await publisherQueue.clearQueue();
       res.json({
@@ -778,7 +1008,7 @@ async function startServer() {
   });
 
   // Facebook: Direct Test Post Trigger
-  app.post('/api/facebook/test-publish', async (req, res) => {
+  app.post('/api/facebook/test-publish', adminAuthMiddleware, async (req, res) => {
     try {
       const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', {
         pageId: config.fbPageId,
@@ -938,7 +1168,7 @@ async function startServer() {
   });
 
   // Facebook: Publish Live Roundup Post Now (All live games in a single post)
-  app.post('/api/facebook/publish-roundup', async (req, res) => {
+  app.post('/api/facebook/publish-roundup', adminAuthMiddleware, async (req, res) => {
     try {
       let matches = await sportsSync.getLiveMatches();
       if (!matches || matches.length === 0) {
@@ -1091,7 +1321,7 @@ async function startServer() {
   });
 
   // Facebook: Publish Full-Time Results Roundup Now
-  app.post('/api/facebook/publish-results-roundup', async (req, res) => {
+  app.post('/api/facebook/publish-results-roundup', adminAuthMiddleware, async (req, res) => {
     try {
       const offset = req.body?.offset !== undefined ? Number(req.body.offset) : 0;
       const forceIncludeAll = req.body?.forceIncludeAll === true;
@@ -1207,7 +1437,7 @@ async function startServer() {
   });
 
   // Facebook: Clear Published Full-Time History (Allow Re-posting)
-  app.post('/api/facebook/clear-published-ft-matches', async (req, res) => {
+  app.post('/api/facebook/clear-published-ft-matches', adminAuthMiddleware, async (req, res) => {
     try {
       await db.clearPublishedFtMatches();
       res.json({
@@ -1220,7 +1450,7 @@ async function startServer() {
   });
 
   // Facebook: Mark Current Completed Matches as Published (Skip without posting)
-  app.post('/api/facebook/mark-current-results-as-published', async (req, res) => {
+  app.post('/api/facebook/mark-current-results-as-published', adminAuthMiddleware, async (req, res) => {
     try {
       const offset = req.body?.offset !== undefined ? Number(req.body.offset) : 0;
       const matches = await sportsSync.getResults(offset);
@@ -1250,7 +1480,7 @@ async function startServer() {
   });
 
   // Facebook: Retry single skipped/failed post
-  app.post('/api/facebook/retry-post/:id', async (req, res) => {
+  app.post('/api/facebook/retry-post/:id', adminAuthMiddleware, async (req, res) => {
     try {
       const posts = await db.getFacebookPosts(100);
       const target = posts.find(p => p.id === req.params.id);
@@ -1283,7 +1513,7 @@ async function startServer() {
   });
 
   // Facebook: Retry all skipped/failed posts
-  app.post('/api/facebook/retry-all-skipped', async (req, res) => {
+  app.post('/api/facebook/retry-all-skipped', adminAuthMiddleware, async (req, res) => {
     try {
       const posts = await db.getFacebookPosts(100);
       const toRetry = posts.filter(p => p.status === 'SKIPPED' || p.status === 'FAILED');
@@ -1315,7 +1545,7 @@ async function startServer() {
   });
 
   // Facebook: Manual Post Trigger
-  app.post('/api/facebook/publish-manual', async (req, res) => {
+  app.post('/api/facebook/publish-manual', adminAuthMiddleware, async (req, res) => {
     const { matchId, matchTitle, leagueName, eventType, message } = req.body;
     if (!message) {
       return res.status(400).json({ success: false, error: 'Message content is required' });
