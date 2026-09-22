@@ -23,4 +23,10 @@ export const config = {
   scrapeIntervalSeconds: Math.max(15, Number(process.env.SCRAPE_INTERVAL_SECONDS) || 30),
   fbPublishMaxRetries: 3,
   fbRateLimitPerMinute: 10,
+  
+  // Facebook Centralized Publisher Safety Controls
+  fbMinPublishIntervalSeconds: Math.max(900, Number(process.env.FACEBOOK_MIN_PUBLISH_INTERVAL_SECONDS) || 900), // Enforce 900s (15 min) hard minimum
+  fbInitialCooldownSeconds: Number(process.env.FACEBOOK_INITIAL_COOLDOWN_SECONDS) || 600, // 10 min
+  fbMaxCooldownSeconds: Number(process.env.FACEBOOK_MAX_COOLDOWN_SECONDS) || 3600, // 60 min maximum backoff
+  fbPublishEnabled: process.env.FACEBOOK_PUBLISH_ENABLED !== 'false', // Default true
 };

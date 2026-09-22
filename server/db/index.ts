@@ -7,6 +7,9 @@ import {
   Match,
   MatchEvent,
   FacebookPostRecord,
+  FacebookPublisherState,
+  FacebookPendingPublication,
+  FacebookPublisherLock,
   ApiKeyRecord,
   DailyLeagueSelection,
   FacebookPageConfig,
@@ -53,6 +56,9 @@ interface LocalDbSchema {
   matches: Record<string, Match>;
   events: Record<string, MatchEvent[]>;
   facebookPosts: FacebookPostRecord[];
+  facebookPublisherState?: FacebookPublisherState;
+  facebookPendingPublications: FacebookPendingPublication[];
+  facebookPublisherLocks: Record<string, FacebookPublisherLock>;
   settings: Record<string, any>;
   apiKeys: ApiKeyRecord[];
   adminUsers: StoredAdminUser[];
@@ -67,6 +73,9 @@ class DatabaseManager {
     matches: {},
     events: {},
     facebookPosts: [],
+    facebookPublisherState: undefined,
+    facebookPendingPublications: [],
+    facebookPublisherLocks: {},
     settings: {
       fbConfig: {
         pageId: config.fbPageId,
@@ -261,6 +270,52 @@ class DatabaseManager {
         role VARCHAR(32) NOT NULL DEFAULT 'superadmin',
         created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
         expires_at TIMESTAMP WITH TIME ZONE NOT NULL
+      );
+
+      CREATE TABLE IF NOT EXISTS facebook_publisher_state (
+        id VARCHAR(64) PRIMARY KEY,
+        publishing_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+        publishing_paused BOOLEAN NOT NULL DEFAULT FALSE,
+        pause_reason TEXT,
+        cooldown_until TIMESTAMP WITH TIME ZONE,
+        cooldown_reason TEXT,
+        last_attempt_at TIMESTAMP WITH TIME ZONE,
+        last_publish_at TIMESTAMP WITH TIME ZONE,
+        last_successful_publish_at TIMESTAMP WITH TIME ZONE,
+        last_facebook_post_id VARCHAR(128),
+        last_published_content_hash VARCHAR(128),
+        pending_content_hash VARCHAR(128),
+        consecutive_meta_blocks INT NOT NULL DEFAULT 0,
+        total_meta_blocks INT NOT NULL DEFAULT 0,
+        last_error_code INT,
+        last_error_subcode INT,
+        last_error_message TEXT,
+        updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS facebook_pending_publications (
+        id VARCHAR(64) PRIMARY KEY,
+        publication_type VARCHAR(32) NOT NULL DEFAULT 'LIVE',
+        match_id VARCHAR(64) NOT NULL,
+        match_title VARCHAR(256) NOT NULL,
+        league_name VARCHAR(128) NOT NULL,
+        event_type VARCHAR(32) NOT NULL DEFAULT 'STATUS_CHANGE',
+        content TEXT NOT NULL,
+        content_hash VARCHAR(128) NOT NULL,
+        status VARCHAR(32) NOT NULL DEFAULT 'PENDING',
+        created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+        attempt_count INT NOT NULL DEFAULT 0,
+        last_error TEXT,
+        available_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS facebook_publisher_locks (
+        lock_name VARCHAR(64) PRIMARY KEY,
+        locked BOOLEAN NOT NULL DEFAULT FALSE,
+        lock_owner VARCHAR(128),
+        locked_at TIMESTAMP WITH TIME ZONE,
+        lease_until TIMESTAMP WITH TIME ZONE
       );
     `;
     await this.pgPool.query(schemaSql);
@@ -546,6 +601,391 @@ class DatabaseManager {
       if (count > 0) this.saveLocalData();
     }
     return count;
+  }
+
+  // -------------------------------------------------------------
+  // Centralized Facebook Publisher State (PostgreSQL Persistent)
+  // -------------------------------------------------------------
+
+  async getFacebookPublisherState(): Promise<FacebookPublisherState> {
+    const defaultState: FacebookPublisherState = {
+      id: 'primary',
+      publishingEnabled: true,
+      publishingPaused: false,
+      consecutiveMetaBlocks: 0,
+      totalMetaBlocks: 0,
+      updatedAt: new Date().toISOString(),
+    };
+
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        'SELECT * FROM facebook_publisher_state WHERE id = $1',
+        ['primary']
+      );
+      if (res.rows.length === 0) {
+        // Initialize default row
+        await this.saveFacebookPublisherState(defaultState);
+        return defaultState;
+      }
+      const r = res.rows[0];
+      return {
+        id: r.id,
+        publishingEnabled: r.publishing_enabled,
+        publishingPaused: r.publishing_paused,
+        pauseReason: r.pause_reason || undefined,
+        cooldownUntil: r.cooldown_until ? new Date(r.cooldown_until).toISOString() : undefined,
+        cooldownReason: r.cooldown_reason || undefined,
+        lastAttemptAt: r.last_attempt_at ? new Date(r.last_attempt_at).toISOString() : undefined,
+        lastPublishAt: r.last_publish_at ? new Date(r.last_publish_at).toISOString() : undefined,
+        lastSuccessfulPublishAt: r.last_successful_publish_at ? new Date(r.last_successful_publish_at).toISOString() : undefined,
+        lastFacebookPostId: r.last_facebook_post_id || undefined,
+        lastPublishedContentHash: r.last_published_content_hash || undefined,
+        pendingContentHash: r.pending_content_hash || undefined,
+        consecutiveMetaBlocks: Number(r.consecutive_meta_blocks || 0),
+        totalMetaBlocks: Number(r.total_meta_blocks || 0),
+        lastErrorCode: r.last_error_code ? Number(r.last_error_code) : undefined,
+        lastErrorSubcode: r.last_error_subcode ? Number(r.last_error_subcode) : undefined,
+        lastErrorMessage: r.last_error_message || undefined,
+        updatedAt: r.updated_at ? new Date(r.updated_at).toISOString() : new Date().toISOString(),
+      };
+    } else {
+      if (!this.localData.facebookPublisherState) {
+        this.localData.facebookPublisherState = { ...defaultState };
+        this.saveLocalData();
+      }
+      return { ...this.localData.facebookPublisherState };
+    }
+  }
+
+  async saveFacebookPublisherState(state: FacebookPublisherState): Promise<void> {
+    state.updatedAt = new Date().toISOString();
+    if (this.isPostgres && this.pgPool) {
+      await this.pgPool.query(
+        `INSERT INTO facebook_publisher_state (
+          id, publishing_enabled, publishing_paused, pause_reason,
+          cooldown_until, cooldown_reason, last_attempt_at, last_publish_at,
+          last_successful_publish_at, last_facebook_post_id, last_published_content_hash,
+          pending_content_hash, consecutive_meta_blocks, total_meta_blocks,
+          last_error_code, last_error_subcode, last_error_message, updated_at
+        ) VALUES (
+          $1, $2, $3, $4,
+          $5, $6, $7, $8,
+          $9, $10, $11,
+          $12, $13, $14,
+          $15, $16, $17, NOW()
+        ) ON CONFLICT (id) DO UPDATE SET
+          publishing_enabled = EXCLUDED.publishing_enabled,
+          publishing_paused = EXCLUDED.publishing_paused,
+          pause_reason = EXCLUDED.pause_reason,
+          cooldown_until = EXCLUDED.cooldown_until,
+          cooldown_reason = EXCLUDED.cooldown_reason,
+          last_attempt_at = EXCLUDED.last_attempt_at,
+          last_publish_at = EXCLUDED.last_publish_at,
+          last_successful_publish_at = EXCLUDED.last_successful_publish_at,
+          last_facebook_post_id = EXCLUDED.last_facebook_post_id,
+          last_published_content_hash = EXCLUDED.last_published_content_hash,
+          pending_content_hash = EXCLUDED.pending_content_hash,
+          consecutive_meta_blocks = EXCLUDED.consecutive_meta_blocks,
+          total_meta_blocks = EXCLUDED.total_meta_blocks,
+          last_error_code = EXCLUDED.last_error_code,
+          last_error_subcode = EXCLUDED.last_error_subcode,
+          last_error_message = EXCLUDED.last_error_message,
+          updated_at = NOW()`,
+        [
+          state.id || 'primary',
+          state.publishingEnabled,
+          state.publishingPaused,
+          state.pauseReason || null,
+          state.cooldownUntil || null,
+          state.cooldownReason || null,
+          state.lastAttemptAt || null,
+          state.lastPublishAt || null,
+          state.lastSuccessfulPublishAt || null,
+          state.lastFacebookPostId || null,
+          state.lastPublishedContentHash || null,
+          state.pendingContentHash || null,
+          state.consecutiveMetaBlocks || 0,
+          state.totalMetaBlocks || 0,
+          state.lastErrorCode || null,
+          state.lastErrorSubcode || null,
+          state.lastErrorMessage || null,
+        ]
+      );
+    } else {
+      this.localData.facebookPublisherState = { ...state };
+      this.saveLocalData();
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Centralized Pending Publications (Coalesced & Restart-Safe)
+  // -------------------------------------------------------------
+
+  async getPendingPublication(type?: string): Promise<FacebookPendingPublication | null> {
+    if (this.isPostgres && this.pgPool) {
+      let query = "SELECT * FROM facebook_pending_publications WHERE status = 'PENDING'";
+      const params: any[] = [];
+      if (type) {
+        query += ' AND publication_type = $1';
+        params.push(type);
+      }
+      query += ' ORDER BY created_at ASC LIMIT 1';
+      const res = await this.pgPool.query(query, params);
+      if (res.rows.length === 0) return null;
+      const r = res.rows[0];
+      return {
+        id: r.id,
+        publicationType: r.publication_type,
+        matchId: r.match_id,
+        matchTitle: r.match_title,
+        leagueName: r.league_name,
+        eventType: r.event_type,
+        content: r.content,
+        contentHash: r.content_hash,
+        status: r.status,
+        createdAt: new Date(r.created_at).toISOString(),
+        updatedAt: new Date(r.updated_at).toISOString(),
+        attemptCount: Number(r.attempt_count || 0),
+        lastError: r.last_error || undefined,
+        availableAt: new Date(r.available_at).toISOString(),
+      };
+    } else {
+      if (!this.localData.facebookPendingPublications) {
+        this.localData.facebookPendingPublications = [];
+      }
+      const item = this.localData.facebookPendingPublications.find(
+        p => p.status === 'PENDING' && (!type || p.publicationType === type)
+      );
+      return item ? { ...item } : null;
+    }
+  }
+
+  async getAllPendingPublications(): Promise<FacebookPendingPublication[]> {
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        "SELECT * FROM facebook_pending_publications WHERE status = 'PENDING' ORDER BY created_at ASC"
+      );
+      return res.rows.map(r => ({
+        id: r.id,
+        publicationType: r.publication_type,
+        matchId: r.match_id,
+        matchTitle: r.match_title,
+        leagueName: r.league_name,
+        eventType: r.event_type,
+        content: r.content,
+        contentHash: r.content_hash,
+        status: r.status,
+        createdAt: new Date(r.created_at).toISOString(),
+        updatedAt: new Date(r.updated_at).toISOString(),
+        attemptCount: Number(r.attempt_count || 0),
+        lastError: r.last_error || undefined,
+        availableAt: new Date(r.available_at).toISOString(),
+      }));
+    } else {
+      return (this.localData.facebookPendingPublications || []).filter(p => p.status === 'PENDING');
+    }
+  }
+
+  async savePendingPublication(pub: FacebookPendingPublication): Promise<void> {
+    if (this.isPostgres && this.pgPool) {
+      await this.pgPool.query(
+        `INSERT INTO facebook_pending_publications (
+          id, publication_type, match_id, match_title, league_name, event_type,
+          content, content_hash, status, created_at, updated_at, attempt_count,
+          last_error, available_at
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6,
+          $7, $8, $9, $10, NOW(), $11,
+          $12, $13
+        ) ON CONFLICT (id) DO UPDATE SET
+          content = EXCLUDED.content,
+          content_hash = EXCLUDED.content_hash,
+          match_title = EXCLUDED.match_title,
+          status = EXCLUDED.status,
+          updated_at = NOW(),
+          attempt_count = EXCLUDED.attempt_count,
+          last_error = EXCLUDED.last_error,
+          available_at = EXCLUDED.available_at`,
+        [
+          pub.id,
+          pub.publicationType,
+          pub.matchId,
+          pub.matchTitle,
+          pub.leagueName,
+          pub.eventType,
+          pub.content,
+          pub.contentHash,
+          pub.status,
+          pub.createdAt || new Date().toISOString(),
+          pub.attemptCount || 0,
+          pub.lastError || null,
+          pub.availableAt || new Date().toISOString(),
+        ]
+      );
+    } else {
+      if (!this.localData.facebookPendingPublications) {
+        this.localData.facebookPendingPublications = [];
+      }
+      const idx = this.localData.facebookPendingPublications.findIndex(p => p.id === pub.id);
+      if (idx >= 0) {
+        this.localData.facebookPendingPublications[idx] = { ...pub, updatedAt: new Date().toISOString() };
+      } else {
+        this.localData.facebookPendingPublications.push({ ...pub, updatedAt: new Date().toISOString() });
+      }
+      this.saveLocalData();
+    }
+  }
+
+  async deletePendingPublication(id: string): Promise<void> {
+    if (this.isPostgres && this.pgPool) {
+      await this.pgPool.query('DELETE FROM facebook_pending_publications WHERE id = $1', [id]);
+    } else {
+      if (!this.localData.facebookPendingPublications) return;
+      this.localData.facebookPendingPublications = this.localData.facebookPendingPublications.filter(p => p.id !== id);
+      this.saveLocalData();
+    }
+  }
+
+  async clearPendingPublications(): Promise<number> {
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query("DELETE FROM facebook_pending_publications WHERE status = 'PENDING'");
+      return res.rowCount ?? 0;
+    } else {
+      if (!this.localData.facebookPendingPublications) return 0;
+      const count = this.localData.facebookPendingPublications.filter(p => p.status === 'PENDING').length;
+      this.localData.facebookPendingPublications = this.localData.facebookPendingPublications.filter(p => p.status !== 'PENDING');
+      this.saveLocalData();
+      return count;
+    }
+  }
+
+  // -------------------------------------------------------------
+  // PostgreSQL-Based Publisher Mutual Exclusion Lock with Expiring Lease
+  // -------------------------------------------------------------
+
+  async acquirePublisherLock(owner: string, leaseMs = 30000): Promise<boolean> {
+    const lockName = 'facebook_publisher_primary_lock';
+    const now = new Date();
+    const leaseUntil = new Date(now.getTime() + leaseMs);
+
+    if (this.isPostgres && this.pgPool) {
+      const client = await this.pgPool.connect();
+      try {
+        await client.query('BEGIN');
+        // Check current lock status
+        const res = await client.query(
+          'SELECT * FROM facebook_publisher_locks WHERE lock_name = $1 FOR UPDATE',
+          [lockName]
+        );
+
+        let canAcquire = false;
+        if (res.rows.length === 0) {
+          canAcquire = true;
+          await client.query(
+            `INSERT INTO facebook_publisher_locks (lock_name, locked, lock_owner, locked_at, lease_until)
+             VALUES ($1, TRUE, $2, NOW(), $3)`,
+            [lockName, owner, leaseUntil.toISOString()]
+          );
+        } else {
+          const row = res.rows[0];
+          const isCurrentlyLocked = row.locked;
+          const isExpired = row.lease_until ? new Date(row.lease_until).getTime() <= now.getTime() : true;
+          const isSameOwner = row.lock_owner === owner;
+
+          if (!isCurrentlyLocked || isExpired || isSameOwner) {
+            canAcquire = true;
+            await client.query(
+              `UPDATE facebook_publisher_locks
+               SET locked = TRUE, lock_owner = $2, locked_at = NOW(), lease_until = $3
+               WHERE lock_name = $1`,
+              [lockName, owner, leaseUntil.toISOString()]
+            );
+          }
+        }
+
+        await client.query('COMMIT');
+        return canAcquire;
+      } catch (e) {
+        await client.query('ROLLBACK');
+        console.warn('[DB Lock] Error acquiring publisher lock:', (e as Error).message);
+        return false;
+      } finally {
+        client.release();
+      }
+    } else {
+      if (!this.localData.facebookPublisherLocks) {
+        this.localData.facebookPublisherLocks = {};
+      }
+      const existing = this.localData.facebookPublisherLocks[lockName];
+      const isExpired = existing?.leaseUntil ? new Date(existing.leaseUntil).getTime() <= now.getTime() : true;
+      const isSameOwner = existing?.lockOwner === owner;
+
+      if (!existing || !existing.locked || isExpired || isSameOwner) {
+        this.localData.facebookPublisherLocks[lockName] = {
+          lockName,
+          locked: true,
+          lockOwner: owner,
+          lockedAt: now.toISOString(),
+          leaseUntil: leaseUntil.toISOString(),
+        };
+        this.saveLocalData();
+        return true;
+      }
+      return false;
+    }
+  }
+
+  async releasePublisherLock(owner: string): Promise<boolean> {
+    const lockName = 'facebook_publisher_primary_lock';
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        `UPDATE facebook_publisher_locks
+         SET locked = FALSE, lock_owner = NULL, lease_until = NULL
+         WHERE lock_name = $1 AND (lock_owner = $2 OR lease_until <= NOW() OR lock_owner IS NULL)`,
+        [lockName, owner]
+      );
+      return (res.rowCount ?? 0) > 0;
+    } else {
+      if (!this.localData.facebookPublisherLocks) return true;
+      const existing = this.localData.facebookPublisherLocks[lockName];
+      if (existing && (existing.lockOwner === owner || !existing.locked)) {
+        this.localData.facebookPublisherLocks[lockName] = {
+          lockName,
+          locked: false,
+        };
+        this.saveLocalData();
+        return true;
+      }
+      return false;
+    }
+  }
+
+  async getPublisherLockStatus(): Promise<{ locked: boolean; owner?: string; remainingMs?: number }> {
+    const lockName = 'facebook_publisher_primary_lock';
+    const now = Date.now();
+    if (this.isPostgres && this.pgPool) {
+      const res = await this.pgPool.query(
+        'SELECT * FROM facebook_publisher_locks WHERE lock_name = $1',
+        [lockName]
+      );
+      if (res.rows.length === 0) return { locked: false };
+      const r = res.rows[0];
+      const leaseTime = r.lease_until ? new Date(r.lease_until).getTime() : 0;
+      const isExpired = leaseTime <= now;
+      if (r.locked && !isExpired) {
+        return { locked: true, owner: r.lock_owner || undefined, remainingMs: leaseTime - now };
+      }
+      return { locked: false };
+    } else {
+      const existing = this.localData.facebookPublisherLocks?.[lockName];
+      if (!existing || !existing.locked) return { locked: false };
+      const leaseTime = existing.leaseUntil ? new Date(existing.leaseUntil).getTime() : 0;
+      const isExpired = leaseTime <= now;
+      if (!isExpired) {
+        return { locked: true, owner: existing.lockOwner, remainingMs: leaseTime - now };
+      }
+      return { locked: false };
+    }
   }
 
   async getSettings<T>(key: string, defaultValue: T): Promise<T> {

@@ -69,6 +69,10 @@ export interface MatchStats {
   yellowCardsAway?: number;
   redCardsHome?: number;
   redCardsAway?: number;
+  substitutionsHome?: number;
+  substitutionsAway?: number;
+  penaltiesHome?: number;
+  penaltiesAway?: number;
   offsidesHome?: number;
   offsidesAway?: number;
   savesHome?: number;
@@ -86,6 +90,14 @@ export interface Match {
   status: MatchStatus;
   statusText: string;
   minute?: number;
+  extraMinute?: number;
+  addedTime?: number;
+  halfScores?: {
+    home1?: number;
+    away1?: number;
+    home2?: number;
+    away2?: number;
+  };
   startTime: string;
   events?: MatchEvent[];
   stats?: MatchStats;

@@ -136,8 +136,12 @@ export function parseFlashscoreFeed(rawText: string): Match[] {
           statusText = `${minute}' (1st Half)`;
         } else {
           status = 'IN_PLAY';
+          const stoppageMatch = stageCode.match(/(\d+)\+(\d+)/);
           const minMatch = stageCode.match(/^(\d+)'?$/);
-          if (minMatch && parseInt(minMatch[1], 10) <= 120 && minMatch[1] !== '13' && minMatch[1] !== '12' && minMatch[1] !== '38') {
+          if (stoppageMatch) {
+            minute = parseInt(stoppageMatch[1], 10);
+            statusText = `${minute}+${stoppageMatch[2]}'`;
+          } else if (minMatch && parseInt(minMatch[1], 10) <= 120 && minMatch[1] !== '13' && minMatch[1] !== '12' && minMatch[1] !== '38') {
             minute = parseInt(minMatch[1], 10);
             statusText = `${minute}'`;
           } else if (startTimestampMs > 0) {
@@ -160,6 +164,32 @@ export function parseFlashscoreFeed(rawText: string): Match[] {
         status = 'CANCELLED';
       } else if (statusCode === '1') {
         status = 'SCHEDULED';
+      }
+
+      // Check for extra minute / added time in stageCode or statusText
+      let extraMinute: number | undefined = undefined;
+      let addedTime: number | undefined = undefined;
+      const combinedTime = `${stageCode} ${statusText}`;
+      const extraMatch = combinedTime.match(/(\d+)\+(\d+)/);
+      if (extraMatch) {
+        if (!minute) minute = parseInt(extraMatch[1], 10);
+        extraMinute = parseInt(extraMatch[2], 10);
+        addedTime = extraMinute;
+      }
+
+      // Parse half-time scores if provided in feed (BA/BB = 1st half, BC/BD = 2nd half)
+      let halfScores: Match['halfScores'] = undefined;
+      const ba = data['BA'];
+      const bb = data['BB'];
+      const bc = data['BC'];
+      const bd = data['BD'];
+      if (ba !== undefined && bb !== undefined && /^\d+$/.test(ba) && /^\d+$/.test(bb)) {
+        halfScores = {
+          home1: parseInt(ba, 10),
+          away1: parseInt(bb, 10),
+          home2: bc !== undefined && /^\d+$/.test(bc) ? parseInt(bc, 10) : undefined,
+          away2: bd !== undefined && /^\d+$/.test(bd) ? parseInt(bd, 10) : undefined,
+        };
       }
 
       const homeTeam: Team = {
@@ -193,6 +223,9 @@ export function parseFlashscoreFeed(rawText: string): Match[] {
         status,
         statusText: statusText || (status === 'IN_PLAY' ? (minute ? `${minute}'` : 'Live') : status === 'FINISHED' ? 'FT (90\')' : 'Upcoming'),
         minute,
+        extraMinute,
+        addedTime,
+        halfScores,
         startTime,
         stats: initialStats,
         lastUpdated: new Date().toISOString(),
@@ -337,6 +370,12 @@ export function parseFlashscoreStatistics(rawText: string): MatchStats {
     } else if (lower.includes('red')) {
       stats.redCardsHome = parseNum(valHome);
       stats.redCardsAway = parseNum(valAway);
+    } else if (lower.includes('substitution')) {
+      stats.substitutionsHome = parseNum(valHome);
+      stats.substitutionsAway = parseNum(valAway);
+    } else if (lower.includes('penalty') || lower.includes('penalties')) {
+      stats.penaltiesHome = parseNum(valHome);
+      stats.penaltiesAway = parseNum(valAway);
     } else if (lower.includes('offside')) {
       stats.offsidesHome = parseNum(valHome);
       stats.offsidesAway = parseNum(valAway);

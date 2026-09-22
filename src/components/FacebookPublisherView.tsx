@@ -369,13 +369,22 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
     try {
       const res = await fetch('/api/facebook/reset-cooldown', { method: 'POST' });
       const json = await res.json();
-      if (json.success) {
-        setRefreshNotice('Cooldown cleared — queue resumed');
-        await fetchConfigAndHistory();
+      if (json.cooldownStillActive) {
+        setStatusMessage({
+          type: 'info',
+          text: `Acknowledged: Meta Anti-Spam protection active for ${json.cooldownRemainingSeconds}s. Publishing will safely resume once the cooldown timer expires.`,
+        });
+      } else if (json.success) {
+        setRefreshNotice('Cooldown cleared — publisher resumed');
+        setStatusMessage({ type: 'success', text: 'Facebook publisher resumed successfully.' });
         setTimeout(() => setRefreshNotice(null), 3500);
+      } else {
+        setStatusMessage({ type: 'error', text: json.error || 'Failed to reset status' });
       }
+      await fetchConfigAndHistory();
     } catch (e: any) {
-      console.error('Error resetting cooldown:', e);
+      console.error('Error acknowledging cooldown:', e);
+      setStatusMessage({ type: 'error', text: 'Error contacting server' });
     } finally {
       setIsResettingCooldown(false);
     }
@@ -2090,7 +2099,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                     postTemplateRedCard: "🟥 RED CARD! {player} ({team}) sent off in the {minute}' min!\n⏱️ Match Time: {minute}' ({period})\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #GameScores #RedCard",
                     postTemplateCorner: "🚩 CORNER KICK! Corner awarded to {team} in the {minute}' min!\n⏱️ Match Time: {minute}' ({period})\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #GameScores #CornerKick",
                     postTemplateGoal: "⚽ GOAL! {home_team} {home_score} - {away_score} {away_team}!\n⏱️ Match Time: {minute}' min ({period})\n👤 {player}\n🏆 {league_name}\n\n#{league_tag} #LiveScores #GameScores",
-                    postTemplateRoundup: "⚽ LIVE MATCHES SCOREBOARD ⏱️\n📊 {count} Active Match(es) in Progress ({time})\n\n{matches_list}\n\n⚡ Follow for live scores and breaking goal updates!\n{hashtags} #LiveScores #GameScores",
+                    postTemplateRoundup: "",
                     postTemplateFullTime: "🏁 FULL-TIME: {home_team} {home_score} - {away_score} {away_team}\n⏱️ Match Time: Full-Time (90')\n🏆 {league_name}\n{stats_summary}\n\nThanks for following!\n#{league_tag} #GameScores",
                   }))
                 }
@@ -2230,12 +2239,12 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                 </span>
               </div>
               <p className="text-[11px] text-slate-400">
-                Format applied when all active live games are compiled into a single consolidated Facebook scoreboard post to prevent spam.
+                Format applied when all active live games are compiled into a single consolidated Facebook scoreboard post to prevent spam. Leave empty to use the standard emoji scoreboard layout with mathematical bold scores, country flags, halves, stats lines, and footer legend.
               </p>
               <textarea
                 id="template-roundup"
                 rows={5}
-                placeholder="🔥 LIVE SCOREBOARD ({count} MATCHES IN PROGRESS)&#10;&#10;{matches_list}&#10;&#10;⏱️ Updated: {time}&#10;{hashtags}"
+                placeholder="Leave blank to use the standard emoji scoreboard layout, or wrap with {matches_list}"
                 value={config.postTemplateRoundup || ''}
                 onChange={(e) => setConfig({ ...config, postTemplateRoundup: e.target.value })}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 font-mono focus:outline-none focus:border-indigo-500"

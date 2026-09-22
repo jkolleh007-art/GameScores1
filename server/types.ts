@@ -70,6 +70,10 @@ export interface MatchStats {
   yellowCardsAway?: number;
   redCardsHome?: number;
   redCardsAway?: number;
+  substitutionsHome?: number;
+  substitutionsAway?: number;
+  penaltiesHome?: number;
+  penaltiesAway?: number;
   offsidesHome?: number;
   offsidesAway?: number;
   savesHome?: number;
@@ -87,6 +91,14 @@ export interface Match {
   status: MatchStatus;
   statusText: string;
   minute?: number;
+  extraMinute?: number;
+  addedTime?: number;
+  halfScores?: {
+    home1?: number;
+    away1?: number;
+    home2?: number;
+    away2?: number;
+  };
   startTime: string; // ISO date string
   events?: MatchEvent[];
   stats?: MatchStats;
@@ -161,6 +173,52 @@ export interface PublishedFtRecord {
   leagueName: string;
   score: string;
   publishedAt: string;
+}
+
+export interface FacebookPublisherState {
+  id: string; // 'primary'
+  publishingEnabled: boolean;
+  publishingPaused: boolean;
+  pauseReason?: string;
+  cooldownUntil?: string; // ISO string
+  cooldownReason?: string;
+  lastAttemptAt?: string;
+  lastPublishAt?: string;
+  lastSuccessfulPublishAt?: string;
+  lastFacebookPostId?: string;
+  lastPublishedContentHash?: string;
+  pendingContentHash?: string;
+  consecutiveMetaBlocks: number;
+  totalMetaBlocks: number;
+  lastErrorCode?: number;
+  lastErrorSubcode?: number;
+  lastErrorMessage?: string;
+  updatedAt: string;
+}
+
+export interface FacebookPendingPublication {
+  id: string;
+  publicationType: 'LIVE' | 'FULL_TIME' | 'MANUAL' | 'TEST';
+  matchId: string;
+  matchTitle: string;
+  leagueName: string;
+  eventType: MatchEventType;
+  content: string;
+  contentHash: string;
+  status: 'PENDING' | 'PUBLISHING' | 'PUBLISHED' | 'CANCELLED';
+  createdAt: string;
+  updatedAt: string;
+  attemptCount: number;
+  lastError?: string;
+  availableAt: string;
+}
+
+export interface FacebookPublisherLock {
+  lockName: string;
+  locked: boolean;
+  lockOwner?: string;
+  lockedAt?: string;
+  leaseUntil?: string;
 }
 
 export interface FacebookPostRecord {

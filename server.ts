@@ -12,6 +12,7 @@ import { scraplingSupervisor } from './server/scraper/supervisor.js';
 import { sportsSync } from './server/sync/sports_sync.js';
 import { flashscoreClient } from './server/scraper/flashscore_client.js';
 import { publisherQueue } from './server/publisher/queue.js';
+import { facebookPublisher } from './server/publisher/facebook_publisher.js';
 import { fbClient } from './server/publisher/facebook_client.js';
 import { formatLiveRoundupPost, formatResultsRoundupPost } from './server/publisher/templates.js';
 import { FacebookPageConfig, Match, DailyLeagueSelection } from './server/types.js';
@@ -1041,33 +1042,33 @@ async function startServer() {
 
       const testMessage = req.body.message || `⚽ Live Sports Scores Test Post\n\n✅ Meta Graph API connection verified!\n⏱️ Dispatched: ${new Date().toUTCString()}\n\n#LiveScores #Football #ScoreFlow`;
 
-      const result = await fbClient.publishPost(targetPageId, targetToken, testMessage);
-
-      await db.saveFacebookPost({
-        id: `test_${Date.now()}`,
+      // Route test publish through the centralized FacebookPublisher service
+      // strictly respecting persistent rate limits, active cooldowns, and locks
+      const result = await facebookPublisher.requestPublication({
+        publicationType: 'TEST',
         matchId: 'test',
         matchTitle: 'Meta Connection Test',
         leagueName: 'Live Sports App',
         eventType: 'STATUS_CHANGE',
         message: testMessage,
-        status: result.success ? 'PUBLISHED' : 'FAILED',
-        fbPostId: result.postId,
-        error: result.error,
-        retryCount: 0,
-        createdAt: new Date().toISOString(),
-        publishedAt: result.success ? new Date().toISOString() : undefined,
+        pageId: targetPageId,
+        accessToken: targetToken,
+        isTest: true,
       });
 
-      if (result.success) {
+      if (result.success && result.status === 'PUBLISHED') {
         res.json({
           success: true,
-          message: 'Test post successfully published to your Facebook Page!',
-          fbPostId: result.postId,
+          message: result.message || 'Test post successfully published to your Facebook Page!',
+          fbPostId: result.fbPostId,
         });
       } else {
         res.status(400).json({
           success: false,
-          error: result.error || 'Meta Graph API returned an error publishing the test post.',
+          error: result.message || result.reason || 'Meta Graph API returned an error publishing the test post.',
+          blocked: result.blocked,
+          cooldownUntil: result.cooldownUntil,
+          retryAfterSeconds: result.retryAfterSeconds,
         });
       }
     } catch (e: any) {
@@ -1096,15 +1097,29 @@ async function startServer() {
     }
   });
 
-  // Facebook: Reset Anti-Spam / Rate-Limit Cooldown
-  app.post('/api/facebook/reset-cooldown', (req, res) => {
-    publisherQueue.resetCooldown();
-    res.json({ success: true, message: 'Facebook queue cooldown reset successfully.' });
+  // Facebook: Reset / Acknowledge Anti-Spam / Rate-Limit Cooldown
+  app.post('/api/facebook/reset-cooldown', async (req, res) => {
+    try {
+      const outcome = await facebookPublisher.acknowledgeOrResume();
+      res.json({
+        success: outcome.success,
+        cooldownStillActive: outcome.cooldownStillActive,
+        cooldownRemainingSeconds: outcome.cooldownRemainingSeconds,
+        message: outcome.message,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message || 'Failed to acknowledge status' });
+    }
   });
 
-  // Facebook: Get Queue Metrics
-  app.get('/api/facebook/queue-status', (req, res) => {
-    res.json({ success: true, queue: publisherQueue.getMetrics() });
+  // Facebook: Get Queue Metrics & Real-time Persistent Status Overview
+  app.get('/api/facebook/queue-status', async (req, res) => {
+    try {
+      const overview = await facebookPublisher.getStatusOverview();
+      res.json({ success: true, queue: publisherQueue.getMetrics(), overview });
+    } catch (e: any) {
+      res.json({ success: true, queue: publisherQueue.getMetrics() });
+    }
   });
 
   // Facebook: Preview Live Roundup Post (All live games in a single post)
@@ -1171,6 +1186,7 @@ async function startServer() {
   app.post('/api/facebook/publish-roundup', adminAuthMiddleware, async (req, res) => {
     try {
       let matches = await sportsSync.getLiveMatches();
+      matches = await sportsSync.enrichMatchesWithStats(matches);
       if (!matches || matches.length === 0) {
         return res.status(400).json({
           success: false,
@@ -1303,6 +1319,7 @@ async function startServer() {
       }
 
       const matchesToPreview = filterPublished ? newMatches : matches;
+      await sportsSync.enrichMatchesWithStats(matchesToPreview.slice(0, 20));
       const previewText = formatResultsRoundupPost(matchesToPreview, fbConfig);
 
       res.json({
@@ -1394,6 +1411,7 @@ async function startServer() {
         });
       }
 
+      await sportsSync.enrichMatchesWithStats(matchesToPost.slice(0, 20));
       const message = req.body?.customMessage || formatResultsRoundupPost(matchesToPost, fbConfig);
 
       const postId = await publisherQueue.enqueue({
@@ -1488,6 +1506,18 @@ async function startServer() {
         return res.status(404).json({ success: false, error: 'Post not found' });
       }
 
+      // Check if cooldown is active before allowing retry
+      const state = await db.getFacebookPublisherState();
+      const now = Date.now();
+      if (state.cooldownUntil && new Date(state.cooldownUntil).getTime() > now) {
+        const remainingSec = Math.ceil((new Date(state.cooldownUntil).getTime() - now) / 1000);
+        return res.status(400).json({
+          success: false,
+          error: `Cannot retry now: Meta Anti-Spam Cooldown active (${remainingSec}s remaining). Retrying during cooldown extends the block.`,
+          retryAfterSeconds: remainingSec,
+        });
+      }
+
       // Reset record in database
       await db.updateFacebookPost(target.id, {
         status: 'QUEUED',
@@ -1495,10 +1525,8 @@ async function startServer() {
         error: undefined,
       });
 
-      // Clear cooldown if it was specifically blocked
-      publisherQueue.resetCooldown();
-
-      await publisherQueue.enqueue({
+      const pubRes = await facebookPublisher.requestPublication({
+        publicationType: 'MANUAL',
         matchId: target.matchId,
         matchTitle: target.matchTitle,
         leagueName: target.leagueName,
@@ -1506,7 +1534,7 @@ async function startServer() {
         message: target.message,
       });
 
-      res.json({ success: true, message: 'Post re-enqueued for publishing' });
+      res.json({ success: pubRes.success, message: pubRes.message });
     } catch (e: any) {
       res.status(500).json({ success: false, error: e.message });
     }
@@ -1515,10 +1543,19 @@ async function startServer() {
   // Facebook: Retry all skipped/failed posts
   app.post('/api/facebook/retry-all-skipped', adminAuthMiddleware, async (req, res) => {
     try {
+      const state = await db.getFacebookPublisherState();
+      const now = Date.now();
+      if (state.cooldownUntil && new Date(state.cooldownUntil).getTime() > now) {
+        const remainingSec = Math.ceil((new Date(state.cooldownUntil).getTime() - now) / 1000);
+        return res.status(400).json({
+          success: false,
+          error: `Cannot retry all: Meta Anti-Spam Cooldown active (${remainingSec}s remaining).`,
+          retryAfterSeconds: remainingSec,
+        });
+      }
+
       const posts = await db.getFacebookPosts(100);
       const toRetry = posts.filter(p => p.status === 'SKIPPED' || p.status === 'FAILED');
-      
-      publisherQueue.resetCooldown();
 
       let queuedCount = 0;
       for (const p of toRetry) {
@@ -1528,7 +1565,8 @@ async function startServer() {
           error: undefined,
         });
 
-        await publisherQueue.enqueue({
+        await facebookPublisher.requestPublication({
+          publicationType: 'MANUAL',
           matchId: p.matchId,
           matchTitle: p.matchTitle,
           leagueName: p.leagueName,
