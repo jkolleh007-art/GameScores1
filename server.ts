@@ -385,7 +385,7 @@ async function startServer() {
         config: {
           pageId: fbConfig.pageId || null,
           isConnected: Boolean(fbConfig.isConnected && fbConfig.pageId),
-          autoPublishEnabled: fbConfig.autoPublishEnabled,
+          autoPublishEnabled: false,
           targetLeagueIds: dailySelection.selectedLeagueIds || [],
         },
         queue: publisherQueue.getMetrics(),
@@ -944,6 +944,7 @@ async function startServer() {
         success: true,
         data: {
           ...fbConfig,
+          autoPublishEnabled: false,
           publishingMode: 'roundup',
           roundupIntervalMinutes: fbConfig.roundupIntervalMinutes || 5,
           timezone: fbConfig.timezone || 'UTC',
@@ -1030,6 +1031,7 @@ async function startServer() {
     const updated: FacebookPageConfig = {
       ...current,
       ...incoming,
+      autoPublishEnabled: false,
       pageAccessToken: pageAccessTokenToUse,
       publishingMode: 'roundup',
       isConnected: Boolean(pageIdToUse && pageAccessTokenToUse),

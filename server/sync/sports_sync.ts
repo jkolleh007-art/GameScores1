@@ -343,19 +343,10 @@ class SportsSyncEngine {
       this.previousMatches.set(match.id, match);
     }
 
-    // Auto-Roundup Publishing check (All live games in a single post)
-    // Auto-Roundup & Milestone Publishing check:
-    // Strictly coordinates posting between the user's selected minutes, Half-Time, and Full-Time scores without conflict.
-    if (fbConfig.autoPublishEnabled) {
-      // 1. Priority 1: Full-Time Results (game completed milestone)
-      const didFt = await this.checkAndPublishFinishedRoundup(fbConfig);
-      // 2. Priority 2: Half-Time Scores (intermission milestone - only if FT didn't post in this tick)
-      const didHt = !didFt ? await this.checkAndPublishHalfTimeRoundup(currentMatches, fbConfig) : false;
-      // 3. Priority 3: Live Scoreboard according to user-selected minutes (only if neither FT nor HT posted in this tick)
-      if (!didFt && !didHt) {
-        await this.checkAndPublishRoundup(currentMatches, fbConfig);
-      }
-    }
+    // AUTOMATED POSTING TO FACEBOOK REMOVED:
+    // To protect against Meta rate limits and anti-spam detection (Error 1390008),
+    // background auto-publishing is completely disabled. All posts must be triggered
+    // manually by the admin using the "Publish Now" buttons in the dashboard.
   }
 
   /**
@@ -646,59 +637,10 @@ class SportsSyncEngine {
       });
     }
 
-    // In roundup mode, all automated Facebook publishing is consolidated into scheduled multi-game scoreboard roundups
-    // to protect the connected Facebook Page from Meta velocity anti-spam blocks (error 1390008).
-    if (fbConfig.publishingMode === 'roundup') {
-      return;
-    }
-
-    // Strict daily league filter: only post games from leagues selected by the admin for today
-    if (!fbConfig.targetLeagueIds || fbConfig.targetLeagueIds.length === 0 || !fbConfig.targetLeagueIds.includes(match.league.id)) {
-      return; // Skip this unselected league
-    }
-
-    // Manual Admin Click-To-Post Mode:
-    // If autoPublishEnabled is false, do not automatically publish background events.
-    // The admin explicitly clicks "Publish" in the dashboard to publish to Facebook.
-    if (!fbConfig.autoPublishEnabled) {
-      return;
-    }
-
-    let shouldPublish = false;
-    let postMessage = '';
-
-    if (type === 'GOAL' && fbConfig.publishGoals) {
-      shouldPublish = true;
-      postMessage = formatGoalPost(match, eventRecord, fbConfig);
-    } else if (type === 'YELLOW_CARD' && (fbConfig.publishYellowCards ?? true)) {
-      shouldPublish = true;
-      postMessage = formatYellowCardPost(match, eventRecord, fbConfig);
-    } else if (type === 'RED_CARD' && fbConfig.publishRedCards) {
-      shouldPublish = true;
-      postMessage = formatRedCardPost(match, eventRecord, fbConfig);
-    } else if (type === 'CORNER' && (fbConfig.publishCorners ?? true)) {
-      shouldPublish = true;
-      postMessage = formatCornerPost(match, eventRecord, fbConfig);
-    } else if (type === 'KICKOFF' && fbConfig.publishKickoff) {
-      shouldPublish = true;
-      postMessage = formatKickoffPost(match, fbConfig);
-    } else if (type === 'HALF_TIME' && fbConfig.publishHalfTime) {
-      shouldPublish = true;
-      postMessage = formatHalfTimePost(match, fbConfig);
-    } else if (type === 'FULL_TIME' && fbConfig.publishFullTime) {
-      shouldPublish = true;
-      postMessage = formatFullTimePost(match, fbConfig);
-    }
-
-    if (shouldPublish && postMessage) {
-      await publisherQueue.enqueue({
-        matchId: match.id,
-        matchTitle: `${match.homeTeam.name} vs ${match.awayTeam.name}`,
-        leagueName: match.league.name,
-        eventType: type,
-        message: postMessage,
-      });
-    }
+    // AUTOMATED POSTING TO FACEBOOK REMOVED:
+    // Background auto-publishing is permanently disabled to eliminate Meta spam detection.
+    // The admin explicitly triggers posts via the "Publish Now" buttons in the dashboard.
+    return;
   }
 
   async getLiveMatches(): Promise<Match[]> {

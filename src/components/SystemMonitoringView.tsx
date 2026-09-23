@@ -254,9 +254,9 @@ export const SystemMonitoringView: React.FC<SystemMonitoringViewProps> = ({
               <span className="text-slate-200 font-mono">Max {status?.facebookPublisher?.queue?.maxPerMinute || 12}/min</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Auto-Publish:</span>
-              <span className="text-emerald-400 font-mono">
-                {status?.facebookPublisher?.config?.autoPublishEnabled ? 'Active' : 'Paused'}
+              <span className="text-slate-400">Publishing Mode:</span>
+              <span className="text-blue-400 font-mono font-medium">
+                Admin Manual Only
               </span>
             </div>
           </div>

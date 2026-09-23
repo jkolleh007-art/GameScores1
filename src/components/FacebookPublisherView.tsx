@@ -973,27 +973,14 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ on
               <span>{isTestingPost ? 'Sending...' : 'Send Test Post'}</span>
             </button>
 
-            {/* Quick Auto-Publish Master Switch */}
-            {config && (
-              <div className="flex items-center space-x-2 bg-slate-950 px-2.5 py-1 rounded-xl border border-slate-800">
-                <span className="text-xs text-slate-300 font-semibold">Auto-Publish:</span>
-                <button
-                  id="auto-publish-toggle"
-                  onClick={() =>
-                    handleSaveConfig({
-                      autoPublishEnabled: !config.autoPublishEnabled,
-                    })
-                  }
-                  className={`px-2.5 py-0.5 rounded-md text-xs font-bold transition-all ${
-                    config.autoPublishEnabled
-                      ? 'bg-emerald-600 text-white shadow-emerald-500/20 shadow'
-                      : 'bg-slate-800 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  {config.autoPublishEnabled ? 'ON' : 'OFF'}
-                </button>
-              </div>
-            )}
+            {/* Auto-Posting Status: Permanently Manual Admin Click-To-Post */}
+            <div className="flex items-center space-x-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-blue-500/30">
+              <Shield className="w-3.5 h-3.5 text-blue-400" />
+              <span className="text-xs text-blue-200 font-semibold">100% Admin Click-To-Post</span>
+              <span className="text-[10px] bg-rose-500/15 text-rose-300 border border-rose-500/30 px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">
+                Auto-Post Removed
+              </span>
+            </div>
           </div>
         </div>
 
@@ -1036,21 +1023,19 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ on
         )}
 
         {/* Manual Click-To-Post Protection Banner */}
-        {config && !config.autoPublishEnabled && (
-          <div className="mt-4 p-3.5 bg-blue-950/40 border border-blue-500/40 rounded-xl text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-blue-200">
-            <div className="flex items-center space-x-2.5">
-              <ShieldCheck className="w-5 h-5 text-blue-400 shrink-0" />
-              <div>
-                <strong className="text-white">Admin Click-To-Post Mode Active:</strong> Background automated posting is turned off to protect against Facebook spam detection and blocking. Use the <strong>"Publish Now"</strong> buttons below whenever you want to post. Posts automatically use dynamic anti-spam phrasing and rotating hashtags!
-              </div>
-            </div>
-            <div className="flex items-center space-x-2 shrink-0">
-              <span className="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full font-bold">
-                Anti-Spam Protected
-              </span>
+        <div className="mt-4 p-3.5 bg-blue-950/40 border border-blue-500/40 rounded-xl text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-blue-200">
+          <div className="flex items-center space-x-2.5">
+            <ShieldCheck className="w-5 h-5 text-blue-400 shrink-0" />
+            <div>
+              <strong className="text-white">Auto-Posting to Facebook is Removed:</strong> Automated background posting has been completely removed to safeguard your Facebook Page against Meta spam detection and Error 1390008 blocks. You have full control—click the <strong>"Publish Now"</strong> buttons below whenever you wish to dispatch a live, halftime, or full-time post.
             </div>
           </div>
-        )}
+          <div className="flex items-center space-x-2 shrink-0">
+            <span className="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full font-bold">
+              100% Admin Controlled
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* Navigation Subtabs */}
