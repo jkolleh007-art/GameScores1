@@ -227,6 +227,11 @@ export interface FacebookPendingPublication {
   attemptCount: number;
   lastError?: string;
   availableAt: string;
+  headline?: string;
+  matchesCount?: number;
+  matchesSummary?: MatchSummaryItem[];
+  publishedBy?: string;
+  isAiGenerated?: boolean;
 }
 
 export interface FacebookPublisherLock {
@@ -235,6 +240,16 @@ export interface FacebookPublisherLock {
   lockOwner?: string;
   lockedAt?: string;
   leaseUntil?: string;
+}
+
+export interface MatchSummaryItem {
+  id?: string;
+  homeTeam: string;
+  awayTeam: string;
+  score: string;
+  minute?: string;
+  league?: string;
+  statusText?: string;
 }
 
 export interface FacebookPostRecord {
@@ -250,6 +265,12 @@ export interface FacebookPostRecord {
   retryCount: number;
   createdAt: string;
   publishedAt?: string;
+  headline?: string;
+  postType?: 'LIVE' | 'HALF_TIME' | 'FULL_TIME' | 'MANUAL' | 'TEST';
+  matchesCount?: number;
+  matchesSummary?: MatchSummaryItem[];
+  publishedBy?: string;
+  isAiGenerated?: boolean;
 }
 
 export interface ApiKeyRecord {

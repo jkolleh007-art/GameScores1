@@ -77,6 +77,11 @@ class FacebookPublisherQueue {
       leagueName: postData.leagueName,
       eventType: postData.eventType,
       message: postData.message,
+      headline: postData.headline,
+      matchesCount: postData.matchesCount,
+      matchesSummary: postData.matchesSummary,
+      publishedBy: postData.publishedBy,
+      isAiGenerated: postData.isAiGenerated,
     });
 
     await this.refreshMetrics();

@@ -174,6 +174,16 @@ export interface PublishedHtRecord {
   publishedAt: string;
 }
 
+export interface MatchSummaryItem {
+  id?: string;
+  homeTeam: string;
+  awayTeam: string;
+  score: string;
+  minute?: string;
+  league?: string;
+  statusText?: string;
+}
+
 export interface FacebookPostRecord {
   id: string;
   matchId: string;
@@ -187,6 +197,12 @@ export interface FacebookPostRecord {
   retryCount: number;
   createdAt: string;
   publishedAt?: string;
+  headline?: string;
+  postType?: 'LIVE' | 'HALF_TIME' | 'FULL_TIME' | 'MANUAL' | 'TEST';
+  matchesCount?: number;
+  matchesSummary?: MatchSummaryItem[];
+  publishedBy?: string;
+  isAiGenerated?: boolean;
 }
 
 export interface SystemStatus {

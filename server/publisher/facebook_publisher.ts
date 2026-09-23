@@ -6,9 +6,19 @@ import {
   FacebookPublisherState,
   FacebookPendingPublication,
   MatchEventType,
+  MatchSummaryItem,
 } from '../types.js';
 import { config } from '../config.js';
 import { classifyFacebookError, computeContentHash } from './error_classifier.js';
+
+export function extractHeadline(message: string): string {
+  if (!message) return 'Live Match Update';
+  const lines = message.split('\n').map(l => l.trim()).filter(Boolean);
+  if (lines.length > 0) {
+    return lines[0];
+  }
+  return 'Live Match Update';
+}
 
 export interface PublicationRequestOptions {
   publicationType: 'LIVE' | 'HALF_TIME' | 'FULL_TIME' | 'MANUAL' | 'TEST';
@@ -20,6 +30,11 @@ export interface PublicationRequestOptions {
   pageId?: string;
   accessToken?: string;
   isTest?: boolean;
+  headline?: string;
+  matchesCount?: number;
+  matchesSummary?: MatchSummaryItem[];
+  publishedBy?: string;
+  isAiGenerated?: boolean;
 }
 
 export interface PublicationRequestResult {
@@ -188,6 +203,8 @@ export class FacebookPublisher {
       ? 'pending_ft_results'
       : `pending_${opts.matchId}_${Date.now()}`;
 
+    const resolvedHeadline = opts.headline || extractHeadline(opts.message);
+
     const pendingPub: FacebookPendingPublication = {
       id: pendingId,
       publicationType: opts.publicationType,
@@ -202,6 +219,11 @@ export class FacebookPublisher {
       updatedAt: new Date().toISOString(),
       attemptCount: 0,
       availableAt: new Date().toISOString(),
+      headline: resolvedHeadline,
+      matchesCount: opts.matchesCount,
+      matchesSummary: opts.matchesSummary,
+      publishedBy: opts.publishedBy || 'Admin',
+      isAiGenerated: opts.isAiGenerated,
     };
 
     await db.savePendingPublication(pendingPub);
@@ -223,6 +245,12 @@ export class FacebookPublisher {
       status: 'QUEUED',
       retryCount: 0,
       createdAt: new Date().toISOString(),
+      headline: resolvedHeadline,
+      postType: opts.publicationType,
+      matchesCount: opts.matchesCount,
+      matchesSummary: opts.matchesSummary,
+      publishedBy: opts.publishedBy || 'Admin',
+      isAiGenerated: opts.isAiGenerated,
     };
     await db.saveFacebookPost(historyRecord);
 
@@ -300,6 +328,8 @@ export class FacebookPublisher {
         state.cooldownReason = undefined;
         await db.saveFacebookPublisherState(state);
 
+        const testHeadline = opts.headline || extractHeadline(opts.message);
+
         await db.saveFacebookPost({
           id: `test_${Date.now()}`,
           matchId: 'test',
@@ -312,6 +342,10 @@ export class FacebookPublisher {
           retryCount: 0,
           createdAt: new Date().toISOString(),
           publishedAt: new Date().toISOString(),
+          headline: testHeadline,
+          postType: 'TEST',
+          matchesCount: 0,
+          publishedBy: opts.publishedBy || 'Admin',
         });
 
         console.log(`[FB Central] Test publication successful (fbPostId=${result.postId})`);
@@ -488,6 +522,12 @@ export class FacebookPublisher {
               fbPostId: result.postId,
               publishedAt: state.lastSuccessfulPublishAt,
               error: undefined,
+              headline: pendingPub.headline || matching.headline || extractHeadline(matching.message),
+              postType: pendingPub.publicationType || matching.postType,
+              matchesCount: pendingPub.matchesCount ?? matching.matchesCount,
+              matchesSummary: pendingPub.matchesSummary || matching.matchesSummary,
+              publishedBy: pendingPub.publishedBy || matching.publishedBy,
+              isAiGenerated: pendingPub.isAiGenerated ?? matching.isAiGenerated,
             });
           }
         } else {
@@ -498,6 +538,16 @@ export class FacebookPublisher {
           pendingPub.attemptCount += 1;
           pendingPub.lastError = result.error;
           await db.savePendingPublication(pendingPub);
+
+          const posts = await db.getFacebookPosts(20);
+          const matching = posts.find(p => p.status === 'QUEUED' && p.matchId === pendingPub.matchId);
+          if (matching) {
+            await db.updateFacebookPost(matching.id, {
+              status: 'FAILED',
+              error: result.error,
+              retryCount: (matching.retryCount || 0) + 1,
+            });
+          }
         }
       } finally {
         await db.releasePublisherLock(this.workerId);
