@@ -9,6 +9,8 @@ import {
   Globe,
   Share2,
   SlidersHorizontal,
+  Square,
+  Play,
 } from 'lucide-react';
 import { Match } from '../types';
 
@@ -17,6 +19,8 @@ interface LiveMatchesViewProps {
   onSelectMatch: (match: Match) => void;
   onQuickPublish: (match: Match) => void;
   isFbConnected: boolean;
+  isScraplingRunning?: boolean;
+  onToggleScrapling?: () => void;
 }
 
 export function getMatchTimeDisplay(m: Match): { minuteStr: string; periodStr: string } {
@@ -86,6 +90,8 @@ export const LiveMatchesView: React.FC<LiveMatchesViewProps> = ({
   onSelectMatch,
   onQuickPublish,
   isFbConnected,
+  isScraplingRunning = true,
+  onToggleScrapling,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<string>('ALL');
@@ -124,6 +130,30 @@ export const LiveMatchesView: React.FC<LiveMatchesViewProps> = ({
 
   return (
     <div className="space-y-6">
+      {/* Alert if Scrapling is currently stopped */}
+      {!isScraplingRunning && (
+        <div className="bg-rose-950/40 border border-rose-800/60 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-rose-200">
+          <div className="flex items-center space-x-3">
+            <span className="w-3 h-3 rounded-full bg-rose-500 animate-pulse shrink-0" />
+            <div>
+              <p className="text-xs font-bold text-rose-100">Scrapling Engine is Currently Stopped</p>
+              <p className="text-[11px] text-rose-300/90 mt-0.5">
+                Automatic background polling from Flashscore is paused. Live scores will not refresh automatically until started.
+              </p>
+            </div>
+          </div>
+          {onToggleScrapling && (
+            <button
+              onClick={onToggleScrapling}
+              className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center space-x-1.5 shrink-0 transition-all shadow-sm active:scale-95 self-start sm:self-auto"
+            >
+              <Play className="w-3.5 h-3.5 fill-white" />
+              <span>Resume Scrapling</span>
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Top Filter & Summary Header */}
       <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>

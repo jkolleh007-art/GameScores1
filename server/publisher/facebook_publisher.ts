@@ -11,7 +11,7 @@ import { config } from '../config.js';
 import { classifyFacebookError, computeContentHash } from './error_classifier.js';
 
 export interface PublicationRequestOptions {
-  publicationType: 'LIVE' | 'FULL_TIME' | 'MANUAL' | 'TEST';
+  publicationType: 'LIVE' | 'HALF_TIME' | 'FULL_TIME' | 'MANUAL' | 'TEST';
   matchId: string;
   matchTitle: string;
   leagueName: string;
@@ -182,6 +182,8 @@ export class FacebookPublisher {
     // Score changes replace the pending scoreboard with the newest state.
     const pendingId = opts.publicationType === 'LIVE'
       ? 'pending_live_scoreboard'
+      : opts.publicationType === 'HALF_TIME'
+      ? 'pending_ht_scores'
       : opts.publicationType === 'FULL_TIME'
       ? 'pending_ft_results'
       : `pending_${opts.matchId}_${Date.now()}`;
@@ -400,19 +402,39 @@ export class FacebookPublisher {
           return;
         }
 
-        // 5. Check Minimum Publication Interval (Default 900s = 15m; hard floor 900s)
-        const minIntervalSeconds = Math.max(900, config.fbMinPublishIntervalSeconds);
-        const minIntervalMs = minIntervalSeconds * 1000;
+        // 5. Load Facebook Page Config to access user-selected pacing & interval settings
+        const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', {
+          pageId: config.fbPageId,
+          pageAccessToken: config.fbPageAccessToken,
+          autoPublishEnabled: false,
+          minPostSpacingSeconds: 30,
+          roundupIntervalMinutes: 5,
+        } as any);
+
+        // 6. Check Minimum Safe Spacing between consecutive posts (no collisions between Live, HT, FT)
+        const minSpacingSeconds = Math.max(20, Number(fbConfig.minPostSpacingSeconds) || 30);
+        const minSpacingMs = minSpacingSeconds * 1000;
         const lastPublishMs = state.lastSuccessfulPublishAt ? new Date(state.lastSuccessfulPublishAt).getTime() : 0;
         const elapsedMs = now - lastPublishMs;
 
-        if (lastPublishMs > 0 && elapsedMs < minIntervalMs) {
-          const waitSec = Math.ceil((minIntervalMs - elapsedMs) / 1000);
-          // Interval not elapsed yet. Keep item pending in DB; do not publish.
+        if (lastPublishMs > 0 && elapsedMs < minSpacingMs) {
+          const waitSec = Math.ceil((minSpacingMs - elapsedMs) / 1000);
+          // Safe inter-post delay active. Keep item pending in DB; do not publish yet.
           return;
         }
 
-        // 6. Check Content Hash against last published content
+        // 7. For LIVE scoreboards: strictly respect the user's selected minutes (roundupIntervalMinutes)
+        if (pendingPub.publicationType === 'LIVE') {
+          const intervalMinutes = Math.max(3, Number(fbConfig.roundupIntervalMinutes) || 5);
+          const intervalMs = intervalMinutes * 60 * 1000;
+          const lastRoundupMs = fbConfig.lastRoundupPublishedAt ? new Date(fbConfig.lastRoundupPublishedAt).getTime() : 0;
+          if (lastRoundupMs > 0 && (now - lastRoundupMs) < intervalMs) {
+            // Selected minutes interval not yet reached for Live Scoreboard
+            return;
+          }
+        }
+
+        // 8. Check Content Hash against last published content
         if (state.lastPublishedContentHash && state.lastPublishedContentHash === pendingPub.contentHash) {
           console.log(`[FB Central] Publication skipped - duplicate content detected (hash=${pendingPub.contentHash.slice(0, 10)}...).`);
           await db.deletePendingPublication(pendingPub.id);
@@ -421,13 +443,7 @@ export class FacebookPublisher {
           return;
         }
 
-        // 7. Verify credentials
-        const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', {
-          pageId: config.fbPageId,
-          pageAccessToken: config.fbPageAccessToken,
-          autoPublishEnabled: false,
-        } as any);
-
+        // 9. Verify credentials
         const pageId = fbConfig.pageId || config.fbPageId;
         const accessToken = fbConfig.pageAccessToken || config.fbPageAccessToken;
 
@@ -436,7 +452,7 @@ export class FacebookPublisher {
           return;
         }
 
-        // 8. Publish to Facebook Graph API
+        // 10. Publish to Facebook Graph API
         console.log(`[FB Central] Publishing to Facebook: type=${pendingPub.publicationType}, title="${pendingPub.matchTitle}"...`);
         state.lastAttemptAt = new Date().toISOString();
         await db.saveFacebookPublisherState(state);

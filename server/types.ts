@@ -130,6 +130,7 @@ export interface FacebookPageConfig {
   isConnected: boolean;
   autoPublishEnabled: boolean;
   publishingMode?: 'roundup'; // 'roundup' = all live games combined into 1 single post every X minutes
+  roundupFormat?: 'default' | 'compact_emoji'; // 'default' = clean league format, 'compact_emoji' = bold digits + icon badges + legend
   roundupIntervalMinutes?: number; // e.g. 5 or 15 minutes between roundups
   minPostSpacingSeconds?: number; // minimum safe seconds between consecutive posts
   lastRoundupPublishedAt?: string;
@@ -144,6 +145,7 @@ export interface FacebookPageConfig {
   includeStatsInFullTime: boolean;
   autoPublishFtRoundup?: boolean;
   lastFtRoundupPublishedAt?: string;
+  lastHtRoundupPublishedAt?: string;
   targetLeagueIds: string[]; // empty means all leagues
   postTemplateGoal: string;
   postTemplateYellowCard?: string;
@@ -154,6 +156,10 @@ export interface FacebookPageConfig {
   postTemplateFullTime: string;
   postTemplateRoundup?: string;
   postTemplateFullTimeRoundup?: string;
+  postTemplateHalfTimeRoundup?: string;
+  useDeepseekAi?: boolean;
+  deepseekApiKey?: string;
+  deepseekModel?: string;
   lastVerifiedAt?: string;
 }
 
@@ -166,6 +172,16 @@ export interface DailyLeagueSelection {
 }
 
 export interface PublishedFtRecord {
+  matchId: string;
+  teamKey: string;
+  homeTeam: string;
+  awayTeam: string;
+  leagueName: string;
+  score: string;
+  publishedAt: string;
+}
+
+export interface PublishedHtRecord {
   matchId: string;
   teamKey: string;
   homeTeam: string;
@@ -198,7 +214,7 @@ export interface FacebookPublisherState {
 
 export interface FacebookPendingPublication {
   id: string;
-  publicationType: 'LIVE' | 'FULL_TIME' | 'MANUAL' | 'TEST';
+  publicationType: 'LIVE' | 'HALF_TIME' | 'FULL_TIME' | 'MANUAL' | 'TEST';
   matchId: string;
   matchTitle: string;
   leagueName: string;

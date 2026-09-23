@@ -14,6 +14,8 @@ import {
   ShieldCheck,
   Lock,
   User,
+  Square,
+  Play,
 } from 'lucide-react';
 import { SystemStatus } from '../types';
 import { useAdminAuth } from '../context/AdminAuthContext';
@@ -27,6 +29,8 @@ interface HeaderProps {
   isSyncing: boolean;
   liveMatchCount: number;
   onOpenAdminModal: () => void;
+  onToggleScrapling?: () => void;
+  isTogglingScrapling?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -38,9 +42,12 @@ export const Header: React.FC<HeaderProps> = ({
   isSyncing,
   liveMatchCount,
   onOpenAdminModal,
+  onToggleScrapling,
+  isTogglingScrapling = false,
 }) => {
   const { adminUser, isAuthenticated, databaseInfo } = useAdminAuth();
   const scraplingOnline = systemStatus?.scraplingService?.status === 'ONLINE';
+  const isScraplingRunning = systemStatus?.syncEngine?.isRunning ?? true;
   const fbConfigured = Boolean(systemStatus?.facebookPublisher?.config?.pageId);
   const selectedLeaguesCount = systemStatus?.dailyLeagueSelection?.selectedCount ?? 0;
   const isDailyLeaguesConfigured = Boolean(systemStatus?.dailyLeagueSelection?.isConfigured && selectedLeaguesCount > 0);
@@ -81,6 +88,36 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
+          {/* Mobile Quick Action for Stop/Start Scrapling */}
+          <div className="flex md:hidden items-center space-x-2">
+            {onToggleScrapling && (
+              <button
+                id="mobile-toggle-scrapling-btn"
+                type="button"
+                onClick={onToggleScrapling}
+                disabled={isTogglingScrapling}
+                title={isScraplingRunning ? 'Stop Scrapling' : 'Start Scrapling'}
+                className={`flex items-center space-x-1 px-2.5 py-1 rounded-lg border text-[11px] font-bold transition-all shadow-sm active:scale-95 ${
+                  isScraplingRunning
+                    ? 'bg-rose-950/60 text-rose-300 border-rose-700/60'
+                    : 'bg-emerald-950/60 text-emerald-300 border-emerald-700/60'
+                }`}
+              >
+                {isScraplingRunning ? (
+                  <>
+                    <Square className="w-3 h-3 fill-rose-400 text-rose-400" />
+                    <span>Stop Scrapling</span>
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3 h-3 fill-emerald-400 text-emerald-400" />
+                    <span>Start Scrapling</span>
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+
           {/* Service Status Badges */}
           <div className="hidden md:flex items-center space-x-3 text-xs">
             {/* WebSocket Status */}
@@ -96,17 +133,53 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="font-medium">WS {wsConnected ? 'Live' : 'Connecting'}</span>
             </div>
 
-            {/* Python Scrapling Status */}
-            <div
-              className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border ${
-                scraplingOnline
-                  ? 'bg-blue-950/40 text-blue-300 border-blue-800/40'
-                  : 'bg-rose-950/40 text-rose-300 border-rose-800/40'
-              }`}
-              title={`Python Scrapling v${systemStatus?.scraplingService?.scrapling_version || '0.4.15'}`}
-            >
-              <Activity className="w-3.5 h-3.5" />
-              <span>Scrapling: {scraplingOnline ? `${systemStatus?.scraplingService?.latency_ms ?? 25}ms` : 'Offline'}</span>
+            {/* Python Scrapling Status & Stop/Start Button */}
+            <div className="flex items-center space-x-1.5">
+              <div
+                className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full border ${
+                  isScraplingRunning && scraplingOnline
+                    ? 'bg-blue-950/40 text-blue-300 border-blue-800/40'
+                    : 'bg-rose-950/40 text-rose-300 border-rose-800/40'
+                }`}
+                title={
+                  !isScraplingRunning
+                    ? 'Scrapling engine is paused'
+                    : `Python Scrapling v${systemStatus?.scraplingService?.scrapling_version || '0.4.15'}`
+                }
+              >
+                <Activity className={`w-3.5 h-3.5 ${isScraplingRunning ? 'text-blue-400' : 'text-rose-400'}`} />
+                <span>
+                  Scrapling: {isScraplingRunning ? (scraplingOnline ? `${systemStatus?.scraplingService?.latency_ms ?? 25}ms` : 'Online') : 'Stopped'}
+                </span>
+              </div>
+
+              {/* Button to Stop/Start Scrapling */}
+              {onToggleScrapling && (
+                <button
+                  id="header-stop-scrapling-btn"
+                  type="button"
+                  onClick={onToggleScrapling}
+                  disabled={isTogglingScrapling}
+                  title={isScraplingRunning ? 'Click to stop live Scrapling' : 'Click to start live Scrapling'}
+                  className={`flex items-center space-x-1.5 px-3 py-1 rounded-full border text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 disabled:opacity-60 ${
+                    isScraplingRunning
+                      ? 'bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 border-rose-700/60 hover:border-rose-500'
+                      : 'bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 border-emerald-700/60 hover:border-emerald-500'
+                  }`}
+                >
+                  {isScraplingRunning ? (
+                    <>
+                      <Square className="w-3 h-3 fill-rose-400 text-rose-400" />
+                      <span>Stop Scrapling</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3 h-3 fill-emerald-400 text-emerald-400" />
+                      <span>Start Scrapling</span>
+                    </>
+                  )}
+                </button>
+              )}
             </div>
 
             {/* Daily Leagues Today Badge */}

@@ -146,6 +146,25 @@ function DashboardContent() {
               type: 'info',
             });
             setTimeout(() => setToastNotification(null), 6000);
+          } else if (packet.type === 'scrapling_status_changed') {
+            setSystemStatus(prev => {
+              if (!prev) return prev;
+              return {
+                ...prev,
+                syncEngine: {
+                  ...prev.syncEngine,
+                  isRunning: packet.payload?.isRunning ?? false,
+                },
+              };
+            });
+            setToastNotification({
+              title: packet.payload?.isRunning ? '⚡ Scrapling Started' : '🛑 Scrapling Stopped',
+              body: packet.payload?.isRunning
+                ? 'Live Flashscore scraping is now active.'
+                : 'Live Flashscore scraping has been paused.',
+              type: 'info',
+            });
+            setTimeout(() => setToastNotification(null), 4000);
           }
         } catch (error) {
           console.warn('[WebSocket] Invalid server message:', error);
@@ -220,6 +239,39 @@ function DashboardContent() {
     }
   };
 
+  // Toggle Scrapling Polling Engine (Stop / Start)
+  const [isTogglingScrapling, setIsTogglingScrapling] = useState(false);
+  const handleToggleScrapling = async () => {
+    setIsTogglingScrapling(true);
+    try {
+      const res = await authFetch('/api/system/toggle-scrapling', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setSystemStatus(prev => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            syncEngine: {
+              ...prev.syncEngine,
+              isRunning: data.isRunning,
+            },
+          };
+        });
+        setToastNotification({
+          title: data.isRunning ? '⚡ Scrapling Started' : '🛑 Scrapling Stopped',
+          body: data.message || (data.isRunning ? 'Scrapling engine is running.' : 'Scrapling engine stopped.'),
+          type: 'info',
+        });
+        setTimeout(() => setToastNotification(null), 4000);
+        await fetchSystemStatus();
+      }
+    } catch (e) {
+      console.warn('Failed to toggle scrapling:', e);
+    } finally {
+      setIsTogglingScrapling(false);
+    }
+  };
+
   // Publish to Facebook action
   const handlePublishToFacebook = async (
     match: Match,
@@ -275,6 +327,8 @@ function DashboardContent() {
         isSyncing={isSyncing}
         liveMatchCount={liveMatches.length}
         onOpenAdminModal={() => setShowLoginModal(true)}
+        onToggleScrapling={handleToggleScrapling}
+        isTogglingScrapling={isTogglingScrapling}
       />
 
       {/* Main Content Area */}
@@ -287,6 +341,8 @@ function DashboardContent() {
               setSelectedMatch(m);
             }}
             isFbConnected={isFbConnected}
+            isScraplingRunning={systemStatus?.syncEngine?.isRunning ?? true}
+            onToggleScrapling={handleToggleScrapling}
           />
         )}
 
@@ -324,6 +380,8 @@ function DashboardContent() {
             status={systemStatus}
             onManualSync={handleManualSync}
             isSyncing={isSyncing}
+            onToggleScrapling={handleToggleScrapling}
+            isTogglingScrapling={isTogglingScrapling}
           />
         )}
       </main>

@@ -113,6 +113,7 @@ export interface FacebookPageConfig {
   isConnected: boolean;
   autoPublishEnabled: boolean;
   publishingMode?: 'roundup';
+  roundupFormat?: 'default' | 'compact_emoji'; // 'default' = clean standard layout, 'compact_emoji' = bold digits + icon badges + legend
   roundupIntervalMinutes?: number;
   minPostSpacingSeconds?: number;
   lastRoundupPublishedAt?: string;
@@ -127,6 +128,7 @@ export interface FacebookPageConfig {
   includeStatsInFullTime: boolean;
   autoPublishFtRoundup?: boolean;
   lastFtRoundupPublishedAt?: string;
+  lastHtRoundupPublishedAt?: string;
   targetLeagueIds: string[];
   postTemplateGoal: string;
   postTemplateYellowCard?: string;
@@ -137,6 +139,10 @@ export interface FacebookPageConfig {
   postTemplateFullTime: string;
   postTemplateRoundup?: string;
   postTemplateFullTimeRoundup?: string;
+  postTemplateHalfTimeRoundup?: string;
+  useDeepseekAi?: boolean;
+  deepseekApiKey?: string;
+  deepseekModel?: string;
   lastVerifiedAt?: string;
 }
 
@@ -149,6 +155,16 @@ export interface DailyLeagueSelection {
 }
 
 export interface PublishedFtRecord {
+  matchId: string;
+  teamKey: string;
+  homeTeam: string;
+  awayTeam: string;
+  leagueName: string;
+  score: string;
+  publishedAt: string;
+}
+
+export interface PublishedHtRecord {
   matchId: string;
   teamKey: string;
   homeTeam: string;

@@ -25,7 +25,7 @@ export const config = {
   fbRateLimitPerMinute: 10,
   
   // Facebook Centralized Publisher Safety Controls
-  fbMinPublishIntervalSeconds: Math.max(900, Number(process.env.FACEBOOK_MIN_PUBLISH_INTERVAL_SECONDS) || 900), // Enforce 900s (15 min) hard minimum
+  fbMinPublishIntervalSeconds: Math.max(20, Number(process.env.FACEBOOK_MIN_PUBLISH_INTERVAL_SECONDS) || 30), // Minimum safe spacing between consecutive posts
   fbInitialCooldownSeconds: Number(process.env.FACEBOOK_INITIAL_COOLDOWN_SECONDS) || 600, // 10 min
   fbMaxCooldownSeconds: Number(process.env.FACEBOOK_MAX_COOLDOWN_SECONDS) || 3600, // 60 min maximum backoff
   fbPublishEnabled: process.env.FACEBOOK_PUBLISH_ENABLED !== 'false', // Default true

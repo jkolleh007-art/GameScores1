@@ -5199,6 +5199,344 @@
       "minute": 51,
       "startTime": "2026-09-21T08:00:00.000Z",
       "lastUpdated": "2026-09-21T08:51:23.454Z"
+    },
+    "G8FJgQ03": {
+      "id": "G8FJgQ03",
+      "provider": "flashscore",
+      "league": {
+        "id": "WpszrNdU",
+        "name": "WE League Cup Women",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "6BNELHBO-buaJ5HnP.png"
+      },
+      "homeTeam": {
+        "id": "JEF United W",
+        "name": "JEF United W"
+      },
+      "awayTeam": {
+        "id": "team_inac_kobe_leonesa_w",
+        "name": "Inac Kobe Leonesa W"
+      },
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "97' (2nd Half)",
+      "minute": 97,
+      "startTime": "2026-09-23T07:00:00.000Z",
+      "lastUpdated": "2026-09-23T08:56:36.323Z"
+    },
+    "OESXVM8d": {
+      "id": "OESXVM8d",
+      "provider": "flashscore",
+      "league": {
+        "id": "WpszrNdU",
+        "name": "WE League Cup Women",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "6BNELHBO-buaJ5HnP.png"
+      },
+      "homeTeam": {
+        "id": "Omiya Ardija W",
+        "name": "Omiya Ardija W"
+      },
+      "awayTeam": {
+        "id": "team_mynavi_sendai_w",
+        "name": "Mynavi Sendai W"
+      },
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "IN_PLAY",
+      "statusText": "94' (2nd Half)",
+      "minute": 94,
+      "startTime": "2026-09-23T07:00:00.000Z",
+      "lastUpdated": "2026-09-23T08:53:06.333Z"
+    },
+    "GlPPXrvp": {
+      "id": "GlPPXrvp",
+      "provider": "flashscore",
+      "league": {
+        "id": "WpszrNdU",
+        "name": "WE League Cup Women",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "6BNELHBO-buaJ5HnP.png"
+      },
+      "homeTeam": {
+        "id": "Urawa W",
+        "name": "Urawa W"
+      },
+      "awayTeam": {
+        "id": "team_parceiro_nagano_w",
+        "name": "Parceiro Nagano W"
+      },
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "97' (2nd Half)",
+      "minute": 97,
+      "startTime": "2026-09-23T07:00:00.000Z",
+      "lastUpdated": "2026-09-23T08:56:36.326Z"
+    },
+    "pCPYSA3s": {
+      "id": "pCPYSA3s",
+      "provider": "flashscore",
+      "league": {
+        "id": "jqeQc4eS",
+        "name": "Friendly International Women",
+        "country": "WORLD",
+        "countryCode": "8",
+        "flag": "lvaRPeWI-SWnnC7wD.png"
+      },
+      "homeTeam": {
+        "id": "Fiji W",
+        "name": "Fiji W"
+      },
+      "awayTeam": {
+        "id": "team_solomon_islands_w",
+        "name": "Solomon Islands W"
+      },
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "95' (2nd Half)",
+      "minute": 95,
+      "startTime": "2026-09-23T07:00:00.000Z",
+      "lastUpdated": "2026-09-23T08:53:06.339Z"
+    },
+    "xdJSkTPi": {
+      "id": "xdJSkTPi",
+      "provider": "flashscore",
+      "league": {
+        "id": "AsquizUQ",
+        "name": "Emperors Cup",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "Qgc4okjd-QuIL1zHm.png"
+      },
+      "homeTeam": {
+        "id": "Kashima Antlers",
+        "name": "Kashima Antlers"
+      },
+      "awayTeam": {
+        "id": "team_kofu",
+        "name": "Kofu"
+      },
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "95' (2nd Half)",
+      "minute": 95,
+      "startTime": "2026-09-23T08:00:00.000Z",
+      "lastUpdated": "2026-09-23T09:53:29.600Z"
+    },
+    "zg0G0pvA": {
+      "id": "zg0G0pvA",
+      "provider": "flashscore",
+      "league": {
+        "id": "AsquizUQ",
+        "name": "Emperors Cup",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "Qgc4okjd-QuIL1zHm.png"
+      },
+      "homeTeam": {
+        "id": "Gamba Osaka",
+        "name": "Gamba Osaka"
+      },
+      "awayTeam": {
+        "id": "team_tokushima",
+        "name": "Tokushima"
+      },
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "97' (2nd Half)",
+      "minute": 97,
+      "startTime": "2026-09-23T08:00:00.000Z",
+      "lastUpdated": "2026-09-23T09:59:59.608Z"
+    },
+    "S0INbO8M": {
+      "id": "S0INbO8M",
+      "provider": "flashscore",
+      "league": {
+        "id": "AsquizUQ",
+        "name": "Emperors Cup",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "Qgc4okjd-QuIL1zHm.png"
+      },
+      "homeTeam": {
+        "id": "Kashiwa Reysol",
+        "name": "Kashiwa Reysol"
+      },
+      "awayTeam": {
+        "id": "team_imabari",
+        "name": "Imabari"
+      },
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "94' (2nd Half)",
+      "minute": 94,
+      "startTime": "2026-09-23T08:00:00.000Z",
+      "lastUpdated": "2026-09-23T09:53:29.604Z"
+    },
+    "44Gbz3re": {
+      "id": "44Gbz3re",
+      "provider": "flashscore",
+      "league": {
+        "id": "AsquizUQ",
+        "name": "Emperors Cup",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "Qgc4okjd-QuIL1zHm.png"
+      },
+      "homeTeam": {
+        "id": "Kyoto",
+        "name": "Kyoto"
+      },
+      "awayTeam": {
+        "id": "team_fujieda_myfc",
+        "name": "Fujieda MYFC"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "98' (2nd Half)",
+      "minute": 98,
+      "startTime": "2026-09-23T08:00:00.000Z",
+      "lastUpdated": "2026-09-23T09:59:59.611Z"
+    },
+    "pMMzl7f4": {
+      "id": "pMMzl7f4",
+      "provider": "flashscore",
+      "league": {
+        "id": "AsquizUQ",
+        "name": "Emperors Cup",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "Qgc4okjd-QuIL1zHm.png"
+      },
+      "homeTeam": {
+        "id": "Machida",
+        "name": "Machida"
+      },
+      "awayTeam": {
+        "id": "team_tochigi_city",
+        "name": "Tochigi City"
+      },
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "IN_PLAY",
+      "statusText": "97' (2nd Half)",
+      "minute": 97,
+      "startTime": "2026-09-23T08:00:00.000Z",
+      "lastUpdated": "2026-09-23T09:59:59.615Z"
+    },
+    "zZ9Mv3Hj": {
+      "id": "zZ9Mv3Hj",
+      "provider": "flashscore",
+      "league": {
+        "id": "AsquizUQ",
+        "name": "Emperors Cup",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "Qgc4okjd-QuIL1zHm.png"
+      },
+      "homeTeam": {
+        "id": "Vissel Kobe",
+        "name": "Vissel Kobe"
+      },
+      "awayTeam": {
+        "id": "team_sagan_tosu",
+        "name": "Sagan Tosu"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "96' (2nd Half)",
+      "minute": 96,
+      "startTime": "2026-09-23T08:00:00.000Z",
+      "lastUpdated": "2026-09-23T09:56:29.582Z"
+    },
+    "Q175pMNk": {
+      "id": "Q175pMNk",
+      "provider": "flashscore",
+      "league": {
+        "id": "WpszrNdU",
+        "name": "WE League Cup Women",
+        "country": "JAPAN",
+        "countryCode": "100",
+        "flag": "6BNELHBO-buaJ5HnP.png"
+      },
+      "homeTeam": {
+        "id": "C-Osaka W",
+        "name": "C-Osaka W"
+      },
+      "awayTeam": {
+        "id": "team_sanfrecce_hiroshima_w",
+        "name": "Sanfrecce Hiroshima W"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "PAUSED",
+      "statusText": "HT (45')",
+      "minute": 45,
+      "startTime": "2026-09-23T09:00:00.000Z",
+      "lastUpdated": "2026-09-23T10:02:59.590Z"
+    },
+    "4h88IILh": {
+      "id": "4h88IILh",
+      "provider": "flashscore",
+      "league": {
+        "id": "nHo8DqZ0",
+        "name": "U19 League",
+        "country": "UKRAINE",
+        "countryCode": "195",
+        "flag": "t6TrXo9j-OvIgAuSh.png"
+      },
+      "homeTeam": {
+        "id": "LNZ Cherkasy U19",
+        "name": "LNZ Cherkasy U19"
+      },
+      "awayTeam": {
+        "id": "team_karpaty_lviv_u19",
+        "name": "Karpaty Lviv U19"
+      },
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "PAUSED",
+      "statusText": "HT (45')",
+      "minute": 45,
+      "startTime": "2026-09-23T09:00:00.000Z",
+      "lastUpdated": "2026-09-23T10:02:59.594Z"
+    },
+    "Y3vDXheA": {
+      "id": "Y3vDXheA",
+      "provider": "flashscore",
+      "league": {
+        "id": "AL9JlQsS",
+        "name": "IFA Shield",
+        "country": "INDIA",
+        "countryCode": "93",
+        "flag": "YLPgO8iD-EuXdxAS9.png"
+      },
+      "homeTeam": {
+        "id": "Mohun Bagan",
+        "name": "Mohun Bagan"
+      },
+      "awayTeam": {
+        "id": "team_sreenidi_deccan",
+        "name": "Sreenidi Deccan"
+      },
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "IN_PLAY",
+      "statusText": "32' (1st Half)",
+      "minute": 32,
+      "startTime": "2026-09-23T09:30:00.000Z",
+      "lastUpdated": "2026-09-23T10:02:59.587Z"
     }
   },
   "events": {
@@ -6861,6 +7199,437 @@
         "awayScore": 1,
         "createdAt": "2026-09-21T08:44:44.500Z"
       }
+    ],
+    "OESXVM8d": [
+      {
+        "id": "ev_OESXVM8d_1790150810568_GOAL",
+        "matchId": "OESXVM8d",
+        "type": "GOAL",
+        "minute": 47,
+        "teamSide": "away",
+        "playerName": "Mynavi Sendai W",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T08:06:50.568Z"
+      },
+      {
+        "id": "ev_OESXVM8d_1790150990587_GOAL",
+        "matchId": "OESXVM8d",
+        "type": "GOAL",
+        "minute": 50,
+        "teamSide": "away",
+        "playerName": "Mynavi Sendai W",
+        "homeScore": 0,
+        "awayScore": 2,
+        "createdAt": "2026-09-23T08:09:50.587Z"
+      }
+    ],
+    "G8FJgQ03": [
+      {
+        "id": "ev_G8FJgQ03_1790151380596_GOAL",
+        "matchId": "G8FJgQ03",
+        "type": "GOAL",
+        "minute": 56,
+        "teamSide": "away",
+        "playerName": "Inac Kobe Leonesa W",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T08:16:20.596Z"
+      },
+      {
+        "id": "ev_G8FJgQ03_1790152296287_GOAL",
+        "matchId": "G8FJgQ03",
+        "type": "GOAL",
+        "minute": 72,
+        "teamSide": "home",
+        "playerName": "JEF United W",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T08:31:36.287Z"
+      },
+      {
+        "id": "ev_G8FJgQ03_1790152866324_GOAL",
+        "matchId": "G8FJgQ03",
+        "type": "GOAL",
+        "minute": 81,
+        "teamSide": "home",
+        "playerName": "JEF United W",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T08:41:06.324Z"
+      },
+      {
+        "id": "ev_G8FJgQ03_1790153256316_GOAL",
+        "matchId": "G8FJgQ03",
+        "type": "GOAL",
+        "minute": 88,
+        "teamSide": "away",
+        "playerName": "Inac Kobe Leonesa W",
+        "homeScore": 2,
+        "awayScore": 2,
+        "createdAt": "2026-09-23T08:47:36.317Z"
+      },
+      {
+        "id": "ev_G8FJgQ03_1790153436336_GOAL",
+        "matchId": "G8FJgQ03",
+        "type": "GOAL",
+        "minute": 91,
+        "teamSide": "home",
+        "playerName": "JEF United W",
+        "homeScore": 3,
+        "awayScore": 2,
+        "createdAt": "2026-09-23T08:50:36.336Z"
+      }
+    ],
+    "zg0G0pvA": [
+      {
+        "id": "ev_zg0G0pvA_1790151936280_GOAL",
+        "matchId": "zg0G0pvA",
+        "type": "GOAL",
+        "minute": 25,
+        "teamSide": "home",
+        "playerName": "Gamba Osaka",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:25:36.280Z"
+      },
+      {
+        "id": "ev_zg0G0pvA_1790153616301_HALF_TIME",
+        "matchId": "zg0G0pvA",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Gamba Osaka",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:53:36.301Z"
+      },
+      {
+        "id": "ev_zg0G0pvA_1790155176348_GOAL",
+        "matchId": "zg0G0pvA",
+        "type": "GOAL",
+        "minute": 57,
+        "teamSide": "home",
+        "playerName": "Gamba Osaka",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:19:36.348Z"
+      },
+      {
+        "id": "ev_zg0G0pvA_1790155536350_GOAL",
+        "matchId": "zg0G0pvA",
+        "type": "GOAL",
+        "minute": 63,
+        "teamSide": "home",
+        "playerName": "Gamba Osaka",
+        "homeScore": 3,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:25:36.350Z"
+      },
+      {
+        "id": "ev_zg0G0pvA_1790157059564_GOAL",
+        "matchId": "zg0G0pvA",
+        "type": "GOAL",
+        "minute": 88,
+        "teamSide": "home",
+        "playerName": "Gamba Osaka",
+        "homeScore": 5,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:50:59.564Z"
+      },
+      {
+        "id": "ev_zg0G0pvA_1790157059568_GOAL",
+        "matchId": "zg0G0pvA",
+        "type": "GOAL",
+        "minute": 88,
+        "teamSide": "home",
+        "playerName": "Gamba Osaka",
+        "homeScore": 5,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:50:59.568Z"
+      }
+    ],
+    "pMMzl7f4": [
+      {
+        "id": "ev_pMMzl7f4_1790152116278_GOAL",
+        "matchId": "pMMzl7f4",
+        "type": "GOAL",
+        "minute": 28,
+        "teamSide": "home",
+        "playerName": "Machida",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:28:36.278Z"
+      },
+      {
+        "id": "ev_pMMzl7f4_1790153616320_HALF_TIME",
+        "matchId": "pMMzl7f4",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Machida",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:53:36.320Z"
+      },
+      {
+        "id": "ev_pMMzl7f4_1790155926364_GOAL",
+        "matchId": "pMMzl7f4",
+        "type": "GOAL",
+        "minute": 69,
+        "teamSide": "away",
+        "playerName": "Tochigi City",
+        "homeScore": 1,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T09:32:06.364Z"
+      },
+      {
+        "id": "ev_pMMzl7f4_1790156106377_GOAL",
+        "matchId": "pMMzl7f4",
+        "type": "GOAL",
+        "minute": 72,
+        "teamSide": "home",
+        "playerName": "Machida",
+        "homeScore": 2,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T09:35:06.377Z"
+      }
+    ],
+    "xdJSkTPi": [
+      {
+        "id": "ev_xdJSkTPi_1790152506278_GOAL",
+        "matchId": "xdJSkTPi",
+        "type": "GOAL",
+        "minute": 35,
+        "teamSide": "home",
+        "playerName": "Kashima Antlers",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:35:06.278Z"
+      },
+      {
+        "id": "ev_xdJSkTPi_1790153436307_HALF_TIME",
+        "matchId": "xdJSkTPi",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Kashima Antlers",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:50:36.307Z"
+      },
+      {
+        "id": "ev_xdJSkTPi_1790154786338_GOAL",
+        "matchId": "xdJSkTPi",
+        "type": "GOAL",
+        "minute": 54,
+        "teamSide": "home",
+        "playerName": "Kashima Antlers",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:13:06.338Z"
+      },
+      {
+        "id": "ev_xdJSkTPi_1790155356357_GOAL",
+        "matchId": "xdJSkTPi",
+        "type": "GOAL",
+        "minute": 64,
+        "teamSide": "home",
+        "playerName": "Kashima Antlers",
+        "homeScore": 3,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:22:36.357Z"
+      },
+      {
+        "id": "ev_xdJSkTPi_1790156849580_GOAL",
+        "matchId": "xdJSkTPi",
+        "type": "GOAL",
+        "minute": 89,
+        "teamSide": "away",
+        "playerName": "Kofu",
+        "homeScore": 3,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T09:47:29.580Z"
+      }
+    ],
+    "pCPYSA3s": [
+      {
+        "id": "ev_pCPYSA3s_1790152506304_GOAL",
+        "matchId": "pCPYSA3s",
+        "type": "GOAL",
+        "minute": 77,
+        "teamSide": "away",
+        "playerName": "Solomon Islands W",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T08:35:06.304Z"
+      }
+    ],
+    "S0INbO8M": [
+      {
+        "id": "ev_S0INbO8M_1790152866306_GOAL",
+        "matchId": "S0INbO8M",
+        "type": "GOAL",
+        "minute": 41,
+        "teamSide": "home",
+        "playerName": "Kashiwa Reysol",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:41:06.306Z"
+      },
+      {
+        "id": "ev_S0INbO8M_1790153436312_GOAL",
+        "matchId": "S0INbO8M",
+        "type": "GOAL",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Kashiwa Reysol",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:50:36.312Z"
+      },
+      {
+        "id": "ev_S0INbO8M_1790153436315_HALF_TIME",
+        "matchId": "S0INbO8M",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Kashiwa Reysol",
+        "homeScore": 2,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:50:36.315Z"
+      },
+      {
+        "id": "ev_S0INbO8M_1790154786345_GOAL",
+        "matchId": "S0INbO8M",
+        "type": "GOAL",
+        "minute": 53,
+        "teamSide": "home",
+        "playerName": "Kashiwa Reysol",
+        "homeScore": 3,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:13:06.345Z"
+      },
+      {
+        "id": "ev_S0INbO8M_1790154966358_GOAL",
+        "matchId": "S0INbO8M",
+        "type": "GOAL",
+        "minute": 56,
+        "teamSide": "away",
+        "playerName": "Imabari",
+        "homeScore": 3,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T09:16:06.358Z"
+      }
+    ],
+    "zZ9Mv3Hj": [
+      {
+        "id": "ev_zZ9Mv3Hj_1790152866317_GOAL",
+        "matchId": "zZ9Mv3Hj",
+        "type": "GOAL",
+        "minute": 41,
+        "teamSide": "away",
+        "playerName": "Sagan Tosu",
+        "homeScore": 0,
+        "awayScore": 1,
+        "createdAt": "2026-09-23T08:41:06.317Z"
+      },
+      {
+        "id": "ev_zZ9Mv3Hj_1790153436330_HALF_TIME",
+        "matchId": "zZ9Mv3Hj",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Vissel Kobe",
+        "homeScore": 0,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:50:36.330Z"
+      },
+      {
+        "id": "ev_zZ9Mv3Hj_1790156316474_GOAL",
+        "matchId": "zZ9Mv3Hj",
+        "type": "GOAL",
+        "minute": 78,
+        "teamSide": "home",
+        "playerName": "Vissel Kobe",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:38:36.474Z"
+      }
+    ],
+    "44Gbz3re": [
+      {
+        "id": "ev_44Gbz3re_1790153616314_HALF_TIME",
+        "matchId": "44Gbz3re",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "Kyoto",
+        "homeScore": 0,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T08:53:36.314Z"
+      },
+      {
+        "id": "ev_44Gbz3re_1790157059579_GOAL",
+        "matchId": "44Gbz3re",
+        "type": "GOAL",
+        "minute": 89,
+        "teamSide": "home",
+        "playerName": "Kyoto",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:50:59.579Z"
+      }
+    ],
+    "Q175pMNk": [
+      {
+        "id": "ev_Q175pMNk_1790154966372_GOAL",
+        "matchId": "Q175pMNk",
+        "type": "GOAL",
+        "minute": 16,
+        "teamSide": "home",
+        "playerName": "C-Osaka W",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:16:06.372Z"
+      },
+      {
+        "id": "ev_Q175pMNk_1790157239581_HALF_TIME",
+        "matchId": "Q175pMNk",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "C-Osaka W",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:53:59.581Z"
+      }
+    ],
+    "Y3vDXheA": [
+      {
+        "id": "ev_Y3vDXheA_1790156849570_GOAL",
+        "matchId": "Y3vDXheA",
+        "type": "GOAL",
+        "minute": 17,
+        "teamSide": "home",
+        "playerName": "Mohun Bagan",
+        "homeScore": 1,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:47:29.570Z"
+      }
+    ],
+    "4h88IILh": [
+      {
+        "id": "ev_4h88IILh_1790157419604_HALF_TIME",
+        "matchId": "4h88IILh",
+        "type": "STATUS_CHANGE",
+        "minute": 45,
+        "teamSide": "home",
+        "playerName": "LNZ Cherkasy U19",
+        "homeScore": 0,
+        "awayScore": 0,
+        "createdAt": "2026-09-23T09:56:59.604Z"
+      }
     ]
   },
   "facebookPosts": [],
@@ -7662,11 +8431,14 @@
       }
     ],
     "dailyLeagueSelection": {
-      "date": "2026-09-22",
+      "date": "2026-09-23",
       "selectedLeagueIds": [],
       "selectedLeagueNames": [],
       "allLeaguesSelected": false,
-      "lastUpdated": "2026-09-22T08:10:34.998Z"
+      "lastUpdated": "2026-09-23T07:52:50.383Z"
+    },
+    "systemConfig": {
+      "scraplingEnabled": true
     }
   },
   "apiKeys": [],

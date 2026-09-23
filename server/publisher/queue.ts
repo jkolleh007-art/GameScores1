@@ -48,7 +48,9 @@ class FacebookPublisherQueue {
         fbConfig.publishingMode === 'roundup' &&
         postData.matchId !== 'test' &&
         !postData.matchId.startsWith('roundup_') &&
-        !postData.matchId.startsWith('results_roundup_')
+        !postData.matchId.startsWith('results_roundup_') &&
+        !postData.matchId.startsWith('ht_roundup_') &&
+        !postData.matchId.startsWith('halftime_roundup_')
       ) {
         console.log(`[FB Queue] Suppressed individual match event (${postData.eventType}) for "${postData.matchTitle}" because system is in Roundup mode.`);
         return 'suppressed_roundup_mode';
@@ -57,11 +59,13 @@ class FacebookPublisherQueue {
       // Proceed
     }
 
-    let publicationType: 'LIVE' | 'FULL_TIME' | 'MANUAL' | 'TEST' = 'MANUAL';
+    let publicationType: 'LIVE' | 'HALF_TIME' | 'FULL_TIME' | 'MANUAL' | 'TEST' = 'MANUAL';
     if (postData.matchId === 'test') {
       publicationType = 'TEST';
     } else if (postData.matchId.startsWith('roundup_')) {
       publicationType = 'LIVE';
+    } else if (postData.matchId.startsWith('ht_roundup_') || postData.matchId.startsWith('halftime_roundup_')) {
+      publicationType = 'HALF_TIME';
     } else if (postData.matchId.startsWith('results_roundup_')) {
       publicationType = 'FULL_TIME';
     }

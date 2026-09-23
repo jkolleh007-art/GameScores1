@@ -14,7 +14,8 @@ import { flashscoreClient } from './server/scraper/flashscore_client.js';
 import { publisherQueue } from './server/publisher/queue.js';
 import { facebookPublisher } from './server/publisher/facebook_publisher.js';
 import { fbClient } from './server/publisher/facebook_client.js';
-import { formatLiveRoundupPost, formatResultsRoundupPost } from './server/publisher/templates.js';
+import { formatLiveRoundupPost, formatResultsRoundupPost, formatHalfTimeRoundupPost, isMatchAtHalfTime } from './server/publisher/templates.js';
+import { DeepseekGenerator, AiGeneratedCopy } from './server/publisher/deepseek_generator.js';
 import { FacebookPageConfig, Match, DailyLeagueSelection } from './server/types.js';
 
 async function startServer() {
@@ -79,11 +80,20 @@ async function startServer() {
   // Wire sync engine with WebSocket broadcast
   sportsSync.setBroadcast(broadcast);
 
-  // Start sports sync engine (polling Flashscore via Scrapling)
-  setTimeout(() => {
-    sportsSync.start().catch(err => {
-      console.error('[Main] Failed to start sports sync:', err);
-    });
+  // Start sports sync engine (polling Flashscore via Scrapling) if enabled in settings
+  setTimeout(async () => {
+    try {
+      const sysSettings = await db.getSettings<{ scraplingEnabled: boolean }>('systemConfig', {
+        scraplingEnabled: true,
+      });
+      if (sysSettings.scraplingEnabled !== false) {
+        await sportsSync.start();
+      } else {
+        console.log('[Main] Scrapling sports sync engine is currently STOPPED per administrator setting.');
+      }
+    } catch (err) {
+      console.error('[Main] Failed to initialize sports sync:', err);
+    }
   }, 2000);
 
   // -------------------------------------------------------------
@@ -391,14 +401,92 @@ async function startServer() {
     });
   });
 
-  // Trigger manual sync
+  // Trigger manual sync (forced execution even if polling is paused)
   app.post('/api/system/sync', adminAuthMiddleware, async (req, res) => {
     try {
-      const matches = await sportsSync.syncLiveMatches();
+      const matches = await sportsSync.syncLiveMatches(true);
       res.json({
         success: true,
         message: 'Sync completed successfully',
         matchCount: matches.length,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Stop Scrapling Sync Engine
+  app.post('/api/system/stop-scrapling', async (req, res) => {
+    try {
+      sportsSync.stop();
+      await db.saveSettings('systemConfig', { scraplingEnabled: false });
+      const status = sportsSync.getStatus();
+      if (broadcast) {
+        broadcast('scrapling_status_changed', {
+          isRunning: false,
+          status,
+        });
+      }
+      console.log('[API] Scrapling engine stopped by user.');
+      res.json({
+        success: true,
+        isRunning: false,
+        message: 'Scrapling sports sync engine stopped successfully.',
+        syncEngine: status,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Start Scrapling Sync Engine
+  app.post('/api/system/start-scrapling', async (req, res) => {
+    try {
+      await db.saveSettings('systemConfig', { scraplingEnabled: true });
+      await sportsSync.start();
+      const status = sportsSync.getStatus();
+      if (broadcast) {
+        broadcast('scrapling_status_changed', {
+          isRunning: true,
+          status,
+        });
+      }
+      console.log('[API] Scrapling engine started by user.');
+      res.json({
+        success: true,
+        isRunning: true,
+        message: 'Scrapling sports sync engine started successfully.',
+        syncEngine: status,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Toggle Scrapling Sync Engine (Stop if running, Start if stopped)
+  app.post('/api/system/toggle-scrapling', async (req, res) => {
+    try {
+      const current = sportsSync.getStatus();
+      if (current.isRunning) {
+        sportsSync.stop();
+        await db.saveSettings('systemConfig', { scraplingEnabled: false });
+      } else {
+        await db.saveSettings('systemConfig', { scraplingEnabled: true });
+        await sportsSync.start();
+      }
+      const newStatus = sportsSync.getStatus();
+      if (broadcast) {
+        broadcast('scrapling_status_changed', {
+          isRunning: newStatus.isRunning,
+          status: newStatus,
+        });
+      }
+      console.log(`[API] Scrapling engine toggled: isRunning=${newStatus.isRunning}`);
+      res.json({
+        success: true,
+        isRunning: newStatus.isRunning,
+        message: newStatus.isRunning ? 'Scrapling engine started.' : 'Scrapling engine stopped.',
+        syncEngine: newStatus,
       });
     } catch (e: any) {
       res.status(500).json({ success: false, error: e.message });
@@ -860,6 +948,9 @@ async function startServer() {
           roundupIntervalMinutes: fbConfig.roundupIntervalMinutes || 5,
           timezone: fbConfig.timezone || 'UTC',
           hasAccessToken: Boolean(config.fbPageAccessToken || fbConfig.pageAccessToken),
+          hasDeepseekKey: Boolean(fbConfig.deepseekApiKey || process.env.DEEPSEEK_API_KEY),
+          deepseekModel: fbConfig.deepseekModel || process.env.DEEPSEEK_MODEL || 'deepseek-chat',
+          useDeepseekAi: fbConfig.useDeepseekAi ?? true,
         },
       });
     } catch (e: any) {
@@ -883,6 +974,9 @@ async function startServer() {
           includeStatsInFullTime: true,
           targetLeagueIds: [],
           hasAccessToken: Boolean(config.fbPageAccessToken),
+          hasDeepseekKey: Boolean(process.env.DEEPSEEK_API_KEY),
+          deepseekModel: process.env.DEEPSEEK_MODEL || 'deepseek-chat',
+          useDeepseekAi: true,
         },
       });
     }
@@ -1122,6 +1216,90 @@ async function startServer() {
     }
   });
 
+  // DeepSeek AI: Test Connection
+  app.post('/api/facebook/deepseek/test', adminAuthMiddleware, async (req, res) => {
+    try {
+      const { apiKey, model } = req.body || {};
+      const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', {
+        pageId: config.fbPageId,
+        isConnected: false,
+        autoPublishEnabled: false,
+      } as any);
+
+      const keyToTest = apiKey || fbConfig.deepseekApiKey || process.env.DEEPSEEK_API_KEY;
+      const modelToTest = model || fbConfig.deepseekModel || process.env.DEEPSEEK_MODEL || 'deepseek-chat';
+
+      const result = await DeepseekGenerator.testConnection(keyToTest, modelToTest);
+      res.json(result);
+    } catch (e: any) {
+      res.status(500).json({ success: false, message: e.message || 'Error testing DeepSeek API connection' });
+    }
+  });
+
+  // DeepSeek AI: On-Demand Headline & Copy Generation across Live, Half-Time, and Full-Time
+  app.post('/api/facebook/deepseek/generate', adminAuthMiddleware, async (req, res) => {
+    try {
+      const postType = (req.body?.postType || 'LIVE') as 'LIVE' | 'HT' | 'FT';
+      const offset = Number(req.body?.offset || 0);
+
+      const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', {
+        pageId: config.fbPageId,
+        isConnected: false,
+        autoPublishEnabled: false,
+        publishingMode: 'roundup',
+        roundupIntervalMinutes: 5,
+        minPostSpacingSeconds: 30,
+        timezone: 'UTC',
+      } as any);
+
+      const dailySelection = await db.getDailyLeagueSelection(fbConfig.timezone || 'UTC');
+
+      let targetMatches: Match[] = [];
+
+      if (postType === 'LIVE') {
+        const live = await sportsSync.getLiveMatches();
+        const enriched = await sportsSync.enrichMatchesWithStats(live);
+        targetMatches = enriched.filter(m => dailySelection.selectedLeagueIds.includes(m.league?.id));
+      } else if (postType === 'HT') {
+        const live = await sportsSync.getLiveMatches();
+        const enriched = await sportsSync.enrichMatchesWithStats(live);
+        targetMatches = enriched.filter(m => isMatchAtHalfTime(m) && dailySelection.selectedLeagueIds.includes(m.league?.id));
+      } else {
+        const results = await sportsSync.getResults(offset);
+        const enriched = await sportsSync.enrichMatchesWithStats(results.slice(0, 20));
+        targetMatches = enriched.filter(m => dailySelection.selectedLeagueIds.includes(m.league?.id));
+      }
+
+      if (targetMatches.length === 0) {
+        return res.status(400).json({
+          success: false,
+          error: `No matches found for ${postType} in your selected leagues for today (${dailySelection.date}).`,
+        });
+      }
+
+      const aiCopy = await DeepseekGenerator.generateCopy(targetMatches, postType, fbConfig);
+
+      let previewText = '';
+      if (postType === 'LIVE') {
+        previewText = formatLiveRoundupPost(targetMatches, fbConfig, aiCopy);
+      } else if (postType === 'HT') {
+        previewText = formatHalfTimeRoundupPost(targetMatches, fbConfig, aiCopy);
+      } else {
+        previewText = formatResultsRoundupPost(targetMatches, fbConfig, aiCopy);
+      }
+
+      res.json({
+        success: true,
+        postType,
+        matchCount: targetMatches.length,
+        aiCopy,
+        previewText,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message || 'Failed to generate DeepSeek AI copy' });
+    }
+  });
+
   // Facebook: Preview Live Roundup Post (All live games in a single post)
   app.get('/api/facebook/preview-roundup', async (req, res) => {
     try {
@@ -1162,8 +1340,14 @@ async function startServer() {
         targetMatches = matches.filter(m => dailySelection.selectedLeagueIds.includes(m.league?.id));
       }
 
+      let aiCopy: AiGeneratedCopy | undefined;
+      const shouldUseAi = req.query.ai === 'true' || (fbConfig.useDeepseekAi && Boolean(DeepseekGenerator.getApiKey(fbConfig)));
+      if (shouldUseAi && targetMatches.length > 0) {
+        aiCopy = await DeepseekGenerator.generateCopy(targetMatches, 'LIVE', fbConfig);
+      }
+
       const previewText = targetMatches.length > 0
-        ? formatLiveRoundupPost(targetMatches, fbConfig)
+        ? formatLiveRoundupPost(targetMatches, fbConfig, aiCopy)
         : `⚠️ No leagues are selected for today (${dailySelection.date}).\nPlease select one or more leagues in the League Selection panel to preview or publish games.`;
       res.json({
         success: true,
@@ -1171,6 +1355,7 @@ async function startServer() {
         totalLiveCount: matches.length,
         matches: targetMatches,
         previewText,
+        aiCopy,
         publishingMode: 'roundup',
         roundupIntervalMinutes: fbConfig.roundupIntervalMinutes || 5,
         minPostSpacingSeconds: fbConfig.minPostSpacingSeconds || 30,
@@ -1320,7 +1505,14 @@ async function startServer() {
 
       const matchesToPreview = filterPublished ? newMatches : matches;
       await sportsSync.enrichMatchesWithStats(matchesToPreview.slice(0, 20));
-      const previewText = formatResultsRoundupPost(matchesToPreview, fbConfig);
+
+      let aiCopy: AiGeneratedCopy | undefined;
+      const shouldUseAi = req.query.ai === 'true' || (fbConfig.useDeepseekAi && Boolean(DeepseekGenerator.getApiKey(fbConfig)));
+      if (shouldUseAi && matchesToPreview.length > 0) {
+        aiCopy = await DeepseekGenerator.generateCopy(matchesToPreview, 'FT', fbConfig);
+      }
+
+      const previewText = formatResultsRoundupPost(matchesToPreview, fbConfig, aiCopy);
 
       res.json({
         success: true,
@@ -1331,6 +1523,7 @@ async function startServer() {
         offset,
         matches: matchesToPreview.slice(0, 50),
         previewText,
+        aiCopy,
       });
     } catch (e: any) {
       res.status(500).json({ success: false, error: e.message || 'Failed to preview results roundup' });
@@ -1477,6 +1670,223 @@ async function startServer() {
         success: true,
         count: matches.length,
         message: `Successfully marked ${matches.length} finished match(es) as already published. Future posts will only include newly finished games.`,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Facebook: Preview Half-Time Roundup
+  app.get('/api/facebook/preview-halftime-roundup', async (req, res) => {
+    try {
+      const filterPublished = req.query.filterPublished !== 'false';
+      const liveMatches = await sportsSync.getLiveMatches();
+      let htMatches = liveMatches.filter(m => isMatchAtHalfTime(m));
+
+      const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', {
+        pageId: config.fbPageId,
+        isConnected: false,
+        autoPublishEnabled: false,
+        publishingMode: 'roundup',
+        roundupFormat: 'default',
+        roundupIntervalMinutes: 5,
+        minPostSpacingSeconds: 30,
+        timezone: 'UTC',
+        publishGoals: true,
+        publishYellowCards: true,
+        publishRedCards: true,
+        publishCorners: true,
+        publishKickoff: true,
+        publishHalfTime: true,
+        publishFullTime: true,
+        includeStatsInFullTime: true,
+        targetLeagueIds: [],
+        postTemplateGoal: '',
+        postTemplateYellowCard: '',
+        postTemplateRedCard: '',
+        postTemplateCorner: '',
+        postTemplateKickoff: '',
+        postTemplateHalfTime: '',
+        postTemplateFullTime: '',
+        postTemplateRoundup: '',
+        postTemplateFullTimeRoundup: '',
+        postTemplateHalfTimeRoundup: '',
+      });
+
+      const dailySelection = await db.getDailyLeagueSelection(fbConfig.timezone || 'UTC');
+
+      // Filter strictly by target leagues selected for today
+      if (dailySelection.selectedLeagueIds && dailySelection.selectedLeagueIds.length > 0) {
+        htMatches = htMatches.filter(m => dailySelection.selectedLeagueIds.includes(m.league?.id));
+      } else {
+        htMatches = [];
+      }
+
+      const newMatches: Match[] = [];
+      const alreadyPublishedMatches: Match[] = [];
+
+      for (const m of htMatches) {
+        const isPub = await db.isHtMatchPublished(m.id, m.homeTeam?.name, m.awayTeam?.name);
+        if (isPub) {
+          alreadyPublishedMatches.push(m);
+        } else {
+          newMatches.push(m);
+        }
+      }
+
+      const matchesToPreview = filterPublished ? newMatches : htMatches;
+      await sportsSync.enrichMatchesWithStats(matchesToPreview.slice(0, 20));
+
+      let aiCopy: AiGeneratedCopy | undefined;
+      const shouldUseAi = req.query.ai === 'true' || (fbConfig.useDeepseekAi && Boolean(DeepseekGenerator.getApiKey(fbConfig)));
+      if (shouldUseAi && matchesToPreview.length > 0) {
+        aiCopy = await DeepseekGenerator.generateCopy(matchesToPreview, 'HT', fbConfig);
+      }
+
+      const previewText = formatHalfTimeRoundupPost(matchesToPreview, fbConfig, aiCopy);
+
+      res.json({
+        success: true,
+        totalHalfTime: htMatches.length,
+        matchCount: matchesToPreview.length,
+        newMatchCount: newMatches.length,
+        alreadyPublishedCount: alreadyPublishedMatches.length,
+        matches: matchesToPreview.slice(0, 50),
+        previewText,
+        aiCopy,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message || 'Failed to preview half-time roundup' });
+    }
+  });
+
+  // Facebook: Publish Half-Time Roundup Now
+  app.post('/api/facebook/publish-halftime-roundup', adminAuthMiddleware, async (req, res) => {
+    try {
+      const forceIncludeAll = req.body?.forceIncludeAll === true;
+      const liveMatches = await sportsSync.getLiveMatches();
+      let htMatches = liveMatches.filter(m => isMatchAtHalfTime(m));
+
+      const fbConfig = await db.getSettings<FacebookPageConfig>('fbConfig', {
+        pageId: config.fbPageId,
+        isConnected: false,
+        autoPublishEnabled: false,
+        publishingMode: 'roundup',
+        roundupFormat: 'default',
+        roundupIntervalMinutes: 5,
+        minPostSpacingSeconds: 30,
+        timezone: 'UTC',
+        publishGoals: true,
+        publishYellowCards: true,
+        publishRedCards: true,
+        publishCorners: true,
+        publishKickoff: true,
+        publishHalfTime: true,
+        publishFullTime: true,
+        includeStatsInFullTime: true,
+        targetLeagueIds: [],
+        postTemplateGoal: '',
+        postTemplateYellowCard: '',
+        postTemplateRedCard: '',
+        postTemplateCorner: '',
+        postTemplateKickoff: '',
+        postTemplateHalfTime: '',
+        postTemplateFullTime: '',
+        postTemplateRoundup: '',
+        postTemplateFullTimeRoundup: '',
+        postTemplateHalfTimeRoundup: '',
+      });
+
+      const dailySelection = await db.getDailyLeagueSelection(fbConfig.timezone || 'UTC');
+      if (!dailySelection.selectedLeagueIds || dailySelection.selectedLeagueIds.length === 0) {
+        return res.status(400).json({
+          success: false,
+          error: `No leagues are selected for today (${dailySelection.date}). Please select one or more leagues in the League Selection panel before publishing half-time scores.`,
+        });
+      }
+
+      htMatches = htMatches.filter(m => dailySelection.selectedLeagueIds.includes(m.league?.id));
+
+      if (htMatches.length === 0) {
+        return res.status(400).json({
+          success: false,
+          error: 'No matches currently at half-time in your selected leagues to post.',
+        });
+      }
+
+      // Check which matches were already published
+      const newMatches: Match[] = [];
+      const alreadyPublishedMatches: Match[] = [];
+
+      for (const m of htMatches) {
+        const isPub = await db.isHtMatchPublished(m.id, m.homeTeam?.name, m.awayTeam?.name);
+        if (isPub) {
+          alreadyPublishedMatches.push(m);
+        } else {
+          newMatches.push(m);
+        }
+      }
+
+      const matchesToPost = forceIncludeAll ? htMatches : newMatches;
+
+      if (matchesToPost.length === 0) {
+        return res.status(400).json({
+          success: false,
+          error: `All ${htMatches.length} match(es) at half-time have already been published. No new half-time scores to post.`,
+          alreadyPublishedCount: alreadyPublishedMatches.length,
+        });
+      }
+
+      await sportsSync.enrichMatchesWithStats(matchesToPost.slice(0, 20));
+      const message = req.body?.customMessage || formatHalfTimeRoundupPost(matchesToPost, fbConfig);
+
+      const postId = await publisherQueue.enqueue({
+        matchId: `halftime_roundup_${Date.now()}`,
+        matchTitle: `Half-Time Scores (${matchesToPost.length} Matches)`,
+        leagueName: 'Multiple Leagues',
+        eventType: 'STATUS_CHANGE',
+        message,
+      });
+
+      // Mark posted matches as published at HT so they will not be repeated in subsequent HT posts
+      await db.markHtMatchesPublished(matchesToPost);
+
+      fbConfig.lastHtRoundupPublishedAt = new Date().toISOString();
+      await db.saveSettings('fbConfig', fbConfig);
+
+      res.json({
+        success: true,
+        postId,
+        publishedCount: matchesToPost.length,
+        alreadyPublishedSkipped: alreadyPublishedMatches.length,
+        message: `Successfully enqueued grouped Half-Time scores containing ${matchesToPost.length} match(es)! (${alreadyPublishedMatches.length} previously published match(es) omitted to avoid duplicates)`,
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message || 'Failed to enqueue half-time scores post' });
+    }
+  });
+
+  // Facebook: Get List of Published Half-Time Matches
+  app.get('/api/facebook/published-ht-matches', async (req, res) => {
+    try {
+      const records = await db.getPublishedHtMatches();
+      res.json({
+        success: true,
+        count: records.length,
+        records: records.slice(0, 100),
+      });
+    } catch (e: any) {
+      res.status(500).json({ success: false, error: e.message });
+    }
+  });
+
+  // Facebook: Clear Published Half-Time History (Allow Re-posting)
+  app.post('/api/facebook/clear-published-ht-matches', adminAuthMiddleware, async (req, res) => {
+    try {
+      await db.clearPublishedHtMatches();
+      res.json({
+        success: true,
+        message: 'Successfully cleared Half-Time publishing history. All matches are now eligible for half-time posting.',
       });
     } catch (e: any) {
       res.status(500).json({ success: false, error: e.message });

@@ -27,23 +27,27 @@ import {
   Flag,
   Trophy,
   Lock,
+  Layout,
+  Bot,
+  Cpu,
 } from 'lucide-react';
-import { FacebookPageConfig, FacebookPostRecord, Match, PublishedFtRecord, DailyLeagueSelection } from '../types';
+import { FacebookPageConfig, FacebookPostRecord, Match, PublishedFtRecord, PublishedHtRecord, DailyLeagueSelection } from '../types';
 import { DailyLeagueSelectionView } from './DailyLeagueSelectionView';
 import { useAdminAuth } from '../context/AdminAuthContext';
 
 interface FacebookPublisherViewProps {
   onNotify?: (msg: string) => void;
-  initialSubSection?: 'leagues' | 'roundup' | 'results' | 'settings' | 'history' | 'templates';
+  initialSubSection?: 'leagues' | 'roundup' | 'halftime' | 'results' | 'settings' | 'history' | 'templates';
 }
 
-export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ initialSubSection }) => {
+export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ onNotify, initialSubSection }) => {
   const { isAuthenticated, authFetch, setShowLoginModal } = useAdminAuth();
   const [config, setConfig] = useState<FacebookPageConfig>({
     pageId: '',
     isConnected: false,
     autoPublishEnabled: false,
     publishingMode: 'roundup',
+    roundupFormat: 'default',
     roundupIntervalMinutes: 15,
     minPostSpacingSeconds: 30,
     publishGoals: true,
@@ -63,6 +67,8 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
     postTemplateHalfTime: '',
     postTemplateFullTime: '',
     postTemplateRoundup: '',
+    postTemplateFullTimeRoundup: '',
+    postTemplateHalfTimeRoundup: '',
   });
   const [posts, setPosts] = useState<FacebookPostRecord[]>([]);
   const [pageIdInput, setPageIdInput] = useState('');
@@ -73,7 +79,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [manualMessage, setManualMessage] = useState('');
   const [isManualPosting, setIsManualPosting] = useState(false);
-  const [activeSubSection, setActiveSubSection] = useState<'leagues' | 'roundup' | 'results' | 'settings' | 'history' | 'templates'>(
+  const [activeSubSection, setActiveSubSection] = useState<'leagues' | 'roundup' | 'halftime' | 'results' | 'settings' | 'history' | 'templates'>(
     initialSubSection || 'leagues'
   );
   const [dailySelection, setDailySelection] = useState<DailyLeagueSelection | null>(null);
@@ -108,6 +114,33 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
   const [isEditingResultsText, setIsEditingResultsText] = useState<boolean>(false);
   const [isClearingFtHistory, setIsClearingFtHistory] = useState<boolean>(false);
   const [isMarkingCurrentAsPublished, setIsMarkingCurrentAsPublished] = useState<boolean>(false);
+
+  // Half-Time Games Grouping & De-duplication State
+  const [htPreview, setHtPreview] = useState<string>('');
+  const [htMatchCount, setHtMatchCount] = useState<number>(0);
+  const [htTotalMatches, setHtTotalMatches] = useState<number>(0);
+  const [htAlreadyPublishedCount, setHtAlreadyPublishedCount] = useState<number>(0);
+  const [htMatches, setHtMatches] = useState<Match[]>([]);
+  const [publishedHtHistory, setPublishedHtHistory] = useState<PublishedHtRecord[]>([]);
+  const [isLoadingHtPreview, setIsLoadingHtPreview] = useState<boolean>(false);
+  const [isPublishingHt, setIsPublishingHt] = useState<boolean>(false);
+  const [filterPublishedHt, setFilterPublishedHt] = useState<boolean>(true);
+  const [customHtText, setCustomHtText] = useState<string>('');
+  const [isEditingHtText, setIsEditingHtText] = useState<boolean>(false);
+  const [isClearingHtHistory, setIsClearingHtHistory] = useState<boolean>(false);
+
+  // DeepSeek AI State
+  const [deepseekKeyInput, setDeepseekKeyInput] = useState('');
+  const [deepseekModelInput, setDeepseekModelInput] = useState('deepseek-chat');
+  const [isTestingDeepseek, setIsTestingDeepseek] = useState(false);
+  const [deepseekTestResult, setDeepseekTestResult] = useState<{ success: boolean; message: string; latencyMs?: number } | null>(null);
+  const [showDeepseekKey, setShowDeepseekKey] = useState(false);
+  const [isGeneratingAiLive, setIsGeneratingAiLive] = useState(false);
+  const [isGeneratingAiHt, setIsGeneratingAiHt] = useState(false);
+  const [isGeneratingAiResults, setIsGeneratingAiResults] = useState(false);
+  const [aiLiveMeta, setAiLiveMeta] = useState<{ headline?: string; latencyMs?: number; isAiGenerated?: boolean } | null>(null);
+  const [aiHtMeta, setAiHtMeta] = useState<{ headline?: string; latencyMs?: number; isAiGenerated?: boolean } | null>(null);
+  const [aiResultsMeta, setAiResultsMeta] = useState<{ headline?: string; latencyMs?: number; isAiGenerated?: boolean } | null>(null);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshNotice, setRefreshNotice] = useState<string | null>(null);
@@ -158,6 +191,12 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
         if (!isEditingPageId.current) {
           setPageIdInput(cfgResult.value.data.pageId || '');
         }
+        if (cfgResult.value.data.deepseekApiKey) {
+          setDeepseekKeyInput(cfgResult.value.data.deepseekApiKey);
+        }
+        if (cfgResult.value.data.deepseekModel) {
+          setDeepseekModelInput(cfgResult.value.data.deepseekModel);
+        }
       }
 
       if (postsResult.status === 'fulfilled' && postsResult.value?.success && Array.isArray(postsResult.value.data)) {
@@ -196,6 +235,136 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
       setIsLoadingRoundupPreview(false);
     }
   }, [isEditingRoundupText]);
+
+  const handleTestDeepseek = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    setIsTestingDeepseek(true);
+    setDeepseekTestResult(null);
+    try {
+      const res = await authFetch('/api/facebook/deepseek/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          apiKey: deepseekKeyInput.trim() || undefined,
+          model: deepseekModelInput.trim() || 'deepseek-chat',
+        }),
+      });
+      const data = await res.json();
+      setDeepseekTestResult(data);
+      if (data.success && onNotify) {
+        onNotify(data.message || 'DeepSeek AI connected successfully!');
+      }
+    } catch (e: any) {
+      setDeepseekTestResult({ success: false, message: e.message || 'Failed to connect to DeepSeek API' });
+    } finally {
+      setIsTestingDeepseek(false);
+    }
+  };
+
+  const handleGenerateAiLive = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    setIsGeneratingAiLive(true);
+    try {
+      const res = await authFetch('/api/facebook/deepseek/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postType: 'LIVE' }),
+      });
+      const data = await res.json();
+      if (data.success && data.previewText) {
+        setRoundupPreview(data.previewText);
+        setCustomRoundupText(data.previewText);
+        setAiLiveMeta({
+          headline: data.aiCopy?.headline,
+          latencyMs: data.aiCopy?.latencyMs,
+          isAiGenerated: data.aiCopy?.isAiGenerated,
+        });
+        if (onNotify) {
+          onNotify(`AI headline generated: "${data.aiCopy?.headline || 'Updated'}"`);
+        }
+      } else {
+        alert(data.error || 'Failed to generate copy');
+      }
+    } catch (e: any) {
+      console.warn('AI live generate error:', e);
+    } finally {
+      setIsGeneratingAiLive(false);
+    }
+  };
+
+  const handleGenerateAiHt = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    setIsGeneratingAiHt(true);
+    try {
+      const res = await authFetch('/api/facebook/deepseek/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postType: 'HT' }),
+      });
+      const data = await res.json();
+      if (data.success && data.previewText) {
+        setHtPreview(data.previewText);
+        setCustomHtText(data.previewText);
+        setAiHtMeta({
+          headline: data.aiCopy?.headline,
+          latencyMs: data.aiCopy?.latencyMs,
+          isAiGenerated: data.aiCopy?.isAiGenerated,
+        });
+        if (onNotify) {
+          onNotify(`AI Half-Time headline generated: "${data.aiCopy?.headline || 'Updated'}"`);
+        }
+      } else {
+        alert(data.error || 'Failed to generate HT copy');
+      }
+    } catch (e: any) {
+      console.warn('AI HT generate error:', e);
+    } finally {
+      setIsGeneratingAiHt(false);
+    }
+  };
+
+  const handleGenerateAiResults = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    setIsGeneratingAiResults(true);
+    try {
+      const res = await authFetch('/api/facebook/deepseek/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postType: 'FT', offset: resultsDateOffset }),
+      });
+      const data = await res.json();
+      if (data.success && data.previewText) {
+        setResultsPreview(data.previewText);
+        setCustomResultsText(data.previewText);
+        setAiResultsMeta({
+          headline: data.aiCopy?.headline,
+          latencyMs: data.aiCopy?.latencyMs,
+          isAiGenerated: data.aiCopy?.isAiGenerated,
+        });
+        if (onNotify) {
+          onNotify(`AI Results headline generated: "${data.aiCopy?.headline || 'Updated'}"`);
+        }
+      } else {
+        alert(data.error || 'Failed to generate FT copy');
+      }
+    } catch (e: any) {
+      console.warn('AI results generate error:', e);
+    } finally {
+      setIsGeneratingAiResults(false);
+    }
+  };
 
   const handlePublishRoundup = async () => {
     if (!isAuthenticated) {
@@ -361,6 +530,105 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
       setStatusMessage({ type: 'error', text: e.message || 'Error marking matches' });
     } finally {
       setIsMarkingCurrentAsPublished(false);
+    }
+  };
+
+  const fetchPublishedHtHistory = useCallback(async () => {
+    try {
+      const res = await fetch('/api/facebook/published-ht-matches');
+      const data = await res.json();
+      if (data.success && Array.isArray(data.records)) {
+        setPublishedHtHistory(data.records);
+      }
+    } catch (e) {
+      console.warn('Error fetching published HT matches:', e);
+    }
+  }, []);
+
+  const fetchHtPreview = useCallback(async (filterOverride?: boolean) => {
+    setIsLoadingHtPreview(true);
+    const filter = filterOverride !== undefined ? filterOverride : filterPublishedHt;
+    try {
+      const res = await fetch(`/api/facebook/preview-halftime-roundup?filterPublished=${filter}`);
+      const data = await res.json();
+      if (data.success) {
+        if (!isEditingHtText) {
+          setHtPreview(data.previewText || '');
+          setCustomHtText(data.previewText || '');
+        }
+        setHtMatchCount(data.matchCount || 0);
+        setHtTotalMatches(data.totalHalfTime || 0);
+        setHtAlreadyPublishedCount(data.alreadyPublishedCount || 0);
+        setHtMatches(data.matches || []);
+      }
+    } catch (err: any) {
+      console.warn('Error fetching HT preview:', err?.message || err);
+    } finally {
+      setIsLoadingHtPreview(false);
+    }
+  }, [filterPublishedHt, isEditingHtText]);
+
+  const handlePublishHt = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    setIsPublishingHt(true);
+    setStatusMessage(null);
+    try {
+      const res = await authFetch('/api/facebook/publish-halftime-roundup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customMessage: isEditingHtText ? customHtText : undefined,
+          forceIncludeAll: !filterPublishedHt,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage({
+          type: 'success',
+          text: `🎉 ${data.message}`,
+        });
+        await fetchConfigAndHistory();
+        await fetchHtPreview();
+        await fetchPublishedHtHistory();
+      } else {
+        setStatusMessage({
+          type: 'error',
+          text: data.error || 'Failed to publish grouped Half-Time scores.',
+        });
+      }
+    } catch (e: any) {
+      setStatusMessage({
+        type: 'error',
+        text: e.message || 'Error occurred while publishing Half-Time scores.',
+      });
+    } finally {
+      setIsPublishingHt(false);
+    }
+  };
+
+  const handleClearHtHistory = async () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    setIsClearingHtHistory(true);
+    try {
+      const res = await authFetch('/api/facebook/clear-published-ht-matches', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage({ type: 'success', text: data.message });
+        await fetchHtPreview();
+        await fetchPublishedHtHistory();
+      } else {
+        setStatusMessage({ type: 'error', text: data.error || 'Failed to clear HT history' });
+      }
+    } catch (e: any) {
+      setStatusMessage({ type: 'error', text: e.message });
+    } finally {
+      setIsClearingHtHistory(false);
     }
   };
 
@@ -532,6 +800,8 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
     await handleSaveConfig({
       pageId: pageIdInput.trim(),
       ...(accessTokenInput.trim() ? { pageAccessToken: accessTokenInput.trim() } : {}),
+      ...(deepseekKeyInput.trim() ? { deepseekApiKey: deepseekKeyInput.trim() } : {}),
+      deepseekModel: deepseekModelInput.trim() || 'deepseek-chat',
       isConnected: true,
     });
   };
@@ -764,6 +1034,23 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
             </button>
           </div>
         )}
+
+        {/* Manual Click-To-Post Protection Banner */}
+        {config && !config.autoPublishEnabled && (
+          <div className="mt-4 p-3.5 bg-blue-950/40 border border-blue-500/40 rounded-xl text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-blue-200">
+            <div className="flex items-center space-x-2.5">
+              <ShieldCheck className="w-5 h-5 text-blue-400 shrink-0" />
+              <div>
+                <strong className="text-white">Admin Click-To-Post Mode Active:</strong> Background automated posting is turned off to protect against Facebook spam detection and blocking. Use the <strong>"Publish Now"</strong> buttons below whenever you want to post. Posts automatically use dynamic anti-spam phrasing and rotating hashtags!
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 shrink-0">
+              <span className="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full font-bold">
+                Anti-Spam Protected
+              </span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Navigation Subtabs */}
@@ -806,6 +1093,26 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
           <span>All Games in 1 Post</span>
           <span className="text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
             Anti-Spam
+          </span>
+        </button>
+
+        <button
+          id="tab-halftime-btn"
+          onClick={() => {
+            setActiveSubSection('halftime');
+            fetchHtPreview();
+            fetchPublishedHtHistory();
+          }}
+          className={`flex items-center space-x-1.5 px-4 py-2.5 font-semibold border-b-2 transition-colors shrink-0 ${
+            activeSubSection === 'halftime'
+              ? 'border-blue-500 text-blue-400 bg-blue-500/5'
+              : 'border-transparent text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          <Clock className="w-3.5 h-3.5 text-blue-400" />
+          <span>Half-Time Games</span>
+          <span className="text-[9px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wider">
+            All HT Games
           </span>
         </button>
 
@@ -996,8 +1303,63 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
             </div>
           </div>
 
-          {/* Timing & Pacing Configuration */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Timing, Format & Pacing Configuration */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Scoreboard Format Style */}
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold text-white flex items-center space-x-1.5">
+                  <Layout className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Scoreboard Layout</span>
+                </label>
+                <span className="text-xs font-mono font-bold text-cyan-400">
+                  {(config.roundupFormat || 'default') === 'default' ? 'Standard' : 'Emoji'}
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Visual presentation style for live scoreboards & grouped results.
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await handleSaveConfig({ roundupFormat: 'default' });
+                    fetchRoundupPreview();
+                    fetchResultsPreview();
+                    fetchHtPreview();
+                  }}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all text-center ${
+                    (config.roundupFormat || 'default') === 'default'
+                      ? 'bg-cyan-600 text-white font-bold shadow-sm'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  Standard (Default)
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await handleSaveConfig({ roundupFormat: 'compact_emoji' });
+                    fetchRoundupPreview();
+                    fetchResultsPreview();
+                    fetchHtPreview();
+                  }}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all text-center ${
+                    config.roundupFormat === 'compact_emoji'
+                      ? 'bg-cyan-600 text-white font-bold shadow-sm'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  Emoji Style
+                </button>
+              </div>
+              <div className="text-[10px] text-slate-400">
+                {(config.roundupFormat || 'default') === 'default'
+                  ? '✓ Clean league grouping, timing & full stats line'
+                  : '✓ Bold digits, half breakdown, compact icon badges & legend'}
+              </div>
+            </div>
+
             {/* Scoreboard Post Frequency */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3">
               <div className="flex items-center justify-between">
@@ -1013,7 +1375,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                 How often active live games are compiled into 1 single post.
               </p>
               <div className="flex flex-wrap gap-2">
-                {[5, 10, 15, 30, 45, 60].map((mins) => (
+                {[3, 5, 10, 15, 20, 30, 45, 60].map((mins) => (
                   <button
                     key={mins}
                     type="button"
@@ -1111,10 +1473,46 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
             </div>
           </div>
 
+          {/* Zero-Conflict Publishing Coordination Status Banner */}
+          <div className="bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900 border border-indigo-500/20 rounded-xl p-4">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                <ShieldCheck className="w-4 h-4 text-indigo-400" />
+              </div>
+              <div className="flex-1 space-y-1.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">
+                    Conflict-Free Publishing Engine
+                  </span>
+                  <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">
+                    Active & Coordinated
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed">
+                  Automated conflict prevention coordinates all 3 publishing streams without collision:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
+                  <div className="bg-slate-900/80 border border-slate-800/80 rounded-lg p-2.5">
+                    <span className="font-semibold text-amber-300">1. Full-Time Results:</span>
+                    <p className="text-slate-400 text-[10px] mt-0.5">Posts as games finish. Priority 1. Never repeated.</p>
+                  </div>
+                  <div className="bg-slate-900/80 border border-slate-800/80 rounded-lg p-2.5">
+                    <span className="font-semibold text-blue-300">2. Half-Time Scores:</span>
+                    <p className="text-slate-400 text-[10px] mt-0.5">Posts at intermission. Priority 2. Never repeated.</p>
+                  </div>
+                  <div className="bg-slate-900/80 border border-slate-800/80 rounded-lg p-2.5">
+                    <span className="font-semibold text-indigo-300">3. Live Scoreboards:</span>
+                    <p className="text-slate-400 text-[10px] mt-0.5">Posts every {config.roundupIntervalMinutes || 5}m, spaced by &ge;{config.minPostSpacingSeconds || 30}s buffer.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Live Scoreboard Preview & 1-Click Publisher */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
                   <Eye className="w-3.5 h-3.5 text-indigo-400" />
                   <span>Live Scoreboard Post Preview</span>
@@ -1122,9 +1520,28 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                 <span className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-mono font-semibold">
                   {roundupMatchCount} {roundupMatchCount === 1 ? 'Live Match' : 'Live Matches'}
                 </span>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                  (config.roundupFormat || 'default') === 'default'
+                    ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
+                    : 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
+                }`}>
+                  {(config.roundupFormat || 'default') === 'default' ? 'Standard Layout' : 'Emoji Scoreboard'}
+                </span>
               </div>
 
               <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  id="deepseek-gen-live-btn"
+                  onClick={handleGenerateAiLive}
+                  disabled={isGeneratingAiLive || roundupMatchCount === 0}
+                  className="text-xs bg-indigo-600/90 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-600 text-white font-semibold px-2.5 py-1 rounded transition-colors flex items-center space-x-1.5 shadow-sm border border-indigo-400/30 cursor-pointer disabled:cursor-not-allowed"
+                  title="Generate a natural, human-written live headline & discussion hook using DeepSeek AI"
+                >
+                  <Sparkles className={`w-3.5 h-3.5 ${isGeneratingAiLive ? 'animate-spin text-amber-300' : 'text-amber-400'}`} />
+                  <span>{isGeneratingAiLive ? 'DeepSeek Writing...' : 'Generate with DeepSeek AI'}</span>
+                </button>
+
                 <button
                   type="button"
                   onClick={() => setIsEditingRoundupText(!isEditingRoundupText)}
@@ -1144,6 +1561,21 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                 </button>
               </div>
             </div>
+
+            {/* AI Generation Metadata Banner */}
+            {aiLiveMeta && (
+              <div className="flex items-center justify-between px-3 py-1.5 bg-indigo-950/40 border border-indigo-500/30 rounded-lg text-xs">
+                <div className="flex items-center space-x-2 text-indigo-300">
+                  <Bot className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                  <span className="font-semibold text-white">Headline: "{aiLiveMeta.headline}"</span>
+                </div>
+                {aiLiveMeta.latencyMs && (
+                  <span className="text-[10px] text-indigo-400/80 font-mono">
+                    ⚡ DeepSeek · {aiLiveMeta.latencyMs}ms
+                  </span>
+                )}
+              </div>
+            )}
 
             {/* Post text box */}
             <div>
@@ -1282,6 +1714,387 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                     </div>
                   );
                 })}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* SUBSECTION: Grouped Half-Time Games with Anti-Duplicate Protection */}
+      {activeSubSection === 'halftime' && (
+        <div className="space-y-6">
+          {/* Anti-Duplicate Guarantee Banner */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+            <div className="flex items-start space-x-3.5">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                <Clock className="w-5 h-5 text-blue-400" />
+              </div>
+              <div className="flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-sm font-bold text-white">
+                    Consolidated Half-Time Scores & Anti-Duplicate Protection
+                  </h3>
+                  <span className="text-[10px] bg-blue-500/15 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded-full font-bold uppercase">
+                    All HT Games in 1 Post
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                  All matches currently at half-time are <strong>grouped by league into a single Facebook post</strong>.
+                  The system maintains a persistent registry of published half-time scores: once a match&apos;s half-time score is published, it will <strong>never be repeatedly posted</strong> in subsequent half-time roundups.
+                </p>
+                <div className="flex flex-wrap items-center gap-4 mt-2.5 text-[11px] text-slate-400 border-t border-slate-800 pt-2">
+                  <div className="flex items-center space-x-1.5 text-blue-400">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Grouped by League</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5 text-emerald-400">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>No Repeated Half-Time Posts</span>
+                  </div>
+                  <div className="flex items-center space-x-1.5 text-indigo-400">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Auto Paced & Anti-Spam Safe</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Metrics */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+                  New HT Games Ready to Post
+                </p>
+                <p className={`text-xl font-mono font-bold mt-0.5 ${htMatchCount > 0 ? 'text-blue-400' : 'text-slate-500'}`}>
+                  {htMatchCount} Matches
+                </p>
+              </div>
+              <div className={`p-2 rounded-lg border ${htMatchCount > 0 ? 'bg-blue-500/10 border-blue-500/20 text-blue-400' : 'bg-slate-800 border-slate-700 text-slate-500'}`}>
+                <Clock className="w-5 h-5" />
+              </div>
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+                  Already Published at HT Today
+                </p>
+                <p className="text-xl font-mono font-bold text-amber-400 mt-0.5">
+                  {htAlreadyPublishedCount} Matches
+                </p>
+              </div>
+              <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <Shield className="w-5 h-5" />
+              </div>
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-3.5 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+                  Total Games at Half-Time
+                </p>
+                <p className="text-xl font-mono font-bold text-slate-200 mt-0.5">
+                  {htTotalMatches} in Selected Leagues
+                </p>
+              </div>
+              <div className="p-2 rounded-lg bg-slate-800 border border-slate-700 text-slate-400">
+                <Play className="w-5 h-5" />
+              </div>
+            </div>
+          </div>
+
+          {/* Filtering & Controls Bar */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <label className="flex items-center space-x-2 text-xs font-semibold text-slate-300 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={filterPublishedHt}
+                  onChange={(e) => {
+                    setFilterPublishedHt(e.target.checked);
+                    fetchHtPreview(e.target.checked);
+                  }}
+                  className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 bg-slate-950 border-slate-700 cursor-pointer"
+                />
+                <span>Filter out already-published Half-Time matches (Anti-Duplicate)</span>
+              </label>
+
+              <span className="text-slate-700 hidden sm:inline">|</span>
+
+              <div className="flex items-center space-x-1.5 text-xs text-slate-400">
+                <Layout className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Format:</span>
+                <span className="font-semibold text-cyan-300">
+                  {(config.roundupFormat || 'default') === 'compact_emoji' ? 'Emoji Style' : 'Standard (Default)'}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={() => {
+                  fetchHtPreview();
+                  fetchPublishedHtHistory();
+                }}
+                disabled={isLoadingHtPreview}
+                className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs px-3 py-2 rounded-lg flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoadingHtPreview ? 'animate-spin' : ''}`} />
+                <span>Refresh HT Games</span>
+              </button>
+
+              {publishedHtHistory.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleClearHtHistory}
+                  disabled={isClearingHtHistory}
+                  className="bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 font-medium text-xs px-3 py-2 rounded-lg flex items-center space-x-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                  title="Clear history to allow reposting of half-time scores"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>{isClearingHtHistory ? 'Clearing...' : 'Clear HT History'}</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Interactive Post Preview Card */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
+            <div className="p-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 bg-slate-950/60">
+              <div className="flex items-center space-x-2">
+                <div className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse" />
+                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                  Facebook Post Preview: Half-Time Scores
+                </h4>
+                <span className="text-[10px] bg-blue-500/15 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded font-mono">
+                  {htMatchCount} Matches Included
+                </span>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  id="deepseek-gen-ht-btn"
+                  onClick={handleGenerateAiHt}
+                  disabled={isGeneratingAiHt || htMatchCount === 0}
+                  className="text-xs bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-600 text-white font-semibold px-2.5 py-1 rounded transition-colors flex items-center space-x-1.5 shadow-sm border border-blue-400/30 cursor-pointer disabled:cursor-not-allowed"
+                  title="Generate a natural, human-written half-time headline & halftime analysis hook using DeepSeek AI"
+                >
+                  <Sparkles className={`w-3.5 h-3.5 ${isGeneratingAiHt ? 'animate-spin text-amber-300' : 'text-amber-400'}`} />
+                  <span>{isGeneratingAiHt ? 'DeepSeek Writing...' : 'Generate with DeepSeek AI'}</span>
+                </button>
+
+                <span className="text-[11px] text-slate-500 font-mono">
+                  {(isEditingHtText ? customHtText : htPreview).length} chars
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsEditingHtText(!isEditingHtText)}
+                  className={`text-xs px-2.5 py-1 rounded border font-medium transition-colors cursor-pointer ${
+                    isEditingHtText
+                      ? 'bg-blue-600 text-white border-blue-500'
+                      : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                  }`}
+                >
+                  {isEditingHtText ? 'Done Editing' : 'Edit Post Text'}
+                </button>
+              </div>
+            </div>
+
+            {/* AI Generation Metadata Banner */}
+            {aiHtMeta && (
+              <div className="flex items-center justify-between px-4 py-2 bg-blue-950/40 border-b border-blue-500/20 text-xs">
+                <div className="flex items-center space-x-2 text-blue-300">
+                  <Bot className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                  <span className="font-semibold text-white">Headline: "{aiHtMeta.headline}"</span>
+                </div>
+                {aiHtMeta.latencyMs && (
+                  <span className="text-[10px] text-blue-400/80 font-mono">
+                    ⚡ DeepSeek · {aiHtMeta.latencyMs}ms
+                  </span>
+                )}
+              </div>
+            )}
+
+            <div className="p-5 space-y-4">
+              {isEditingHtText ? (
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-slate-400">Customized Half-Time Content:</label>
+                  <textarea
+                    rows={12}
+                    value={customHtText}
+                    onChange={(e) => setCustomHtText(e.target.value)}
+                    className="w-full bg-slate-950 border border-blue-500/40 rounded-xl p-4 text-xs font-mono text-slate-200 leading-relaxed focus:outline-none focus:border-blue-400 shadow-inner"
+                  />
+                  <div className="flex justify-between items-center text-[10px] text-slate-500">
+                    <span>You can edit this post content before sending to Facebook.</span>
+                    <button
+                      type="button"
+                      onClick={() => setCustomHtText(htPreview)}
+                      className="text-blue-400 hover:text-blue-300 underline cursor-pointer"
+                    >
+                      Reset to generated template
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-slate-950 border border-slate-800/80 rounded-xl p-4 font-mono text-xs text-slate-200 whitespace-pre-wrap leading-relaxed max-h-96 overflow-y-auto selection:bg-blue-500/30">
+                  {isLoadingHtPreview ? (
+                    <div className="flex items-center justify-center py-8 space-x-2 text-slate-500">
+                      <RefreshCw className="w-4 h-4 animate-spin text-blue-400" />
+                      <span>Generating Half-Time scores preview...</span>
+                    </div>
+                  ) : htPreview ? (
+                    htPreview
+                  ) : (
+                    <div className="py-8 text-center text-slate-500 italic">
+                      No matches currently at Half-Time in your selected leagues.
+                      <p className="text-[11px] text-slate-600 mt-1 not-italic">
+                        When matches enter half-time (HT), they will be automatically grouped here.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Action row */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
+                <div className="text-xs text-slate-400">
+                  Publishes all {htMatchCount} match score(s) currently at half-time in a consolidated post with cards and corner stats.
+                </div>
+
+                <button
+                  type="button"
+                  id="publish-halftime-now-btn"
+                  onClick={handlePublishHt}
+                  disabled={isPublishingHt || htMatchCount === 0 || (!htPreview && !customHtText)}
+                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-600 text-white font-bold text-xs px-5 py-2.5 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-md shadow-blue-950/40 cursor-pointer disabled:cursor-not-allowed"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>
+                    {isPublishingHt ? 'Publishing Half-Time Games...' : 'Post All Half-Time Games Now'}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Matches Currently at Half-Time List */}
+          {htMatches.length > 0 && (
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
+                  <Clock className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Matches at Half-Time ({htMatches.length})</span>
+                </h4>
+                <span className="text-[10px] text-slate-500">
+                  Intermission breakdown with corner & card tallies
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                {htMatches.map((m) => {
+                  const events = m.events || [];
+                  const cornersH = m.stats?.cornersHome ?? events.filter(e => e.teamSide === 'home' && e.type === 'CORNER').length;
+                  const cornersA = m.stats?.cornersAway ?? events.filter(e => e.teamSide === 'away' && e.type === 'CORNER').length;
+                  const yellowH = m.stats?.yellowCardsHome ?? events.filter(e => e.teamSide === 'home' && e.type === 'YELLOW_CARD').length;
+                  const yellowA = m.stats?.yellowCardsAway ?? events.filter(e => e.teamSide === 'away' && e.type === 'YELLOW_CARD').length;
+                  const redH = m.stats?.redCardsHome ?? events.filter(e => e.teamSide === 'home' && (e.type === 'RED_CARD' || e.type === 'YELLOW_RED_CARD')).length;
+                  const redA = m.stats?.redCardsAway ?? events.filter(e => e.teamSide === 'away' && (e.type === 'RED_CARD' || e.type === 'YELLOW_RED_CARD')).length;
+
+                  return (
+                    <div
+                      key={m.id}
+                      className="p-3 rounded-lg bg-slate-950/70 border border-slate-800 space-y-2 hover:border-slate-700 transition-colors"
+                    >
+                      <div className="flex items-center justify-between text-[11px] text-slate-400">
+                        <span className="truncate pr-2 font-medium text-slate-300">
+                          {m.league.name}
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-bold shrink-0">
+                          ⏸️ HT
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between font-semibold text-xs text-white">
+                        <span className="truncate pr-2">{m.homeTeam.name}</span>
+                        <span className="font-mono text-blue-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-sm">
+                          {m.homeScore} - {m.awayScore}
+                        </span>
+                        <span className="truncate pl-2 text-right">{m.awayTeam.name}</span>
+                      </div>
+
+                      {/* Stats Badges */}
+                      <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-slate-800/60 text-[10px]">
+                        <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 flex items-center space-x-1">
+                          <span>🚩 Corners:</span>
+                          <strong className="text-white font-mono">{cornersH} - {cornersA}</strong>
+                        </span>
+
+                        <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20 flex items-center space-x-1">
+                          <span>🟨 Cards:</span>
+                          <strong className="text-amber-200 font-mono">{yellowH} - {yellowA}</strong>
+                        </span>
+
+                        {(redH > 0 || redA > 0) && (
+                          <span className="px-2 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30 flex items-center space-x-1 font-bold">
+                            <span>🟥 Red:</span>
+                            <strong className="text-rose-200 font-mono">{redH} - {redA}</strong>
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Published Half-Time History Registry */}
+          {publishedHtHistory.length > 0 && (
+            <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                <div className="flex items-center space-x-2">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                    Published Half-Time Registry ({publishedHtHistory.length})
+                  </h4>
+                </div>
+                <span className="text-[10px] text-slate-500">
+                  Matches that have already had their half-time scores posted
+                </span>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs text-slate-300">
+                  <thead className="bg-slate-950/60 text-[10px] uppercase text-slate-500 border-b border-slate-800">
+                    <tr>
+                      <th className="p-2.5">Match Teams</th>
+                      <th className="p-2.5">League</th>
+                      <th className="p-2.5 text-center">Score at HT</th>
+                      <th className="p-2.5 text-right">Published At</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60">
+                    {publishedHtHistory.slice(0, 30).map((r, i) => (
+                      <tr key={`${r.matchId}_${i}`} className="hover:bg-slate-800/40">
+                        <td className="p-2.5 font-medium text-white">
+                          {r.homeTeam} vs {r.awayTeam}
+                        </td>
+                        <td className="p-2.5 text-slate-400">{r.leagueName || 'League'}</td>
+                        <td className="p-2.5 text-center font-mono font-bold text-blue-400">
+                          {r.score}
+                        </td>
+                        <td className="p-2.5 text-right font-mono text-[11px] text-slate-500">
+                          {new Date(r.publishedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           )}
@@ -1470,11 +2283,18 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
           {/* Grouped Results Post Preview & Publisher */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <Eye className="w-4 h-4 text-emerald-400" />
                 <h4 className="text-xs font-bold text-white uppercase tracking-wider">
                   Facebook Post Preview ({resultsMatchCount} Matches Included)
                 </h4>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                  (config.roundupFormat || 'default') === 'default'
+                    ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30'
+                    : 'bg-amber-500/10 text-amber-300 border border-amber-500/30'
+                }`}>
+                  {(config.roundupFormat || 'default') === 'default' ? 'Standard Layout' : 'Emoji Scoreboard'}
+                </span>
                 {filterPublishedFt && resultsAlreadyPublishedCount > 0 && (
                   <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold">
                     {resultsAlreadyPublishedCount} duplicates excluded
@@ -1483,6 +2303,18 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
               </div>
 
               <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  id="deepseek-gen-ft-btn"
+                  onClick={handleGenerateAiResults}
+                  disabled={isGeneratingAiResults || resultsMatchCount === 0}
+                  className="text-xs bg-amber-600 hover:bg-amber-500 disabled:bg-slate-800 disabled:text-slate-600 text-white font-semibold px-2.5 py-1 rounded transition-colors flex items-center space-x-1.5 shadow-sm border border-amber-400/30 cursor-pointer disabled:cursor-not-allowed"
+                  title="Generate a natural, human-written full-time headline & matchday recap using DeepSeek AI"
+                >
+                  <Sparkles className={`w-3.5 h-3.5 ${isGeneratingAiResults ? 'animate-spin text-amber-200' : 'text-amber-200'}`} />
+                  <span>{isGeneratingAiResults ? 'DeepSeek Writing...' : 'Generate with DeepSeek AI'}</span>
+                </button>
+
                 <button
                   type="button"
                   onClick={() => {
@@ -1497,6 +2329,21 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                 </button>
               </div>
             </div>
+
+            {/* AI Generation Metadata Banner */}
+            {aiResultsMeta && (
+              <div className="flex items-center justify-between px-3 py-1.5 bg-amber-950/40 border border-amber-500/30 rounded-lg text-xs">
+                <div className="flex items-center space-x-2 text-amber-300">
+                  <Bot className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span className="font-semibold text-white">Headline: "{aiResultsMeta.headline}"</span>
+                </div>
+                {aiResultsMeta.latencyMs && (
+                  <span className="text-[10px] text-amber-400/80 font-mono">
+                    ⚡ DeepSeek · {aiResultsMeta.latencyMs}ms
+                  </span>
+                )}
+              </div>
+            )}
 
             {/* Post text box */}
             <div>
@@ -1994,6 +2841,139 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
             </div>
           </div>
 
+          {/* DeepSeek AI Sports Journalist Configuration */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h3 className="text-sm font-bold text-white flex items-center space-x-2">
+                <Bot className="w-4 h-4 text-amber-400" />
+                <span>DeepSeek AI Sports Journalist</span>
+              </h3>
+              <span className={`text-[11px] px-2.5 py-1 rounded-md font-medium flex items-center space-x-1.5 ${
+                config.hasDeepseekKey || config.deepseekApiKey || deepseekKeyInput
+                  ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                  : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+              }`}>
+                <Cpu className="w-3.5 h-3.5" />
+                <span>{config.hasDeepseekKey || config.deepseekApiKey || deepseekKeyInput ? 'AI Engine Ready' : 'API Key Required'}</span>
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-400">
+              Generates natural, human sportscaster headlines, context-aware subheads, and fan debate hooks across all three post types (<strong>Live</strong>, <strong>Half-Time</strong>, and <strong>Full-Time</strong>) to eliminate repetitive patterns and bypass Meta spam detection.
+            </p>
+
+            <div className="space-y-3 text-xs">
+              <div className="flex items-center justify-between p-3 bg-slate-950 rounded-lg border border-slate-800">
+                <div>
+                  <div className="text-white font-medium">Enable DeepSeek AI Generation</div>
+                  <div className="text-[11px] text-slate-400">When enabled, roundup posts generate dynamic AI copy before publishing</div>
+                </div>
+                <input
+                  type="checkbox"
+                  id="toggle-deepseek-ai"
+                  checked={config.useDeepseekAi ?? true}
+                  onChange={(e) => handleSaveConfig({ useDeepseekAi: e.target.checked })}
+                  className="w-5 h-5 rounded text-amber-500 focus:ring-amber-500 bg-slate-900 border-slate-700 cursor-pointer"
+                />
+              </div>
+
+              <div>
+                <label className="block text-slate-300 font-medium mb-1">
+                  DeepSeek API Key
+                  {config.hasDeepseekKey && (
+                    <span className="ml-2 text-[10px] text-emerald-400 font-normal">✓ Configured in system</span>
+                  )}
+                </label>
+                <div className="relative">
+                  <input
+                    type={showDeepseekKey ? 'text' : 'password'}
+                    placeholder="sk-..."
+                    value={deepseekKeyInput}
+                    onChange={(e) => setDeepseekKeyInput(e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 pr-16 text-slate-100 font-mono focus:outline-none focus:border-amber-500 text-xs"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowDeepseekKey(!showDeepseekKey)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 hover:text-slate-200 px-2 py-1 rounded bg-slate-800"
+                  >
+                    {showDeepseekKey ? 'Hide' : 'Show'}
+                  </button>
+                </div>
+                <span className="text-[10px] text-slate-500 mt-1 block">
+                  Get your key at platform.deepseek.com or define DEEPSEEK_API_KEY in .env
+                </span>
+              </div>
+
+              <div>
+                <label className="block text-slate-300 font-medium mb-1">DeepSeek Model</label>
+                <input
+                  type="text"
+                  placeholder="deepseek-chat"
+                  value={deepseekModelInput}
+                  onChange={(e) => setDeepseekModelInput(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-100 font-mono focus:outline-none focus:border-amber-500 text-xs"
+                />
+                <span className="text-[10px] text-slate-500 mt-1 block">
+                  Default: deepseek-chat (DeepSeek-V3). Ultra fast (~1s) and cost effective.
+                </span>
+              </div>
+
+              {/* Action Buttons: Test DeepSeek & Save */}
+              <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+                <button
+                  type="button"
+                  id="test-deepseek-btn"
+                  onClick={handleTestDeepseek}
+                  disabled={isTestingDeepseek || (!deepseekKeyInput && !config.hasDeepseekKey)}
+                  className="flex-1 bg-amber-600 hover:bg-amber-500 disabled:bg-slate-800 disabled:text-slate-500 text-white font-bold py-2.5 px-3 rounded-lg transition-colors flex items-center justify-center space-x-1.5 shadow-sm cursor-pointer disabled:cursor-not-allowed text-xs"
+                >
+                  <Sparkles className={`w-3.5 h-3.5 ${isTestingDeepseek ? 'animate-spin' : ''}`} />
+                  <span>{isTestingDeepseek ? 'Testing Connection...' : 'Test DeepSeek API'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await handleSaveConfig({
+                      ...(deepseekKeyInput.trim() ? { deepseekApiKey: deepseekKeyInput.trim() } : {}),
+                      deepseekModel: deepseekModelInput.trim() || 'deepseek-chat',
+                      useDeepseekAi: config.useDeepseekAi ?? true,
+                    });
+                  }}
+                  disabled={isSaving}
+                  className="bg-slate-800 hover:bg-slate-700 disabled:bg-slate-800 disabled:text-slate-500 text-slate-200 font-semibold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center space-x-1.5 cursor-pointer text-xs"
+                >
+                  <Save className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Save AI Key</span>
+                </button>
+              </div>
+
+              {/* DeepSeek Test Status Result */}
+              {deepseekTestResult && (
+                <div className={`p-3 rounded-lg border text-xs flex items-start space-x-2 ${
+                  deepseekTestResult.success
+                    ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+                    : 'bg-rose-950/40 border-rose-500/30 text-rose-300'
+                }`}>
+                  {deepseekTestResult.success ? (
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  ) : (
+                    <XCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                  )}
+                  <div>
+                    <div className="font-semibold">{deepseekTestResult.message}</div>
+                    {deepseekTestResult.latencyMs && (
+                      <div className="text-[10px] opacity-80 mt-0.5">
+                        Latency: {deepseekTestResult.latencyMs}ms · DeepSeek model verified
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Event Publishing Rules */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
@@ -2099,7 +3079,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                     postTemplateRedCard: "🟥 RED CARD! {player} ({team}) sent off in the {minute}' min!\n⏱️ Match Time: {minute}' ({period})\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #GameScores #RedCard",
                     postTemplateCorner: "🚩 CORNER KICK! Corner awarded to {team} in the {minute}' min!\n⏱️ Match Time: {minute}' ({period})\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #GameScores #CornerKick",
                     postTemplateGoal: "⚽ GOAL! {home_team} {home_score} - {away_score} {away_team}!\n⏱️ Match Time: {minute}' min ({period})\n👤 {player}\n🏆 {league_name}\n\n#{league_tag} #LiveScores #GameScores",
-                    postTemplateRoundup: "",
+                    postTemplateRoundup: "⚽ LIVE MATCHES SCOREBOARD ⏱️\n📊 {count} Active Match(es) in Progress ({time})\n\n{matches_list}\n\n⚡ Follow for live scores and breaking goal updates!\n{hashtags} #LiveScores #GameScores",
                     postTemplateFullTime: "🏁 FULL-TIME: {home_team} {home_score} - {away_score} {away_team}\n⏱️ Match Time: Full-Time (90')\n🏆 {league_name}\n{stats_summary}\n\nThanks for following!\n#{league_tag} #GameScores",
                   }))
                 }
@@ -2120,6 +3100,8 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                     postTemplateHalfTime: config.postTemplateHalfTime,
                     postTemplateFullTime: config.postTemplateFullTime,
                     postTemplateRoundup: config.postTemplateRoundup,
+                    postTemplateFullTimeRoundup: config.postTemplateFullTimeRoundup,
+                    postTemplateHalfTimeRoundup: config.postTemplateHalfTimeRoundup,
                   })
                 }
                 disabled={isSaving}
@@ -2149,7 +3131,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
               <textarea
                 id="template-yellow-card"
                 rows={4}
-                placeholder="🟨 YELLOW CARD! {player} ({team}) booked in the {minute}' min!&#10;⏱️ Match Time: {minute}' ({period})&#10;{home_team} {home_score} - {away_score} {away_team}&#10;🏆 {league_name}&#10;&#10;#{league_tag} #GameScores #YellowCard"
+                placeholder="🟨 YELLOW CARD! {player} ({team}) booked in the {minute}' min!&#10;⏱️ Match Time: {minute}' ({period})&#10;{home_team} {home_score} - {away_score} {away_team}&#10;🏆 {league_name}&#10;&#10;#{league_tag} #YellowCard"
                 value={config.postTemplateYellowCard || ''}
                 onChange={(e) => setConfig({ ...config, postTemplateYellowCard: e.target.value })}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 font-mono focus:outline-none focus:border-amber-500"
@@ -2173,7 +3155,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
               <textarea
                 id="template-red-card"
                 rows={4}
-                placeholder="🟥 RED CARD! {player} ({team}) sent off in the {minute}' min!&#10;⏱️ Match Time: {minute}' ({period})&#10;{home_team} {home_score} - {away_score} {away_team}&#10;🏆 {league_name}&#10;&#10;#{league_tag} #GameScores #RedCard"
+                placeholder="🟥 RED CARD! {player} ({team}) sent off in the {minute}' min!&#10;⏱️ Match Time: {minute}' ({period})&#10;{home_team} {home_score} - {away_score} {away_team}&#10;🏆 {league_name}&#10;&#10;#{league_tag} #RedCard"
                 value={config.postTemplateRedCard || ''}
                 onChange={(e) => setConfig({ ...config, postTemplateRedCard: e.target.value })}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 font-mono focus:outline-none focus:border-rose-500"
@@ -2197,7 +3179,7 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
               <textarea
                 id="template-corner"
                 rows={4}
-                placeholder="🚩 CORNER KICK! Corner awarded to {team} in the {minute}' min!&#10;⏱️ Match Time: {minute}' ({period})&#10;{home_team} {home_score} - {away_score} {away_team}&#10;🏆 {league_name}&#10;&#10;#{league_tag} #GameScores #CornerKick"
+                placeholder="🚩 CORNER KICK! Corner awarded to {team} in the {minute}' min!&#10;⏱️ Match Time: {minute}' ({period})&#10;{home_team} {home_score} - {away_score} {away_team}&#10;🏆 {league_name}&#10;&#10;#{league_tag} #CornerKick"
                 value={config.postTemplateCorner || ''}
                 onChange={(e) => setConfig({ ...config, postTemplateCorner: e.target.value })}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 font-mono focus:outline-none focus:border-sky-500"
@@ -2235,16 +3217,16 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                   <span>All Games in 1 Post Template (Scoreboard Roundup)</span>
                 </label>
                 <span className="text-[10px] bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2 py-0.5 rounded font-mono">
-                  Tags: {'{count}'}, {'{time}'}, {'{matches_list}'}, {'{hashtags}'}
+                  Tags: {'{headline}'}, {'{subhead}'}, {'{matches_list}'}, {'{closing}'}, {'{hashtags}'}, {'{count}'}, {'{time}'}
                 </span>
               </div>
               <p className="text-[11px] text-slate-400">
-                Format applied when all active live games are compiled into a single consolidated Facebook scoreboard post to prevent spam. Leave empty to use the standard emoji scoreboard layout with mathematical bold scores, country flags, halves, stats lines, and footer legend.
+                Format applied when active live games are compiled into a consolidated scoreboard post. Leave empty to use the <strong>Dynamic Anti-Spam Engine</strong>, which automatically rotates headlines, subheads, natural closings, and smart league hashtags to prevent Meta repetitive content flags.
               </p>
               <textarea
                 id="template-roundup"
                 rows={5}
-                placeholder="Leave blank to use the standard emoji scoreboard layout, or wrap with {matches_list}"
+                placeholder="{headline}&#10;{subhead}&#10;&#10;{matches_list}&#10;&#10;{closing}&#10;{hashtags}"
                 value={config.postTemplateRoundup || ''}
                 onChange={(e) => setConfig({ ...config, postTemplateRoundup: e.target.value })}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 font-mono focus:outline-none focus:border-indigo-500"
@@ -2271,6 +3253,30 @@ export const FacebookPublisherView: React.FC<FacebookPublisherViewProps> = ({ in
                 value={config.postTemplateFullTime}
                 onChange={(e) => setConfig({ ...config, postTemplateFullTime: e.target.value })}
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 font-mono focus:outline-none focus:border-slate-500"
+              />
+            </div>
+
+            {/* 8. Half-Time Roundup Template (All HT Games in 1 Post) */}
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-1.5">
+                <label className="text-blue-400 font-bold flex items-center space-x-1.5 text-xs">
+                  <span>⏸️</span>
+                  <span>Half-Time Roundup Template (All HT Games in 1 Post)</span>
+                </label>
+                <span className="text-[10px] bg-blue-500/10 text-blue-300 border border-blue-500/20 px-2 py-0.5 rounded font-mono">
+                  Tags: {'{count}'}, {'{time}'}, {'{matches_list}'}, {'{hashtags}'}
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Template used when consolidating all current half-time games into a single grouped post.
+              </p>
+              <textarea
+                id="template-halftime-roundup"
+                rows={4}
+                placeholder="⏸️ HALF-TIME SCORES ROUNDUP ⏱️&#10;📊 {count} Match(es) at Half-Time ({time})&#10;&#10;{matches_list}&#10;&#10;⚡ Stay tuned for the second half!&#10;{hashtags} #HalfTime #LiveScores"
+                value={config.postTemplateHalfTimeRoundup || ''}
+                onChange={(e) => setConfig({ ...config, postTemplateHalfTimeRoundup: e.target.value })}
+                className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-100 font-mono focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>

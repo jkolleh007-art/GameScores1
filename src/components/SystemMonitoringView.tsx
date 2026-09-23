@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   AlertTriangle,
   Zap,
+  Square,
+  Play,
 } from 'lucide-react';
 import { SystemStatus } from '../types';
 
@@ -17,14 +19,19 @@ interface SystemMonitoringViewProps {
   status: SystemStatus | null;
   onManualSync: () => void;
   isSyncing: boolean;
+  onToggleScrapling?: () => void;
+  isTogglingScrapling?: boolean;
 }
 
 export const SystemMonitoringView: React.FC<SystemMonitoringViewProps> = ({
   status,
   onManualSync,
   isSyncing,
+  onToggleScrapling,
+  isTogglingScrapling = false,
 }) => {
   const scraplingOnline = status?.scraplingService?.status === 'ONLINE';
+  const isScraplingRunning = status?.syncEngine?.isRunning ?? true;
 
   return (
     <div className="space-y-6">
@@ -42,14 +49,44 @@ export const SystemMonitoringView: React.FC<SystemMonitoringViewProps> = ({
           </div>
         </div>
 
-        <button
-          onClick={onManualSync}
-          disabled={isSyncing}
-          className="bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-lg flex items-center space-x-2 transition-all shadow-sm active:scale-95"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
-          <span>{isSyncing ? 'Syncing...' : 'Trigger Immediate Sync'}</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          {/* Stop / Start Scrapling Button */}
+          {onToggleScrapling && (
+            <button
+              id="monitoring-stop-scrapling-btn"
+              type="button"
+              onClick={onToggleScrapling}
+              disabled={isTogglingScrapling}
+              title={isScraplingRunning ? 'Stop Scrapling Polling' : 'Resume Scrapling Polling'}
+              className={`font-bold text-xs px-4 py-2 rounded-lg flex items-center space-x-2 transition-all shadow-sm active:scale-95 border cursor-pointer ${
+                isScraplingRunning
+                  ? 'bg-rose-950/70 hover:bg-rose-900/80 text-rose-200 border-rose-700/60 hover:border-rose-500'
+                  : 'bg-emerald-950/70 hover:bg-emerald-900/80 text-emerald-200 border-emerald-700/60 hover:border-emerald-500'
+              }`}
+            >
+              {isScraplingRunning ? (
+                <>
+                  <Square className="w-3.5 h-3.5 fill-rose-400 text-rose-400" />
+                  <span>Stop Scrapling</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-3.5 h-3.5 fill-emerald-400 text-emerald-400" />
+                  <span>Start Scrapling</span>
+                </>
+              )}
+            </button>
+          )}
+
+          <button
+            onClick={onManualSync}
+            disabled={isSyncing}
+            className="bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 text-white font-bold text-xs px-4 py-2 rounded-lg flex items-center space-x-2 transition-all shadow-sm active:scale-95"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
+            <span>{isSyncing ? 'Syncing...' : 'Trigger Immediate Sync'}</span>
+          </button>
+        </div>
       </div>
 
       {/* Grid of Microservices */}
@@ -103,8 +140,14 @@ export const SystemMonitoringView: React.FC<SystemMonitoringViewProps> = ({
                 Sports Sync Engine
               </h3>
             </div>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30">
-              POLLING ACTIVE
+            <span
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                isScraplingRunning
+                  ? 'bg-blue-500/10 text-blue-400 border-blue-500/30'
+                  : 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+              }`}
+            >
+              {isScraplingRunning ? 'POLLING ACTIVE' : 'POLLING STOPPED'}
             </span>
           </div>
 
@@ -126,6 +169,31 @@ export const SystemMonitoringView: React.FC<SystemMonitoringViewProps> = ({
               <span className="text-slate-200 font-mono">{status?.syncEngine?.scrapeCount || 0}</span>
             </div>
           </div>
+
+          {/* Inline Card Button */}
+          {onToggleScrapling && (
+            <button
+              onClick={onToggleScrapling}
+              disabled={isTogglingScrapling}
+              className={`w-full py-1.5 px-3 rounded-lg text-xs font-semibold flex items-center justify-center space-x-1.5 border transition-all ${
+                isScraplingRunning
+                  ? 'bg-rose-950/40 text-rose-300 border-rose-800/60 hover:bg-rose-900/60'
+                  : 'bg-emerald-950/40 text-emerald-300 border-emerald-800/60 hover:bg-emerald-900/60'
+              }`}
+            >
+              {isScraplingRunning ? (
+                <>
+                  <Square className="w-3 h-3 fill-rose-400 text-rose-400" />
+                  <span>Stop Scrapling Polling</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-3 h-3 fill-emerald-400 text-emerald-400" />
+                  <span>Resume Scrapling Polling</span>
+                </>
+              )}
+            </button>
+          )}
         </div>
 
         {/* Card 3: Real-Time WebSocket Gateway */}

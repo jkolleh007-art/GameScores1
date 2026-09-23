@@ -42,6 +42,16 @@ export interface PublishedFtRecord {
   publishedAt: string;
 }
 
+export interface PublishedHtRecord {
+  matchId: string;
+  teamKey: string;
+  homeTeam: string;
+  awayTeam: string;
+  leagueName: string;
+  score: string;
+  publishedAt: string;
+}
+
 interface StoredAdminUser {
   id: string;
   username: string;
@@ -96,14 +106,14 @@ class DatabaseManager {
         publishFullTime: true,
         includeStatsInFullTime: true,
         targetLeagueIds: [],
-        postTemplateGoal: "⚽ GOAL! {home_team} {home_score} - {away_score} {away_team}!\n{player} ({minute}')\n#{league_tag} #LiveScores",
-        postTemplateYellowCard: "🟨 YELLOW CARD! {player} ({team}) booked in the {minute}' min!\n⏱️ Match Time: {minute}'\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #GameScores #YellowCard",
-        postTemplateRedCard: "🟥 RED CARD! {player} ({team}) sent off in the {minute}' min!\n⏱️ Match Time: {minute}'\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #GameScores #RedCard",
-        postTemplateCorner: "🚩 CORNER KICK! Corner awarded to {team} in the {minute}' min!\n⏱️ Match Time: {minute}'\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #GameScores #CornerKick",
+        postTemplateGoal: "⚽ GOAL! {home_team} {home_score} - {away_score} {away_team}!\n{player} ({minute}')\n#{league_tag} #Football",
+        postTemplateYellowCard: "🟨 YELLOW CARD! {player} ({team}) booked in the {minute}' min!\n⏱️ Match Time: {minute}'\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #YellowCard",
+        postTemplateRedCard: "🟥 RED CARD! {player} ({team}) sent off in the {minute}' min!\n⏱️ Match Time: {minute}'\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #RedCard",
+        postTemplateCorner: "🚩 CORNER KICK! Corner awarded to {team} in the {minute}' min!\n⏱️ Match Time: {minute}'\n{home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n\n#{league_tag} #CornerKick",
         postTemplateKickoff: "⚡ MATCH KICK-OFF!\n{home_team} vs {away_team}\n🏆 {league_name}\nStay tuned for live score updates!",
         postTemplateHalfTime: "⏸️ HALF-TIME: {home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}",
         postTemplateFullTime: "🏁 FULL-TIME: {home_team} {home_score} - {away_score} {away_team}\n🏆 {league_name}\n{stats_summary}\nThanks for following!",
-        postTemplateRoundup: "⚽ LIVE MATCHES SCOREBOARD ⏱️\n📊 {count} Active Match(es) in Progress ({time})\n\n{matches_list}\n\n⚡ Follow for live scores and breaking goal updates!\n{hashtags} #LiveScores #GameScores",
+        postTemplateRoundup: "{headline}\n{subhead}\n\n{matches_list}\n\n{closing}\n{hashtags}",
       },
       scraperSettings: {
         activeProviderId: 'flashscore',
@@ -729,7 +739,17 @@ class DatabaseManager {
         query += ' AND publication_type = $1';
         params.push(type);
       }
-      query += ' ORDER BY created_at ASC LIMIT 1';
+      query += ` ORDER BY 
+        CASE publication_type
+          WHEN 'FULL_TIME' THEN 1
+          WHEN 'HALF_TIME' THEN 2
+          WHEN 'MANUAL' THEN 3
+          WHEN 'TEST' THEN 4
+          WHEN 'LIVE' THEN 5
+          ELSE 6
+        END,
+        created_at ASC
+        LIMIT 1`;
       const res = await this.pgPool.query(query, params);
       if (res.rows.length === 0) return null;
       const r = res.rows[0];
@@ -753,10 +773,23 @@ class DatabaseManager {
       if (!this.localData.facebookPendingPublications) {
         this.localData.facebookPendingPublications = [];
       }
-      const item = this.localData.facebookPendingPublications.find(
+      const priorityMap: Record<string, number> = {
+        FULL_TIME: 1,
+        HALF_TIME: 2,
+        MANUAL: 3,
+        TEST: 4,
+        LIVE: 5,
+      };
+      const pendingItems = (this.localData.facebookPendingPublications || []).filter(
         p => p.status === 'PENDING' && (!type || p.publicationType === type)
       );
-      return item ? { ...item } : null;
+      pendingItems.sort((a, b) => {
+        const pA = priorityMap[a.publicationType] || 6;
+        const pB = priorityMap[b.publicationType] || 6;
+        if (pA !== pB) return pA - pB;
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      });
+      return pendingItems.length > 0 ? { ...pendingItems[0] } : null;
     }
   }
 
@@ -1075,6 +1108,73 @@ class DatabaseManager {
 
   async clearPublishedFtMatches(): Promise<void> {
     await this.saveSettings('publishedFtMatches', []);
+  }
+
+  async getPublishedHtMatches(): Promise<PublishedHtRecord[]> {
+    return this.getSettings<PublishedHtRecord[]>('publishedHtMatches', []);
+  }
+
+  async isHtMatchPublished(matchId: string, homeTeamName?: string, awayTeamName?: string): Promise<boolean> {
+    const list = await this.getPublishedHtMatches();
+    if (!list || list.length === 0) return false;
+
+    // Check by match ID
+    if (matchId && list.some(r => r.matchId === matchId)) {
+      return true;
+    }
+
+    // Check by normalized team pair key
+    if (homeTeamName && awayTeamName) {
+      const cleanHome = homeTeamName.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+      const cleanAway = awayTeamName.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+      const teamKey = `${cleanHome}_vs_${cleanAway}`;
+      if (teamKey && list.some(r => r.teamKey === teamKey)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  async markHtMatchesPublished(matches: Match[]): Promise<void> {
+    if (!matches || matches.length === 0) return;
+    const current = await this.getPublishedHtMatches();
+    const newRecords: PublishedHtRecord[] = [];
+    const now = new Date().toISOString();
+
+    for (const m of matches) {
+      const matchId = m.id;
+      const home = m.homeTeam?.name || '';
+      const away = m.awayTeam?.name || '';
+      const cleanHome = home.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+      const cleanAway = away.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+      const teamKey = `${cleanHome}_vs_${cleanAway}`;
+
+      const alreadyExists = current.some(
+        r => r.matchId === matchId || (teamKey && r.teamKey === teamKey)
+      );
+
+      if (!alreadyExists) {
+        newRecords.push({
+          matchId,
+          teamKey,
+          homeTeam: home,
+          awayTeam: away,
+          leagueName: m.league?.name || '',
+          score: `${m.homeScore ?? 0} - ${m.awayScore ?? 0}`,
+          publishedAt: now,
+        });
+      }
+    }
+
+    if (newRecords.length > 0) {
+      const combined = [...newRecords, ...current].slice(0, 2000);
+      await this.saveSettings('publishedHtMatches', combined);
+    }
+  }
+
+  async clearPublishedHtMatches(): Promise<void> {
+    await this.saveSettings('publishedHtMatches', []);
   }
 
   async getApiKeys(): Promise<ApiKeyRecord[]> {

@@ -14,6 +14,8 @@ import {
   formatFullTimePost,
   formatLiveRoundupPost,
   formatResultsRoundupPost,
+  formatHalfTimeRoundupPost,
+  isMatchAtHalfTime,
 } from '../publisher/templates.js';
 
 type BroadcastCallback = (type: string, payload: any) => void;
@@ -50,14 +52,18 @@ class SportsSyncEngine {
       console.warn('[SyncEngine] Could not load initial cached matches:', e);
     }
 
-    // Run first sync immediately
-    await this.syncLiveMatches().catch(err => {
+    // Run first sync immediately (forced so it executes even if transitioning)
+    await this.syncLiveMatches(true).catch(err => {
       console.warn('[SyncEngine] Initial sync error:', (err as Error)?.message || err);
     });
 
     // Schedule regular polling
     const intervalMs = Math.max(5000, config.scrapeIntervalSeconds * 1000);
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
     this.timer = setInterval(() => {
+      if (!this.isRunning) return;
       this.syncLiveMatches().catch(err => {
         console.warn('[SyncEngine] Polling error:', (err as Error)?.message || err);
       });
@@ -76,7 +82,10 @@ class SportsSyncEngine {
   /**
    * Syncs live matches from Scrapling / Flashscore engine
    */
-  async syncLiveMatches(): Promise<Match[]> {
+  async syncLiveMatches(force = false): Promise<Match[]> {
+    if (!this.isRunning && !force) {
+      return Array.from(this.previousMatches.values());
+    }
     try {
       const incomingMatches: Match[] = await flashscoreClient.getLiveMatches();
       this.lastScrapeTime = new Date().toISOString();
@@ -335,10 +344,34 @@ class SportsSyncEngine {
     }
 
     // Auto-Roundup Publishing check (All live games in a single post)
+    // Auto-Roundup & Milestone Publishing check:
+    // Strictly coordinates posting between the user's selected minutes, Half-Time, and Full-Time scores without conflict.
     if (fbConfig.autoPublishEnabled) {
-      await this.checkAndPublishRoundup(currentMatches, fbConfig);
-      await this.checkAndPublishFinishedRoundup(fbConfig);
+      // 1. Priority 1: Full-Time Results (game completed milestone)
+      const didFt = await this.checkAndPublishFinishedRoundup(fbConfig);
+      // 2. Priority 2: Half-Time Scores (intermission milestone - only if FT didn't post in this tick)
+      const didHt = !didFt ? await this.checkAndPublishHalfTimeRoundup(currentMatches, fbConfig) : false;
+      // 3. Priority 3: Live Scoreboard according to user-selected minutes (only if neither FT nor HT posted in this tick)
+      if (!didFt && !didHt) {
+        await this.checkAndPublishRoundup(currentMatches, fbConfig);
+      }
     }
+  }
+
+  /**
+   * Helper: Get the timestamp of the latest post published across all types (Live, HT, FT)
+   */
+  private getLastAnyPostTime(fbConfig: FacebookPageConfig): number {
+    const times = [
+      fbConfig.lastRoundupPublishedAt ? new Date(fbConfig.lastRoundupPublishedAt).getTime() : 0,
+      fbConfig.lastHtRoundupPublishedAt ? new Date(fbConfig.lastHtRoundupPublishedAt).getTime() : 0,
+      fbConfig.lastFtRoundupPublishedAt ? new Date(fbConfig.lastFtRoundupPublishedAt).getTime() : 0,
+    ];
+    const metrics = publisherQueue.getMetrics();
+    if (metrics.lastPublishedAt) {
+      times.push(new Date(metrics.lastPublishedAt).getTime());
+    }
+    return Math.max(...times, 0);
   }
 
   async enrichMatchesWithStats(matches: Match[]): Promise<Match[]> {
@@ -362,10 +395,14 @@ class SportsSyncEngine {
     return matches;
   }
 
+  /**
+   * Periodic Live Scoreboard: strictly posts according to the user-selected minutes (roundupIntervalMinutes),
+   * guaranteed not to conflict with Half-Time or Full-Time posts.
+   */
   private async checkAndPublishRoundup(currentMatches: Match[], fbConfig: FacebookPageConfig): Promise<void> {
     if (!currentMatches || currentMatches.length === 0) return;
 
-    // Filter to active in-play matches only
+    // Filter to active in-play matches only (strictly in-play or intermission, not finished)
     let activeMatches = currentMatches.filter(m => m.status === 'IN_PLAY' || m.status === 'PAUSED');
 
     // Filter strictly by target leagues selected for today
@@ -382,15 +419,21 @@ class SportsSyncEngine {
       return; // Defer roundup until Meta anti-spam cooldown expires
     }
 
-    // Configurable interval (defaults to 5 minutes if set to 5, minimum 5 minutes)
-    const intervalMinutes = Math.max(5, fbConfig.roundupIntervalMinutes || 5);
+    // 1. Conflict Prevention: ensure safe inter-post spacing since ANY recent post (HT, FT, or previous Live)
+    const minSpacingMs = Math.max(20, Number(fbConfig.minPostSpacingSeconds) || 30) * 1000;
+    const lastAnyPostTime = this.getLastAnyPostTime(fbConfig);
+    if (lastAnyPostTime > 0 && (Date.now() - lastAnyPostTime) < minSpacingMs) {
+      return; // Wait for safe inter-post spacing
+    }
+
+    // 2. Strict Interval: Post according to the user-selected minutes (roundupIntervalMinutes)
+    const intervalMinutes = Math.max(3, Number(fbConfig.roundupIntervalMinutes) || 5);
     const intervalMs = intervalMinutes * 60 * 1000;
     const lastTime = fbConfig.lastRoundupPublishedAt ? new Date(fbConfig.lastRoundupPublishedAt).getTime() : 0;
     const elapsed = Date.now() - lastTime;
 
     if (elapsed >= intervalMs) {
       // Score fingerprint: Check if match scores or match statuses have actually changed
-      // Sending identical content repeatedly is a primary trigger for Meta velocity spam blocks (1390008)
       const currentFingerprint = activeMatches
         .map(m => `${m.id}:${m.homeScore}-${m.awayScore}:${m.statusText}`)
         .sort()
@@ -401,7 +444,7 @@ class SportsSyncEngine {
         return;
       }
 
-      console.log(`[SyncEngine] Generating scheduled live scoreboard roundup for ${activeMatches.length} active match(es)...`);
+      console.log(`[SyncEngine] Generating scheduled live scoreboard roundup according to ${intervalMinutes}m setting for ${activeMatches.length} match(es)...`);
       await this.enrichMatchesWithStats(activeMatches);
       const message = formatLiveRoundupPost(activeMatches, fbConfig);
 
@@ -420,21 +463,87 @@ class SportsSyncEngine {
   }
 
   /**
-   * Group newly finished matches and publish a single Full-Time Results post.
-   * Strictly filters out matches that have already been published so teams are never repeated.
+   * Group active matches currently at Half-Time into a consolidated Half-Time post.
+   * Strictly filters out matches that have already had their Half-Time score posted.
+   * Returns true if a Half-Time post was enqueued.
    */
-  private async checkAndPublishFinishedRoundup(fbConfig: FacebookPageConfig): Promise<void> {
-    // Only proceed if auto publish and Full-Time publishing are enabled
-    if (!fbConfig.autoPublishEnabled || !fbConfig.publishFullTime) return;
+  private async checkAndPublishHalfTimeRoundup(currentMatches: Match[], fbConfig: FacebookPageConfig): Promise<boolean> {
+    if (!fbConfig.autoPublishEnabled || !fbConfig.publishHalfTime) return false;
 
     // Check if queue is currently under Facebook cooldown
     const queueStatus = publisherQueue.getMetrics();
-    if (queueStatus.isCooldown) return;
+    if (queueStatus.isCooldown) return false;
 
-    // Pacing: ensure at least 90s between consecutive FT roundup posts
-    const lastFtTime = fbConfig.lastFtRoundupPublishedAt ? new Date(fbConfig.lastFtRoundupPublishedAt).getTime() : 0;
-    const elapsed = Date.now() - lastFtTime;
-    if (elapsed < 90000) return;
+    // Conflict Prevention: ensure safe inter-post spacing since ANY recent post
+    const minSpacingMs = Math.max(20, Number(fbConfig.minPostSpacingSeconds) || 30) * 1000;
+    const lastAnyPostTime = this.getLastAnyPostTime(fbConfig);
+    if (lastAnyPostTime > 0 && (Date.now() - lastAnyPostTime) < minSpacingMs) {
+      return false;
+    }
+
+    try {
+      const htMatches = currentMatches.filter(m => isMatchAtHalfTime(m));
+      if (htMatches.length === 0) return false;
+
+      // Filter strictly by target leagues selected for today
+      if (!fbConfig.targetLeagueIds || fbConfig.targetLeagueIds.length === 0) {
+        return false;
+      }
+      const eligible = htMatches.filter(m => fbConfig.targetLeagueIds.includes(m.league?.id));
+
+      // De-duplicate: filter out matches already published at HT
+      const unpublished: Match[] = [];
+      for (const m of eligible) {
+        const isPublished = await db.isHtMatchPublished(m.id, m.homeTeam?.name, m.awayTeam?.name);
+        if (!isPublished) {
+          unpublished.push(m);
+        }
+      }
+
+      if (unpublished.length === 0) return false;
+
+      console.log(`[SyncEngine] Found ${unpublished.length} match(es) at Half-Time. Grouping into Half-Time Scores post...`);
+      await this.enrichMatchesWithStats(unpublished.slice(0, 15));
+      const message = formatHalfTimeRoundupPost(unpublished, fbConfig);
+
+      await publisherQueue.enqueue({
+        matchId: `ht_roundup_${Date.now()}`,
+        matchTitle: `Half-Time Scores (${unpublished.length} Matches)`,
+        leagueName: 'Multiple Leagues',
+        eventType: 'STATUS_CHANGE',
+        message,
+      });
+
+      await db.markHtMatchesPublished(unpublished);
+      fbConfig.lastHtRoundupPublishedAt = new Date().toISOString();
+      await db.saveSettings('fbConfig', fbConfig);
+      console.log(`[SyncEngine] Successfully enqueued grouped HT post and marked ${unpublished.length} match(es) as published.`);
+      return true;
+    } catch (err) {
+      console.warn('[SyncEngine] Error in checkAndPublishHalfTimeRoundup:', (err as Error)?.message || err);
+      return false;
+    }
+  }
+
+  /**
+   * Group newly finished matches and publish a single Full-Time Results post.
+   * Strictly filters out matches that have already been published so teams are never repeated.
+   * Returns true if a Full-Time post was enqueued.
+   */
+  private async checkAndPublishFinishedRoundup(fbConfig: FacebookPageConfig): Promise<boolean> {
+    // Only proceed if auto publish and Full-Time publishing are enabled
+    if (!fbConfig.autoPublishEnabled || !fbConfig.publishFullTime) return false;
+
+    // Check if queue is currently under Facebook cooldown
+    const queueStatus = publisherQueue.getMetrics();
+    if (queueStatus.isCooldown) return false;
+
+    // Conflict Prevention: ensure safe inter-post spacing since ANY recent post
+    const minSpacingMs = Math.max(20, Number(fbConfig.minPostSpacingSeconds) || 30) * 1000;
+    const lastAnyPostTime = this.getLastAnyPostTime(fbConfig);
+    if (lastAnyPostTime > 0 && (Date.now() - lastAnyPostTime) < minSpacingMs) {
+      return false;
+    }
 
     try {
       // 1. Get finished matches from results cache/feed
@@ -448,11 +557,11 @@ class SportsSyncEngine {
       for (const m of finishedFromMap) allFinishedMap.set(m.id, m);
       const allFinished = Array.from(allFinishedMap.values());
 
-      if (allFinished.length === 0) return;
+      if (allFinished.length === 0) return false;
 
       // Filter strictly by target leagues selected for today
       if (!fbConfig.targetLeagueIds || fbConfig.targetLeagueIds.length === 0) {
-        return; // No leagues selected for today -> post nothing
+        return false; // No leagues selected for today -> post nothing
       }
       const eligible = allFinished.filter(m => fbConfig.targetLeagueIds.includes(m.league?.id));
 
@@ -467,7 +576,7 @@ class SportsSyncEngine {
 
       // DO NOT REPEAT POSTING: If there are NO new unpublished completed matches, do nothing!
       if (unpublished.length === 0) {
-        return;
+        return false;
       }
 
       console.log(`[SyncEngine] Found ${unpublished.length} newly finished match(es). Grouping into Full-Time Results post...`);
@@ -493,8 +602,10 @@ class SportsSyncEngine {
       fbConfig.lastFtRoundupPublishedAt = new Date().toISOString();
       await db.saveSettings('fbConfig', fbConfig);
       console.log(`[SyncEngine] Successfully enqueued grouped FT post and marked ${unpublished.length} match(es) as published.`);
+      return true;
     } catch (err) {
       console.warn('[SyncEngine] Error in checkAndPublishFinishedRoundup:', (err as Error)?.message || err);
+      return false;
     }
   }
 
@@ -544,6 +655,13 @@ class SportsSyncEngine {
     // Strict daily league filter: only post games from leagues selected by the admin for today
     if (!fbConfig.targetLeagueIds || fbConfig.targetLeagueIds.length === 0 || !fbConfig.targetLeagueIds.includes(match.league.id)) {
       return; // Skip this unselected league
+    }
+
+    // Manual Admin Click-To-Post Mode:
+    // If autoPublishEnabled is false, do not automatically publish background events.
+    // The admin explicitly clicks "Publish" in the dashboard to publish to Facebook.
+    if (!fbConfig.autoPublishEnabled) {
+      return;
     }
 
     let shouldPublish = false;
